@@ -1,544 +1,186 @@
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2JVRB3N1LT"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-2JVRB3N1LT');
-    </script>
-
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מערכת ייעוץ לימודים וקריירה חכמה</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: system-ui, -apple-system, sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
+        body {
+            font-family: 'Heebo', sans-serif;
+        }
     </style>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-slate-100 min-h-screen flex flex-col items-center justify-between p-4">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-start p-4 md:p-8">
 
-    <!-- לוגו וסיסמה ראשית -->
-    <header class="w-full max-w-3xl text-center my-4 space-y-3">
-        <div class="flex justify-center items-center">
-            <div class="w-16 h-16 bg-gradient-to-tr from-cyan-500 to-indigo-600 rotate-45 flex items-center justify-center rounded-xl border-2 border-cyan-300 shadow-lg shadow-cyan-500/20">
-                <span class="-rotate-45 font-black text-2xl text-white tracking-widest">SR</span>
-            </div>
-        </div>
-        <div>
-            <span class="text-xs font-bold tracking-widest text-cyan-400 uppercase">MY FUTURE IS HERE | העתיד שלי כאן</span>
-            <div class="text-xs text-slate-400 font-medium">YOUR CAREER FUTURE IS SHAPED BY DATA NOT BY LUCK</div>
-        </div>
-    </header>
-
-    <!-- סרגל התראה במצב בדיקה (ADMIN) -->
-    <div id="test-mode-banner" class="hidden w-full max-w-3xl bg-amber-500/20 border border-amber-500/40 text-amber-300 px-4 py-2 rounded-lg text-center text-xs font-bold mb-4">
-        🧪 מצב בדיקה מנהל (ADMIN) פעיל — הרצות במצב זה אינן נספרות בסטטיסטיקת המשתמשים
-    </div>
-
-    <!-- מסך 1: כניסה למערכת -->
-    <div id="login-container" class="max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">
-        <div class="text-center space-y-2">
-            <h1 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">
-                העתיד שלך מתחיל בבחירה חכמה
-            </h1>
-            <p class="text-slate-300 text-sm md:text-base">
-                סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד.
-            </p>
-        </div>
-
-        <div class="space-y-4 pt-2">
-            <div>
-                <label for="userName" class="block text-sm font-medium text-slate-300 mb-1">שם מלא:</label>
-                <input type="text" id="userName" placeholder="הכנס שם מלא" 
-                    class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 text-slate-100 text-sm">
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label for="userId" class="block text-sm font-medium text-slate-300 mb-1">תעודת זהות:</label>
-                    <input type="text" id="userId" placeholder="הכנס תעודת זהות" 
-                        class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 text-slate-100 text-sm">
-                </div>
-                <div>
-                    <label for="userPass" class="block text-sm font-medium text-slate-300 mb-1">סיסמה (6 ספרות אחרונות ת.ז / 999999 לאדמין):</label>
-                    <input type="password" id="userPass" placeholder="******" 
-                        class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 text-slate-100 text-sm">
-                </div>
-            </div>
-
-            <button onclick="startSimulation()" 
-                class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold rounded-lg shadow-lg transition duration-200 text-base cursor-pointer">
-                התחל בסימולציה 
-            </button>
-        </div>
-    </div>
-
-    <!-- מסך ניהול ADMIN -->
-    <div id="admin-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-amber-500/50 p-8 space-y-6">
-        <div class="flex justify-between items-center border-b border-amber-500/30 pb-4">
-            <h2 class="text-2xl font-bold text-amber-400">👑 מסך ניהול מנהל מערכת (ADMIN)</h2>
-            <span class="bg-amber-500/20 text-amber-300 text-xs px-3 py-1 rounded-full border border-amber-500/40">גישת מנהל</span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 text-center space-y-1">
-                <span class="block text-slate-400 text-xs">סה"כ כניסות משתמשים אמיתיים:</span>
-                <span id="stat-real-visits" class="text-4xl font-black text-cyan-400">0</span>
-            </div>
-            <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 text-center space-y-1">
-                <span class="block text-slate-400 text-xs">סה"כ הרצות בדיקה (אדמין):</span>
-                <span id="stat-test-visits" class="text-4xl font-black text-amber-400">0</span>
-            </div>
-        </div>
-
-        <div class="bg-amber-950/20 border border-amber-500/30 p-4 rounded-xl text-xs text-amber-200 leading-relaxed">
-            ℹ️ <strong>מצב בדיקה:</strong> לחיצה על "הרץ סימולציית בדיקה" תאפשר לכם להריץ בדיקות מלאות ולבחון את דיוק הניתוח, מבלי שההרצה תירשם או תעלה את מונה כניסות הלקוחות.
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-3 pt-2">
-            <button onclick="runTestSimulation()" class="flex-1 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg transition cursor-pointer shadow-lg text-sm">
-                🧪 הרץ סימולציית בדיקה (ללא ספירה)
-            </button>
-            <button onclick="resetStats()" class="px-4 py-3 bg-rose-900/40 hover:bg-rose-800 text-rose-200 text-xs font-bold rounded-lg border border-rose-700/50 transition cursor-pointer">
-                איפוס נתוני כניסות
-            </button>
-            <button onclick="logoutAdmin()" class="px-5 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer text-sm">
-                יציאה
-            </button>
-        </div>
-    </div>
-
-    <!-- מסך 2: תפריט ראשי -->
-    <div id="main-app" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">
-        <div class="text-center space-y-2">
-            <h2 id="welcome-title" class="text-2xl font-bold text-cyan-400"></h2>
-            <p class="text-slate-300 text-sm">ברוכים הבאים למערכת ניתוח הקריירה והמלצות הלימודים המותאמות אישית.</p>
-        </div>
-
-        <div class="bg-slate-900/80 p-6 rounded-xl border border-slate-700 space-y-4">
-            <h3 class="text-lg font-semibold text-indigo-300 flex items-center gap-2">
-                <span>🎯</span> תפריט האפליקציה הראשית
-            </h3>
-            <div class="grid grid-cols-1 gap-3">
-                <button onclick="openView('about-view')" class="p-4 bg-slate-800 hover:bg-slate-700 border border-cyan-500/40 rounded-lg text-right font-medium transition cursor-pointer flex flex-col">
-                    <span class="text-cyan-300 font-bold text-base">📊 1. מי אנחנו ולמה לבנות איתנו את העתיד?</span>
-                    <span class="text-xs text-slate-400 mt-1">שיטת עבודה, ניסיון ניהולי, בסיס מחקרי על AI ומגמות שוק העבודה</span>
-                </button>
-                <button onclick="openView('questionnaire-view')" class="p-4 bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/50 rounded-lg text-right font-medium transition cursor-pointer flex flex-col">
-                    <span class="text-indigo-200 font-bold text-base">📝 2. שאלון התאמת מסלול לימודים מקיף</span>
-                    <span class="text-xs text-slate-400 mt-1">אבחון אישי לקבלת מסלול ההכשרה והמוסד המיטבי</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- מסך אודות -->
-    <div id="about-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">
-        <h2 class="text-2xl font-bold text-cyan-300">📊 מי אנחנו ולמה לבנות איתנו את העתיד?</h2>
-        <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 space-y-4 text-slate-300 text-sm leading-relaxed">
-            <p>
-                מערכת <strong>SR - Career & AI Navigation</strong> הינה מערכת חכמה המבוססת על מחקרים גלובליים, ניתוחי שוק של ה-OECD והפורום הכלכלי העולמי (WEF).
-            </p>
-        </div>
-        <button onclick="openView('main-app')" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer">
-            ← חזרה לתפריט הראשי
-        </button>
-    </div>
-
-    <!-- מסך שאלון אבחון -->
-    <div id="questionnaire-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">
-        <h2 class="text-2xl font-bold text-indigo-300">📝 שאלון התאמה ואבחון מקצועי מקיף</h2>
-        <p class="text-slate-300 text-sm">ענה על השאלות הבאות כדי שנוכל להתאים עבורך את מסלול ההכשרה והמוסד המיטבי:</p>
+    <div class="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden p-6 md:p-10">
         
-        <form onsubmit="submitQuestionnaire(event)" class="space-y-4">
+        <!-- כותרת ראשית -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mb-2">
+                מערכת ייעוץ לימודים וקריירה חכמה
+            </h1>
+            <p class="text-slate-400 text-sm md:text-base">
+                שאלון אבחון מקצועי המשלב נתוני קבלה אמיתיים, סינון סף אקדמי והמלצות מותאמות אישית.
+            </p>
+        </header>
+
+        <!-- אזור השאלון -->
+        <div id="questionnaire-view" class="space-y-6">
             
-            <!-- 1. גיל -->
-            <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30">
-                <label for="qAge" class="block text-sm font-bold text-cyan-300 mb-1">🎂 1. גיל (משתנה סינון ראשוני):</label>
-                <input type="number" id="qAge" min="18" max="80" value="23" required 
-                    class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:ring-2 focus:ring-cyan-500">
-            </div>
-
-            <!-- 2. תכונת אופי בולטת -->
-            <div>
-                <label for="qPersonality" class="block text-sm font-medium text-slate-300 mb-1">🧠 2. תכונת אופי בולטת / סגנון עבודה עיקרי:</label>
-                <select id="qPersonality" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
-                    <option value="">בחר תכונת אופי מובילה...</option>
-                    <option value="analytical">אנליטי/ת — חשיבה לוגית, ניתוח נתונים ופתרון בעיות מורכבות</option>
-                    <option value="entrepreneurial">יזמי/ת ומשימתי/ת — דחיפה לחדשנות, עצמאות והובלת מהלכים</option>
-                    <option value="social">תקשורתי/ת ויחסי אנוש — הדרכה, עבודה עם אנשים, ייעוץ והקשבה</option>
-                    <option value="organized">יסודי/ת ומאורגן/ת — עבודה מבוססת תהליכים, סדר, דיוק וסבלנות</option>
-                    <option value="creative">קריאטיבי/ת — חשיבה מחוץ לקופסה, גמישות ויצירתיות</option>
-                    <option value="technical">טכני/מעשי — עבודה עם ידיים, מכשור, מערכות פיזיות וטכנולוגיה</option>
-                </select>
-            </div>
-
-            <!-- 3. סטטוס תעסוקתי ועיסוק נוכחי -->
-            <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-700/60 space-y-3">
-                <div>
-                    <label for="qStatus" class="block text-sm font-medium text-slate-300 mb-1">💼 3. סטטוס תעסוקתי נוכחי:</label>
-                    <select id="qStatus" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
-                        <option value="">בחר סטטוס...</option>
-                        <option value="released-soldier">🪖 חייל/ת משוחרר/ת / שירות לאומי</option>
-                        <option value="no-experience">🌱 ללא ניסיון תעסוקתי קודם (מחפש/ת צעדים ראשונים)</option>
-                        <option value="unemployed">דורש/ת עבודה / בין עבודות</option>
-                        <option value="employed-seeking-change">עובד/ת ומחפש/ת הסבה מקצועית</option>
-                        <option value="employed-seeking-advancement">עובד/ת ומעוניין/ת בהתמקצעות ושדרוג</option>
-                        <option value="freelancer">עצמאי/ת / פרילנסר/ית</option>
-                        <option value="educator">איש/אשת חינוך והוראה</option>
-                    </select>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="md:col-span-2">
-                        <label for="qCurrentJob" class="block text-sm font-medium text-slate-300 mb-1">תפקיד אחרון / עיסוק עכשווי (או תפקיד בצבא):</label>
-                        <input type="text" id="qCurrentJob" placeholder="לדוגמה: חייל משוחרר, הנדסאי חשמל, מורה, ללא ניסיון..." required 
-                            class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
-                    </div>
-                    <div>
-                        <label for="qExperience" class="block text-sm font-medium text-slate-300 mb-1">⏳ שנות ותק בתחום:</label>
-                        <input type="number" id="qExperience" min="0" max="60" value="0" placeholder="0" required 
-                            class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. בחירת עיר/אזור לימודים מועדף -->
-            <div class="bg-indigo-950/40 p-4 rounded-xl border border-cyan-500/40">
-                <label for="qCity" class="block text-sm font-bold text-cyan-300 mb-1">📍 4. עיר / אזור מועדף ללימודים (עד מרחק שעה וחצי נסיעה):</label>
-                <select id="qCity" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:ring-2 focus:ring-cyan-500">
-                    <option value="">בחר עיר / אזור...</option>
-                    <option value="jerusalem">ירושלים והסביבה (כולל מודיעין, בית שמש, מעלה אדומים)</option>
-                    <option value="center">תל אביב והמרכז (כולל גוש דן, השרון, השפלה)</option>
-                    <option value="north">חיפה והצפון (כולל קריות, גליל, עמקים)</option>
-                    <option value="south">באר שבע והדרום (כולל אשקלון, אשדוד, הנגב)</option>
-                    <option value="online">💻 לימודים מקוונים / אונליין בלבד</option>
-                </select>
-            </div>
-
-            <!-- 5. השכלה מורחבת בחלוקה לקטגוריות ותחומים -->
-            <div class="bg-slate-900/60 p-4 rounded-xl border border-indigo-500/30 space-y-3">
+            <!-- פרטים אישיים -->
+            <div class="bg-indigo-950/40 p-4 rounded-xl border border-indigo-500/30 space-y-3">
+                <h3 class="text-sm font-bold text-indigo-300">👤 פרטים אישיים:</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="qEduLevel" class="block text-sm font-medium text-slate-300 mb-1">🎓 5. רמת השכלה נוכחית:</label>
-                        <select id="qEduLevel" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
-                            <option value="highschool">תיכונית / בגרות מלאה / חלקית</option>
-                            <option value="vocational">תעודת מקצוע / מקצועות אומנות וטכנולוגיה (נגרות, חשמל, מכונאות, עיצוב)</option>
-                            <option value="practical-engineer">דיפלומת הנדסאי / טכנאי מוסמך (בניין, חשמל, תוכנה, תעשייה וניהול)</option>
-                            <option value="academic-engineer">תואר ראשון בהנדסה / מהנדס מוסמך (B.Sc. - חשמל, בניין, מכונות, תוכנה)</option>
-                            <option value="ba">תואר ראשון אקדמי (B.A. / B.S.W. / משפטים)</option>
-                            <option value="ma">תואר שני ומעלה (M.A. / M.Sc. / Ph.D.)</option>
+                        <label for="qAge" class="block text-xs font-medium text-slate-300 mb-1">גיל:</label>
+                        <input type="number" id="qAge" min="18" max="120" value="23" required 
+                            class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label for="qField" class="block text-xs font-medium text-slate-300 mb-1">תחום לימודים מבוקש:</label>
+                        <select id="qField" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
+                            <option value="computers">מדעי המחשב / הנדסת תוכנה</option>
+                            <option value="engineering">הנדסה (מכונות, חשמל וכו')</option>
+                            <option value="business">ניהול עסקי ויזמות</option>
+                            <option value="education">חינוך והוראה</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- נתוני קבלה אקדמיים -->
+            <div class="bg-indigo-950/60 p-4 rounded-xl border border-indigo-500/40 space-y-3">
+                <h3 class="text-sm font-bold text-indigo-300">📊 נתוני קבלה אקדמיים (לסינון מוסדות לימוד מדויק):</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="qMatriculation" class="block text-xs font-medium text-slate-300 mb-1">ממוצע בגרות משוקלל (עם בונוסים):</label>
+                        <input type="number" id="qMatriculation" min="60" max="125" step="0.1" value="78" required 
+                            class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label for="qPsychometric" class="block text-xs font-medium text-slate-300 mb-1">ציון פסיכומטרי (או 0 אם ללא):</label>
+                        <input type="number" id="qPsychometric" min="0" max="800" step="1" value="572" required 
+                            class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                    <div>
+                        <label for="qMathUnits" class="block text-xs font-medium text-slate-300 mb-1">יחידות וציון במתמטיקה:</label>
+                        <select id="qMathUnits" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
+                            <option value="5-90">5 יחידות (ציון 90+)</option>
+                            <option value="5-80">5 יחידות (ציון 80-89)</option>
+                            <option value="5-70">5 יחידות (ציון 70-79)</option>
+                            <option value="4-85">4 יחידות (ציון 85+)</option>
+                            <option value="4-70">4 יחידות (ציון 70-84)</option>
+                            <option value="3" selected>3 יחידות / אחר</option>
                         </select>
                     </div>
                     <div>
-                        <label for="qEduCategory" class="block text-sm font-medium text-slate-300 mb-1">🏛️ תחום השכלה עיקרי:</label>
-                        <select id="qEduCategory" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
-                            <option value="none">ללא השכלה על-תיכונית / כללי</option>
-                            <option value="engineering">הנדסה וטכנולוגיה (חשמל, בניין, מכונות, תוכנה, אלקטרוניקה)</option>
-                            <option value="trades">מקצועות טכניים/אומנותיים (נגרות, חשמלאי מוסמך, אינסטלציה, עיצוב)</option>
-                            <option value="social-humanities">מדעי החברה והרוח (פסיכולוגיה, סוציולוגיה, חינוך, הוראה, משפטים)</option>
-                            <option value="medicine-care">רפואה, סיעוד ומקצועות הבריאות (סיעוד, פיזיותרפיה, מעבדה)</option>
-                            <option value="business-law">מנהל עסקים, כלכלה ומשפטים</option>
+                        <label for="qPhysicsUnits" class="block text-xs font-medium text-slate-300 mb-1">היקף פיזיקה / מקצוע מדעי מוגבר:</label>
+                        <select id="qPhysicsUnits" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
+                            <option value="5-physics">5 יחידות פיזיקה</option>
+                            <option value="4-physics">4 יחידות פיזיקה / מדעי המחשב מוגבר</option>
+                            <option value="none" selected>ללא פיזיקה מוגברת</option>
                         </select>
                     </div>
                 </div>
-                <div>
-                    <label for="qEduField" class="block text-sm font-medium text-slate-300 mb-1">📜 פירוט המקצוע / התואר / התעודה הספציפית:</label>
-                    <input type="text" id="qEduField" placeholder="לדוגמה: משפטים, הנדסת חשמל, נגרות, סיעוד, מורה למתמטיקה..." required 
-                        class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
-                </div>
             </div>
 
-            <!-- 6. מטרה מרכזית -->
-            <div>
-                <label for="qGoal" class="block text-sm font-medium text-slate-300 mb-1">🎯 6. מהי המטרה המרכזית שלך בתהליך זה?</label>
-                <select id="qGoal" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
-                    <option value="find-job">💼 מציאת עבודה ראשונה / השתלבות בתחום שנלמד</option>
-                    <option value="upskill">📈 התמקצעות ושדרוג הידע בתחום הקיים</option>
-                    <option value="reskill">🔄 הסבה מקצועית מלאה לתחום חדש</option>
-                    <option value="extra">💡 יצירת אפיק הכנסה נוסף / עבודה היברידית</option>
-                </select>
-            </div>
-
-            <!-- 7. תחום עניין -->
-            <div>
-                <label for="qInterest" class="block text-sm font-medium text-slate-300 mb-1">💡 7. תחום עניין עיקרי:</label>
-                <select id="qInterest" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
-                    <option value="same-field">הישארות / עבודה בתחום הלימודים וההשכלה הנוכחית</option>
-                    <option value="tech">טכנולוגיה, AI, אוטומציה ופיתוח תוכנה</option>
-                    <option value="mgmt">ניהול, ניתוח מערכות ופרויקטים</option>
-                    <option value="care">ייעוץ, אימון (Coaching), סיעוד והדרכה אנושית</option>
-                    <option value="engineering-practical">הנדסה מעשית, בנייה, חשמל ומקצועות טכניים</option>
-                </select>
-            </div>
-
-            <div class="pt-4 flex gap-3">
-                <button type="submit" class="flex-1 py-3.5 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold rounded-lg shadow-lg transition cursor-pointer text-base">
-                    🚀 בצע אבחון וקבל המלצות מותאמות
-                </button>
-                <button type="button" onclick="openView(isTestMode ? 'admin-view' : 'main-app')" class="px-5 py-3.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer">
-                    ← חזרה
+            <!-- כפתור הגשה -->
+            <div class="text-center pt-4">
+                <button onclick="processQuestionnaire()" class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-bold rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5">
+                    הפק אבחון ונתוני קבלה מקצועיים
                 </button>
             </div>
-        </form>
-    </div>
-
-    <!-- מסך תוצאות אבחון -->
-    <div id="results-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">
-        <h2 class="text-2xl font-bold text-emerald-400">🎓 תוצאות אבחון ומסלולים מומלצים</h2>
-        
-        <div id="results-summary" class="bg-slate-900/90 p-5 rounded-xl border border-slate-700 text-sm leading-relaxed space-y-2"></div>
-        
-        <div id="recommendations-container" class="space-y-6"></div>
-
-        <!-- הסבר פדגוגי מפורט בסוף ההמלצות -->
-        <div id="age-explanation-box" class="hidden bg-slate-900/90 border-r-4 border-amber-400 p-4 rounded-l-xl text-xs text-slate-300 leading-relaxed space-y-1">
-            <span class="font-bold text-amber-300 block text-sm">💡 הסבר ללוגיקת ההמלצה המערכתית:</span>
-            <p id="age-explanation-text"></p>
         </div>
 
-        <button onclick="openView('questionnaire-view')" 
-            class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer">
-            ← חזרה לשאלון
-        </button>
+        <!-- אזור תוצאות (מוסתר בהתחלה) -->
+        <div id="results-view" class="hidden space-y-6 pt-4 border-t border-slate-800 mt-6">
+            <h2 class="text-2xl font-bold text-cyan-300">תוצאות אבחון משוקלל וסיכויי קבלה:</h2>
+            
+            <div id="summary-metrics" class="bg-slate-800/60 p-4 rounded-xl border border-slate-700 text-sm leading-relaxed text-slate-300">
+                <!-- נתונים מסוכמים -->
+            </div>
+
+            <div id="eligibility-box" class="p-4 rounded-xl border text-sm font-medium">
+                <!-- סטטוס קבלה והמלצה מקצועית -->
+            </div>
+
+            <div class="text-center pt-4">
+                <button onclick="resetForm()" class="px-6 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold rounded-lg transition-all">
+                    חזרה לשאלון ותיקון נתונים
+                </button>
+            </div>
+        </div>
+
     </div>
 
-    <footer class="w-full max-w-3xl text-center text-xs text-slate-400 border-t border-slate-800/80 mt-8 pt-4 pb-2 space-y-1">
-        <div>🔒 <strong>הגנה משפטית ומניעת העתקה — כל הזכויות שמורות ©</strong></div>
-    </footer>
-
+    <!-- לוגיקת ה-JavaScript המקצועית -->
     <script>
-        let isTestMode = false;
-
-        // מיפוי מילוני לתרגום ערכי המערכת לעברית תקנית
-        const dictionary = {
-            cities: {
-                jerusalem: "ירושלים והסביבה",
-                center: "תל אביב והמרכז",
-                north: "חיפה והצפון",
-                south: "באר שבע והדרום",
-                online: "לימודים מקוונים / אונליין"
-            },
-            statuses: {
-                "released-soldier": "חייל/ת משוחרר/ת / שירות לאומי",
-                "no-experience": "ללא ניסיון תעסוקתי קודם",
-                "unemployed": "דורש/ת עבודה / בין עבודות",
-                "employed-seeking-change": "עובד/ת ומחפש/ת הסבה מקצועית",
-                "employed-seeking-advancement": "עובד/ת ומעוניין/ת בהתמקצעות ושדרוג",
-                "freelancer": "עצמאי/ת / פרילנסר/ית",
-                "educator": "איש/אשת חינוך והוראה"
-            },
-            eduLevels: {
-                "highschool": "תיכונית / בגרות מלאה או חלקית",
-                "vocational": "תעודת מקצוע / מקצועות טכניים ואומנותיים",
-                "practical-engineer": "דיפלומת הנדסאי / טכנאי מוסמך",
-                "academic-engineer": "תואר ראשון בהנדסה (B.Sc.)",
-                "ba": "תואר ראשון אקדמי (B.A.)",
-                "ma": "תואר שני ומעלה"
-            },
-            goals: {
-                "find-job": "מציאת עבודה ראשונה / השתלבות בתחום",
-                "upskill": "התמקצעות ושדרוג הידע הקיים",
-                "reskill": "הסבה מקצועית מלאה לתחום חדש",
-                "extra": "יצירת אפיק הכנסה נוסף / עבודה היברידית"
+        function checkAdmissionEligibility(field, mathUnits, mat, psycho) {
+            const [mathLevel, mathGrade] = mathUnits.split('-');
+            const isMathLow = (mathLevel === '3' || (mathLevel === '4' && parseInt(mathGrade || 0) < 80));
+            
+            // בדיקת התאמה למדעי המחשב והנדסה
+            if (field === 'computers' || field === 'engineering') {
+                // תנאי סף מינימליים באוניברסיטאות ומכללות מובילות דורשים בגרות גבוהה מ-100 או פסיכומטרי גבוה בהרבה, ובמיוחד מתמטיקה חזקה
+                if (mat < 95 || psycho < 600 || isMathLow) {
+                    return {
+                        status: 'rejected_direct',
+                        className: 'bg-rose-950/40 border-rose-500/40 text-rose-200',
+                        msg: '❌ אינו עומד בתנאי הסף הישירים לתואר ראשון במדעי המחשב / הנדסה (עקב שילוב של ממוצע בגרות/פסיכומטרי או רמת מתמטיקה שאינה עומדת בדרישות הסף האוניברסיטאיות).\n\n💡 המלצת יועץ מקצועית:\n1. השתלבות במסלול "הנדסאי תוכנה / אלקטרוניקה" (תעודת הנדסאי).\n2. פנייה למכינה קדם-אקדמית ייעודית (מדעית-הנדסית) להשלמת ושיפור בגרויות ומתמטיקה (4-5 יח"ל).'
+                    };
+                }
             }
-        };
 
-        // מאגר מוסדות לימוד מעודכן עם לפחות 2 הцепות לכל אזור וקישורים תקינים
-        const institutionsDB = {
-            tech: {
-                jerusalem: [
-                    { 
-                        name: "האוניברסיטה העברית בירושלים", 
-                        travel: "כ-20 דקות", 
-                        courses: "קורסי תכנות, פיתוח ו-AI יישומי",
-                        url: "https://www.huji.ac.il",
-                        advisingUrl: "https://www.huji.ac.il"
-                    },
-                    { 
-                        name: "מכללת עזריאלי להנדסה ירושלים", 
-                        travel: "כ-25 דקות", 
-                        courses: "תואר ראשון במדעי המחשב, הנדסת תוכנה ומערכות מידע",
-                        url: "https://www.jce.ac.il",
-                        advisingUrl: "https://www.jce.ac.il"
-                    }
-                ],
-                center: [
-                    { 
-                        name: "הטכניון - היחידה ללימודי המשך (קמפוס שרונה ת\"א)", 
-                        travel: "כ-45 דקות", 
-                        courses: "קורסי בינה מלאכותית (AI), ניהול מוצר, תכנות מערכות",
-                        url: "https://www.technion.ac.il",
-                        advisingUrl: "https://www.technion.ac.il"
-                    },
-                    { 
-                        name: "מכללת אפקה להנדסה בתל אביב", 
-                        travel: "כ-50 דקות", 
-                        courses: "הנדסת תוכנה, מערכות תבוניות וקורסי העשרה טכנולוגיים",
-                        url: "https://www.afeka.ac.il",
-                        advisingUrl: "https://www.afeka.ac.il"
-                    }
-                ],
-                north: [
-                    { 
-                        name: "הטכניון - מכון טכנולוגי לישראל (חיפה)", 
-                        travel: "כ-30 דקות", 
-                        courses: "מדעי המחשב, אלגוריתמיקה ולמידת מכונה (Machine Learning)",
-                        url: "https://www.technion.ac.il",
-                        advisingUrl: "https://www.technion.ac.il"
-                    },
-                    { 
-                        name: "אוניברסיטת חיפה - לימודי חוץ והכשרה מקצועית", 
-                        travel: "כ-35 דקות", 
-                        courses: "קורסי ניתוח נתונים, פייתון וכלי AI ארגוניים",
-                        url: "https://www.haifa.ac.il",
-                        advisingUrl: "https://www.haifa.ac.il"
-                    }
-                ],
-                south: [
-                    { 
-                        name: "אוניברסיטת בן-גוריון בנגב", 
-                        travel: "כ-25 דקות", 
-                        courses: "מדעי המחשב, הנדסת נתונים וקורסי התמחות מתקדמים",
-                        url: "https://in.bgu.ac.il",
-                        advisingUrl: "https://in.bgu.ac.il"
-                    },
-                    { 
-                        name: "SCE - המכללה האקדמית להנדסה סמי שמעון", 
-                        travel: "כ-30 דקות", 
-                        courses: "הנדסת תוכנה, מערכות מידע והכשרות מהנדסים",
-                        url: "https://www.sce.ac.il",
-                        advisingUrl: "https://www.sce.ac.il"
-                    }
-                ],
-                online: [
-                    { 
-                        name: "ג'ון ברייס Online Live - הכשרות הייטק ו-AI", 
-                        travel: "0 דקות (מהבית)", 
-                        courses: "קורסי AI Integration, אוטומציה ופיתוח תוכנה מרחוק",
-                        url: "https://www.johnbryce.co.il",
-                        advisingUrl: "https://www.johnbryce.co.il"
-                    },
-                    { 
-                        name: "האוניברסיטה הפתוחה", 
-                        travel: "0 דקות (מהבית)", 
-                        courses: "תואר אקדמי מלא וקורסים בודדים במדעי המחשב",
-                        url: "https://www.openu.ac.il",
-                        advisingUrl: "https://www.openu.ac.il"
-                    }
-                ]
-            },
-            engineering: {
-                jerusalem: [
-                    { 
-                        name: "מכללת עזריאלי להנדסה ירושלים", 
-                        travel: "כ-25 דקות", 
-                        courses: "הנדסת חשמל, הנדסת מכונות, הנדסת בניין",
-                        url: "https://www.jce.ac.il",
-                        advisingUrl: "https://www.jce.ac.il"
-                    },
-                    { 
-                        name: "האוניברסיטה העברית בירושלים (ביה\"ס להנדסה ומדעי המחשב)", 
-                        travel: "כ-20 דקות", 
-                        courses: "הנדסת מחשבים ומערכות אלקטרוניות",
-                        url: "https://www.huji.ac.il",
-                        advisingUrl: "https://www.huji.ac.il"
-                    }
-                ],
-                center: [
-                    { 
-                        name: "מכללת אפקה להנדסה תל אביב", 
-                        travel: "כ-50 דקות", 
-                        courses: "הנדסת חשמל ואלקטרוניקה, הנדסת מערכות",
-                        url: "https://www.afeka.ac.il",
-                        advisingUrl: "https://www.afeka.ac.il"
-                    },
-                    { 
-                        name: "המרכז האקדמי רופין", 
-                        travel: "כ-45 דקות", 
-                        courses: "הנדסת חשמל ואלקטרוניקה, הנדסת תעשייה וניהול",
-                        url: "https://www.ruppin.ac.il",
-                        advisingUrl: "https://www.ruppin.ac.il"
-                    }
-                ],
-                north: [
-                    { 
-                        name: "הטכניון - מכון טכנולוגי לישראל", 
-                        travel: "כ-30 דקות", 
-                        courses: "הנדסת חשמל, מכונות ואזרחית",
-                        url: "https://www.technion.ac.il",
-                        advisingUrl: "https://www.technion.ac.il"
-                    },
-                    { 
-                        name: "המכללה האקדמית בראודה (כרמיאל)", 
-                        travel: "כ-45 דקות", 
-                        courses: "הנדסת מכונות, הנדסת חשמל ואלקטרוניקה",
-                        url: "https://www.braude.ac.il",
-                        advisingUrl: "https://www.braude.ac.il"
-                    }
-                ],
-                south: [
-                    { 
-                        name: "SCE - מכללת סמי שמעון להנדסה", 
-                        travel: "כ-30 דקות", 
-                        courses: "הנדסת חשמל, מכונות, כימיה ובניין",
-                        url: "https://www.sce.ac.il",
-                        advisingUrl: "https://www.sce.ac.il"
-                    },
-                    { 
-                        name: "אוניברסיטת בן-גוריון בנגב", 
-                        travel: "כ-25 דקות", 
-                        courses: "הנדסת בניין, מכונות וכימיה",
-                        url: "https://in.bgu.ac.il",
-                        advisingUrl: "https://in.bgu.ac.il"
-                    }
-                ],
-                online: [
-                    { 
-                        name: "מה\"ט - המרכז להכשרה טכנולוגית", 
-                        travel: "0 דקות (מהבית)", 
-                        courses: "דיפלומת הנדסאי חשמל / תוכנה / מכונות במסלול משולב",
-                        url: "https://www.gov.il/he/departments/mahat",
-                        advisingUrl: "https://www.gov.il/he/departments/mahat"
-                    },
-                    { 
-                        name: "האוניברסיטה הפתוחה", 
-                        travel: "0 דקות (מהבית)", 
-                        courses: "קורסי תשתית הנדסיים ומדעים מדויקים",
-                        url: "https://www.openu.ac.il",
-                        advisingUrl: "https://www.openu.ac.il"
-                    }
-                ]
-            },
-            mgmt: {
-                jerusalem: [
-                    { 
-                        name: "האוניברסיטה העברית בירושלים (בית הספר למנהל עסקים)", 
-                        travel: "כ-20 דקות", 
-                        courses: "ניהול עסקי, ניהול פרויקטים וקורסי מנהלים",
-                        url: "https://www.huji.ac.il",
-                        advisingUrl: "https://www.huji.ac.il"
-                    },
-                    { 
-                        name: "המרכז האקדמי לב (ירושלים)", 
-                        travel: "כ-25 דקות", 
-                        courses: "ניהול מערכות מידע וניהול עסקי טכנולוגי",
-                        url: "https://www.jct.ac.il",
-                        advisingUrl: "https://www.jct.ac.il"
-                    }
-                ],
-                center: [
-                    { 
-                        name: "אוניברסיטת תל אביב - להב פיתוח מנהלים", 
-                        travel: "כ-50 דקות", 
-                        courses: "ניהול מוצר (Product Management), ניהול פרויקטים מתקדם (PMP)",
-                        url: "https://www.tau.ac.il",
-                        advisingUrl: "https://www.tau.ac.il"
-                    },
-                    { 
-                        name: "המרכז האקדמי פרס (רחובות)", 
-                        travel: "כ-40 דקות", 
-                        courses: "תואר ראשון ושני במנהל עסקים וניהול מערכות",
-                        url: "https://www.mishpat.ac.il",
-                        advisingUrl: "https://www.mishpat.ac.il"
-                    }
-                ],
-                north: [
+            return {
+                status: 'eligible',
+                className: 'bg-emerald-950/40 border-emerald-500/40 text-emerald-200',
+                msg: '✅ נתוני הקבלה תואמים את דרישות הסף הראשוניות למסלולים המבוקשים.'
+            };
+        }
+
+        function processQuestionnaire() {
+            const age = parseInt(document.getElementById('qAge').value) || 23;
+            const field = document.getElementById('qField').value;
+            const mat = parseFloat(document.getElementById('qMatriculation').value) || 78;
+            const psycho = parseInt(document.getElementById('qPsychometric').value) || 572;
+            const mathUnits = document.getElementById('qMathUnits').value;
+
+            // סיכום נתונים
+            let fieldNameHeb = "מדעי המחשב / הנדסת תוכנה";
+            if (field === 'engineering') fieldNameHeb = "הנדסה";
+            if (field === 'business') fieldNameHeb = "ניהול עסקי ויזמות";
+            if (field === 'education') fieldNameHeb = "חינוך והוראה";
+
+            document.getElementById('summary-metrics').innerHTML = `
+                <p><strong>גיל:</strong> ${age}</p>
+                <p><strong>ממוצע בגרות משוקלל:</strong> ${mat}</p>
+                <p><strong>ציון פסיכומטרי:</strong> ${psycho}</p>
+                <p><strong>תחום מבוקש:</strong> ${fieldNameHeb}</p>
+            `;
+
+            // בדיקת התאמה קפדנית
+            const eligibility = checkAdmissionEligibility(field, mathUnits, mat, psycho);
+
+            const eligibilityBox = document.getElementById('eligibility-box');
+            eligibilityBox.className = `p-4 rounded-xl border text-sm font-medium whitespace-pre-line ${eligibility.className}`;
+            eligibilityBox.innerText = eligibility.msg;
+
+            // מעבר תצוגה
+            document.getElementById('questionnaire-view').classList.add('hidden');
+            document.getElementById('results-view').classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('results-view').classList.add('hidden');
+            document.getElementById('questionnaire-view').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
