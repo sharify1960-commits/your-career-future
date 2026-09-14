@@ -58,12 +58,12 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="qMatriculation" class="block text-xs font-medium text-slate-300 mb-1">ממוצע בגרות משוקלל (עם בונוסים):</label>
-                        <input type="number" id="qMatriculation" min="60" max="125" step="0.1" value="78" required 
+                        <input type="number" id="qMatriculation" min="60" max="125" step="0.1" value="72" required 
                             class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
                     </div>
                     <div>
                         <label for="qPsychometric" class="block text-xs font-medium text-slate-300 mb-1">ציון פסיכומטרי (או 0 אם ללא):</label>
-                        <input type="number" id="qPsychometric" min="0" max="800" step="1" value="572" required 
+                        <input type="number" id="qPsychometric" min="0" max="800" step="1" value="552" required 
                             class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
                     </div>
                 </div>
@@ -111,6 +111,19 @@
                 <!-- סטטוס קבלה והמלצה מקצועית -->
             </div>
 
+            <!-- רשימת מוסדות לימוד (תוצג רק אם עומד בסף) -->
+            <div id="institutions-container" class="space-y-4">
+                <h3 class="text-lg font-bold text-cyan-200">מוסדות לימוד מומלצים באזורך:</h3>
+                <div class="p-4 bg-slate-800 border border-slate-700 rounded-xl">
+                    <h4 class="font-bold text-white">אוניברסיטת תל אביב</h4>
+                    <p class="text-xs text-slate-400">מדעי המחשב / מדעים מדויקים</p>
+                </div>
+                <div class="p-4 bg-slate-800 border border-slate-700 rounded-xl">
+                    <h4 class="font-bold text-white">המכללה האקדמית תל אביב-יפו</h4>
+                    <p class="text-xs text-slate-400">מדעי המחשב ומערכות מידע</p>
+                </div>
+            </div>
+
             <div class="text-center pt-4">
                 <button onclick="resetForm()" class="px-6 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold rounded-lg transition-all">
                     חזרה לשאלון ותיקון נתונים
@@ -120,39 +133,18 @@
 
     </div>
 
-    <!-- לוגיקת ה-JavaScript המקצועית -->
+    <!-- לוגיקת ה-JavaScript -->
     <script>
-        function checkAdmissionEligibility(field, mathUnits, mat, psycho) {
-            const [mathLevel, mathGrade] = mathUnits.split('-');
-            const isMathLow = (mathLevel === '3' || (mathLevel === '4' && parseInt(mathGrade || 0) < 80));
-            
-            // בדיקת התאמה למדעי המחשב והנדסה
-            if (field === 'computers' || field === 'engineering') {
-                // תנאי סף מינימליים באוניברסיטאות ומכללות מובילות דורשים בגרות גבוהה מ-100 או פסיכומטרי גבוה בהרבה, ובמיוחד מתמטיקה חזקה
-                if (mat < 95 || psycho < 600 || isMathLow) {
-                    return {
-                        status: 'rejected_direct',
-                        className: 'bg-rose-950/40 border-rose-500/40 text-rose-200',
-                        msg: '❌ אינו עומד בתנאי הסף הישירים לתואר ראשון במדעי המחשב / הנדסה (עקב שילוב של ממוצע בגרות/פסיכומטרי או רמת מתמטיקה שאינה עומדת בדרישות הסף האוניברסיטאיות).\n\n💡 המלצת יועץ מקצועית:\n1. השתלבות במסלול "הנדסאי תוכנה / אלקטרוניקה" (תעודת הנדסאי).\n2. פנייה למכינה קדם-אקדמית ייעודית (מדעית-הנדסית) להשלמת ושיפור בגרויות ומתמטיקה (4-5 יח"ל).'
-                    };
-                }
-            }
-
-            return {
-                status: 'eligible',
-                className: 'bg-emerald-950/40 border-emerald-500/40 text-emerald-200',
-                msg: '✅ נתוני הקבלה תואמים את דרישות הסף הראשוניות למסלולים המבוקשים.'
-            };
-        }
-
         function processQuestionnaire() {
             const age = parseInt(document.getElementById('qAge').value) || 23;
             const field = document.getElementById('qField').value;
-            const mat = parseFloat(document.getElementById('qMatriculation').value) || 78;
-            const psycho = parseInt(document.getElementById('qPsychometric').value) || 572;
+            const mat = parseFloat(document.getElementById('qMatriculation').value) || 72;
+            const psycho = parseInt(document.getElementById('qPsychometric').value) || 552;
             const mathUnits = document.getElementById('qMathUnits').value;
 
-            // סיכום נתונים
+            // חישוב ציון סכם משוער לצורך הדגמה
+            const calculatedSack = Math.round((mat * 3.5) + (psycho * 0.4));
+
             let fieldNameHeb = "מדעי המחשב / הנדסת תוכנה";
             if (field === 'engineering') fieldNameHeb = "הנדסה";
             if (field === 'business') fieldNameHeb = "ניהול עסקי ויזמות";
@@ -160,17 +152,32 @@
 
             document.getElementById('summary-metrics').innerHTML = `
                 <p><strong>גיל:</strong> ${age}</p>
-                <p><strong>ממוצע בגרות משוקלל:</strong> ${mat}</p>
-                <p><strong>ציון פסיכומטרי:</strong> ${psycho}</p>
+                <p><strong>סטטוס בגרויות:</strong> ממוצע משוקלל: ${mat}</p>
+                <p><strong>פסיכומטרי:</strong> ${psycho}</p>
+                <p><strong>ציון סכם אקדמי משוכלל:</strong> ${calculatedSack}</p>
                 <p><strong>תחום מבוקש:</strong> ${fieldNameHeb}</p>
             `;
 
-            // בדיקת התאמה קפדנית
-            const eligibility = checkAdmissionEligibility(field, mathUnits, mat, psycho);
-
             const eligibilityBox = document.getElementById('eligibility-box');
-            eligibilityBox.className = `p-4 rounded-xl border text-sm font-medium whitespace-pre-line ${eligibility.className}`;
-            eligibilityBox.innerText = eligibility.msg;
+            const institutionsContainer = document.getElementById('institutions-container');
+
+            const [mathLevel] = mathUnits.split('-');
+            const isMathLow = (mathLevel === '3' || mathLevel === '4');
+
+            // בדיקת סף קבלה מחמירה למדעי המחשב והנדסה
+            if ((field === 'computers' || field === 'engineering') && (mat < 90 || psycho < 580 || isMathLow)) {
+                eligibilityBox.className = 'p-4 rounded-xl border text-sm font-medium bg-rose-950/40 border-rose-500/40 text-rose-200 whitespace-pre-line';
+                eligibilityBox.innerText = '❌ נתוני הפתיחה אינם עומדים בתנאי הסף לקבלה ישירה לתואר ראשון במדעי המחשב או בהנדסה (נדרש שילוב גבוה יותר של בגרות, פסיכומטרי ומתמטיקה מוגברת).\n\n💡 המלצת יועץ מקצועית:\n1. מכינה קדם-אקדמית ייעודית (מדעית / הנדסית) לשיפור ציונים ובגרויות.\n2. לימודי הנדסאי (תוכנה / אלקטרוניקה) המותאמים לתנאי קבלה גמישים יותר.';
+                
+                // הסתרת רשימת האוניברסיטאות האקדמיות הישירות
+                institutionsContainer.classList.add('hidden');
+            } else {
+                eligibilityBox.className = 'p-4 rounded-xl border text-sm font-medium bg-emerald-950/40 border-emerald-500/40 text-emerald-200';
+                eligibilityBox.innerText = '✅ נתוני הקבלה תואמים את תנאי הסף הראשוניים למסלולים המבוקשים.';
+                
+                // הצגת רשימת האוניברסיטאות
+                institutionsContainer.classList.remove('hidden');
+            }
 
             // מעבר תצוגה
             document.getElementById('questionnaire-view').classList.add('hidden');
