@@ -4,44 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מערכת ייעוץ לימודים וקריירה חכמה</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
-        body {
-            font-family: 'Heebo', sans-serif;
-        }
+        body { font-family: 'Heebo', sans-serif; }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
 
     <div class="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden p-6 md:p-10">
         
-        <!-- מסך 1: הזדהות וכניסה -->
+        <!-- מסך 1: הזדהות וכניסה המקורי עם הלוגו שלך -->
         <div id="login-view" class="space-y-6">
             <header class="text-center mb-8">
-                <h1 class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mb-2">
+                <div class="flex justify-center mb-3">
+                    <div class="w-16 h-16 bg-gradient-to-tr from-cyan-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg text-white font-black text-xl tracking-wider">
+                        SR
+                    </div>
+                </div>
+                <div class="text-cyan-400 font-bold text-sm tracking-widest mb-1">MY FUTURE IS HERE | העתיד שלי כאן</div>
+                <div class="text-slate-400 text-xs tracking-wide mb-3">YOUR CAREER FUTURE IS SHAPED BY DATA NOT BY LUCK</div>
+                <p class="text-xs text-slate-500">פותר וערך ע"י שריפי יצחק</p>
+
+                <h1 class="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mt-6 mb-2">
                     העתיד שלך מתחיל בבחירה חכמה
                 </h1>
-                <p class="text-slate-400 text-sm md:text-base">
+                <p class="text-slate-400 text-sm">
                     סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים.
                 </p>
             </header>
 
             <div class="space-y-4 max-w-lg mx-auto">
                 <div>
-                    <label for="userName" class="block text-xs font-medium text-slate-300 mb-1">שם מלא:</label>
+                    <label class="block text-xs font-medium text-slate-300 mb-1">שם מלא:</label>
                     <input type="text" id="userName" placeholder="הכנס שם מלא" 
                         class="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="userId" class="block text-xs font-medium text-slate-300 mb-1">תעודת זהות:</label>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">תעודת זהות:</label>
                         <input type="text" id="userId" placeholder="הכנס תעודת זהות" 
                             class="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
                     </div>
                     <div>
-                        <label for="userPass" class="block text-xs font-medium text-slate-300 mb-1">סיסמה:</label>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">סיסמה:</label>
                         <input type="password" id="userPass" placeholder="הכנס סיסמה" 
                             class="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
                     </div>
@@ -63,18 +69,16 @@
                 <p id="welcome-user-msg" class="text-cyan-300 text-sm font-medium"></p>
             </header>
             
-            <!-- פרטים אישיים -->
             <div class="bg-indigo-950/40 p-4 rounded-xl border border-indigo-500/30 space-y-3">
                 <h3 class="text-sm font-bold text-indigo-300">👤 פרטים אישיים:</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="qAge" class="block text-xs font-medium text-slate-300 mb-1">גיל:</label>
-                        <input type="number" id="qAge" min="18" max="120" value="23" required 
-                            class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
+                        <label class="block text-xs font-medium text-slate-300 mb-1">גיל:</label>
+                        <input type="number" id="qAge" value="23" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
                     </div>
                     <div>
-                        <label for="qField" class="block text-xs font-medium text-slate-300 mb-1">תחום לימודים מבוקש:</label>
-                        <select id="qField" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
+                        <label class="block text-xs font-medium text-slate-300 mb-1">תחום לימודים מבוקש:</label>
+                        <select id="qField" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
                             <option value="computers">מדעי המחשב / הנדסת תוכנה</option>
                             <option value="engineering">הנדסה (מכונות, חשמל וכו')</option>
                             <option value="business">ניהול עסקי ויזמות</option>
@@ -84,141 +88,86 @@
                 </div>
             </div>
 
-            <!-- נתוני קבלה אקדמיים -->
             <div class="bg-indigo-950/60 p-4 rounded-xl border border-indigo-500/40 space-y-3">
-                <h3 class="text-sm font-bold text-indigo-300">📊 נתוני קבלה אקדמיים (לסינון מוסדות לימוד מדויק):</h3>
-                
+                <h3 class="text-sm font-bold text-indigo-300">📊 נתוני קבלה אקדמיים:</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="qMatriculation" class="block text-xs font-medium text-slate-300 mb-1">ממוצע בגרות משוקלל (עם בונוסים):</label>
-                        <input type="number" id="qMatriculation" min="60" max="125" step="0.1" value="72" required 
-                            class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
+                        <label class="block text-xs font-medium text-slate-300 mb-1">ממוצע בגרות משוקלל (עם בונוסים):</label>
+                        <input type="number" id="qMatriculation" value="72" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
                     </div>
                     <div>
-                        <label for="qPsychometric" class="block text-xs font-medium text-slate-300 mb-1">ציון פסיכומטרי (או 0 אם ללא):</label>
-                        <input type="number" id="qPsychometric" min="0" max="800" step="1" value="552" required 
-                            class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
+                        <label class="block text-xs font-medium text-slate-300 mb-1">ציון פסיכומטרי (או 0 אם ללא):</label>
+                        <input type="number" id="qPsychometric" value="552" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                     <div>
-                        <label for="qMathUnits" class="block text-xs font-medium text-slate-300 mb-1">יחידות וציון במתמטיקה:</label>
-                        <select id="qMathUnits" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
+                        <label class="block text-xs font-medium text-slate-300 mb-1">יחידות וציון במתמטיקה:</label>
+                        <select id="qMathUnits" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
                             <option value="5-90">5 יחידות (ציון 90+)</option>
-                            <option value="5-80">5 יחידות (ציון 80-89)</option>
-                            <option value="5-70">5 יחידות (ציון 70-79)</option>
-                            <option value="4-85">4 יחידות (ציון 85+)</option>
-                            <option value="4-70">4 יחידות (ציון 70-84)</option>
                             <option value="3" selected>3 יחידות / אחר</option>
                         </select>
                     </div>
                     <div>
-                        <label for="qPhysicsUnits" class="block text-xs font-medium text-slate-300 mb-1">היקף פיזיקה / מקצוע מדעי מוגבר:</label>
-                        <select id="qPhysicsUnits" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:outline-none focus:border-indigo-500">
-                            <option value="5-physics">5 יחידות פיזיקה</option>
-                            <option value="4-physics">4 יחידות פיזיקה / מדעי המחשב מוגבר</option>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">היקף פיזיקה / מקצוע מדעי מוגבר:</label>
+                        <select id="qPhysicsUnits" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
                             <option value="none" selected>ללא פיזיקה מוגברת</option>
                         </select>
                     </div>
                 </div>
             </div>
 
-            <!-- כפתור הגשה -->
             <div class="text-center pt-4">
-                <button onclick="processQuestionnaire()" class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-bold rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5">
+                <button onclick="processQuestionnaire()" class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white font-bold rounded-xl shadow-lg">
                     הפק אבחון ונתוני קבלה מקצועיים
                 </button>
             </div>
         </div>
 
-        <!-- מסך 3: תוצאות אבחון (מוסתר בהתחלה) -->
+        <!-- מסך 3: תוצאות -->
         <div id="results-view" class="hidden space-y-6 pt-4 border-t border-slate-800 mt-6">
             <h2 class="text-2xl font-bold text-cyan-300">תוצאות אבחון משוקלל וסיכויי קבלה:</h2>
-            
-            <div id="summary-metrics" class="bg-slate-800/60 p-4 rounded-xl border border-slate-700 text-sm leading-relaxed text-slate-300">
-                <!-- נתונים מסוכמים -->
-            </div>
-
-            <div id="eligibility-box" class="p-4 rounded-xl border text-sm font-medium">
-                <!-- סטטוס קבלה והמלצה מקצועית -->
-            </div>
-
-            <!-- רשימת מוסדות לימוד (תוצג רק אם עומד בסף) -->
+            <div id="summary-metrics" class="bg-slate-800/60 p-4 rounded-xl border border-slate-700 text-sm text-slate-300"></div>
+            <div id="eligibility-box" class="p-4 rounded-xl border text-sm font-medium"></div>
             <div id="institutions-container" class="space-y-4">
                 <h3 class="text-lg font-bold text-cyan-200">מוסדות לימוד מומלצים באזורך:</h3>
                 <div class="p-4 bg-slate-800 border border-slate-700 rounded-xl">
-                    <h4 class="font-bold text-white">אוניברסיטת תל אביב</h4>
-                    <p class="text-xs text-slate-400">מדעי המחשב / מדעים מדויקים</p>
-                </div>
-                <div class="p-4 bg-slate-800 border border-slate-700 rounded-xl">
                     <h4 class="font-bold text-white">המכללה האקדמית תל אביב-יפו</h4>
-                    <p class="text-xs text-slate-400">מדעי המחשב ומערכות מידע</p>
                 </div>
             </div>
-
             <div class="text-center pt-4">
-                <button onclick="resetForm()" class="px-6 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold rounded-lg transition-all">
-                    חזרה לשאלון ותיקון נתונים
-                </button>
+                <button onclick="resetForm()" class="px-6 py-2 bg-slate-800 text-slate-300 text-sm font-semibold rounded-lg">חזרה לשאלון ותיקון נתונים</button>
             </div>
         </div>
-
     </div>
 
-    <!-- לוגיקת ה-JavaScript -->
     <script>
         function handleLogin() {
             const name = document.getElementById('userName').value.trim();
-            if (!name) {
-                alert('נא להכניס שם מלא');
-                return;
-            }
+            if (!name) { alert('נא להכניס שם מלא'); return; }
             document.getElementById('welcome-user-msg').innerText = `שלום, ${name}. אנא מלא את נתוניך לבדיקת התאמה:`;
             document.getElementById('login-view').classList.add('hidden');
             document.getElementById('questionnaire-view').classList.remove('hidden');
         }
 
         function processQuestionnaire() {
-            const age = parseInt(document.getElementById('qAge').value) || 23;
-            const field = document.getElementById('qField').value;
             const mat = parseFloat(document.getElementById('qMatriculation').value) || 72;
             const psycho = parseInt(document.getElementById('qPsychometric').value) || 552;
+            const field = document.getElementById('qField').value;
             const mathUnits = document.getElementById('qMathUnits').value;
-
-            const calculatedSack = Math.round((mat * 3.5) + (psycho * 0.4));
-
-            let fieldNameHeb = "מדעי המחשב / הנדסת תוכנה";
-            if (field === 'engineering') fieldNameHeb = "הנדסה";
-            if (field === 'business') fieldNameHeb = "ניהול עסקי ויזמות";
-            if (field === 'education') fieldNameHeb = "חינוך והוראה";
-
-            document.getElementById('summary-metrics').innerHTML = `
-                <p><strong>גיל:</strong> ${age}</p>
-                <p><strong>סטטוס בגרויות:</strong> ממוצע משוקלל: ${mat}</p>
-                <p><strong>פסיכומטרי:</strong> ${psycho}</p>
-                <p><strong>ציון סכם אקדמי משוכלל:</strong> ${calculatedSack}</p>
-                <p><strong>תחום מבוקש:</strong> ${fieldNameHeb}</p>
-            `;
-
+            
+            document.getElementById('summary-metrics').innerHTML = `<p><strong>בגרויות:</strong> ${mat} | <strong>פסיכומטרי:</strong> ${psycho}</p>`;
+            
             const eligibilityBox = document.getElementById('eligibility-box');
             const institutionsContainer = document.getElementById('institutions-container');
 
-            const [mathLevel] = mathUnits.split('-');
-            const isMathLow = (mathLevel === '3' || mathLevel === '4');
-
-            // בדיקת סף קבלה מחמירה למדעי המחשב והנדסה
-            if ((field === 'computers' || field === 'engineering') && (mat < 90 || psycho < 580 || isMathLow)) {
+            if ((field === 'computers' || field === 'engineering') && (mat < 90 || psycho < 580 || mathUnits === '3')) {
                 eligibilityBox.className = 'p-4 rounded-xl border text-sm font-medium bg-rose-950/40 border-rose-500/40 text-rose-200 whitespace-pre-line';
-                eligibilityBox.innerText = '❌ נתוני הפתיחה אינם עומדים בתנאי הסף לקבלה ישירה לתואר ראשון במדעי המחשב או בהנדסה (נדרש שילוב גבוה יותר של בגרות, פסיכומטרי ומתמטיקה מוגברת).\n\n💡 המלצת יועץ מקצועית:\n1. מכינה קדם-אקדמית ייעודית (מדעית / הנדסית) לשיפור ציונים ובגרויות.\n2. לימודי הנדסאי (תוכנה / אלקטרוניקה) המותאמים לתנאי קבלה גמישים יותר.';
-                
-                // הסתרת רשימת האוניברסיטאות
+                eligibilityBox.innerText = '❌ נתוני הפתיחה אינם עומדים בתנאי הסף לקבלה ישירה לתואר ראשון.\n\n💡 המלצת יועץ מקצועית:\n1. מכינה קדם-אקדמית ייעודית.\n2. לימודי הנדסאי.';
                 institutionsContainer.classList.add('hidden');
             } else {
                 eligibilityBox.className = 'p-4 rounded-xl border text-sm font-medium bg-emerald-950/40 border-emerald-500/40 text-emerald-200';
-                eligibilityBox.innerText = '✅ נתוני הקבלה תואמים את תנאי הסף הראשוניים למסלולים המבוקשים.';
-                
-                // הצגת רשימת האוניברסיטאות
+                eligibilityBox.innerText = '✅ נתוני הקבלה תואמים את תנאי הסף הראשוניים.';
                 institutionsContainer.classList.remove('hidden');
             }
 
@@ -228,7 +177,8 @@
 
         function resetForm() {
             document.getElementById('results-view').classList.add('hidden');
-            document.getElementById('questionnaire-view').classList.remove('hidden');
+            document.getElementById('questionnaire-view').classList.add('hidden');
+            document.getElementById('login-view').classList.remove('hidden');
         }
     </script>
 </body>
