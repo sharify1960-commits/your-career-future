@@ -284,7 +284,7 @@
             if (target) target.classList.remove('hidden');
         }
 
-        // פונקציית התחברות (מתקנת את הבעיה ומעבירה מסך)
+        // פונקציית התחברות
         function startSimulation() {
             const name = document.getElementById('userName').value.trim();
             const id = document.getElementById('userId').value.trim();
@@ -295,7 +295,6 @@
                 return;
             }
 
-            // בדיקת כניסת אדמין (ניתן להתאים לפי הצורך)
             if (id === '123456789' && pass === 'admin123') {
                 isTestMode = true;
                 document.getElementById('test-mode-banner').classList.remove('hidden');
@@ -311,12 +310,69 @@
 
         function toggleBagrutFields() {            
             const eduStatus = document.getElementById('qEducationStatus').value;            
-            // לוגיקה נוספת לעדכון שדות בגרות לפי הצורך
         }
 
+        // פונקציית חישוב הציונים והצגת ההמלצות
         function submitQuestionnaire(event) {
             event.preventDefault();
-            // כאן יתבצע חישוב התוצאות והמעבר למסך התוצאות
+
+            const age = parseInt(document.getElementById('qAge').value) || 25;
+            const bagrut = parseFloat(document.getElementById('qBagrutAvg').value) || 85;
+            const mathUnits = parseInt(document.getElementById('qMathUnits').value) || 0;
+            const mathGrade = parseFloat(document.getElementById('qMathGrade').value) || 0;
+            const psychometric = parseInt(document.getElementById('qPsychometric').value) || 500;
+            const city = document.getElementById('qCity').value;
+
+            // איסוף תחומי עניין שנבחרו
+            const selectedInterests = Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(cb => cb.value);
+
+            // חישוב ציון סכם משוער (לדוגמה: שקלול בגרויות, פסיכומטרי ומתמטיקה)
+            let estimatedScore = Math.round((bagrut * 0.4) + (psychometric * 0.08) + (mathGrade ? mathGrade * 0.12 : 10));
+
+            // סיכום נתונים
+            const summaryHTML = `
+                <div class="space-y-2">
+                    <p class="font-bold text-cyan-300">📊 סיכום הנתונים האישיים שלך:</p>
+                    <ul class="list-disc list-inside text-slate-300 space-y-1">
+                        <li>גיל: <span class="text-white font-semibold">${age}</span></li>
+                        <li>ממוצע בגרויות / מכינה: <span class="text-white font-semibold">${bagrut}</span></li>
+                        <li>מתמטיקה: <span class="text-white font-semibold">${mathUnits} יחידות (ציון: ${mathGrade || 'לא צוין'})</span></li>
+                        <li>פסיכומטרי: <span class="text-white font-semibold">${psychometric}</span></li>
+                        <li>ציון סכם משוער מותאם: <span class="text-emerald-400 font-bold">${estimatedScore}</span></li>
+                    </ul>
+                </div>
+            `;
+            document.getElementById('results-summary').innerHTML = summaryHTML;
+
+            // בניית המלצות תארים דינמיות
+            let recommendationsHTML = `<h3 class="text-lg font-bold text-indigo-300">🎯 מסלולי לימוד ותארים מומלצים עבורך:</h3><div class="grid grid-cols-1 gap-4">`;
+
+            if (selectedInterests.includes('computers') || mathUnits >= 4) {
+                recommendationsHTML += `
+                    <div class="bg-slate-900/80 p-4 rounded-xl border border-cyan-500/40 space-y-2">
+                        <div class="flex justify-between items-center"><h4 class="font-bold text-cyan-300">מדעי המחשב ופיתוח תוכנה (AI & Software)</h4><span class="bg-cyan-500/20 text-cyan-300 text-xs px-2.5 py-1 rounded-full">התאמה גבוהה 🚀</span></div>
+                        <p class="text-xs text-slate-300">מסלול המוביל לתעשיית ההייטק עם דגש על פיתוח מערכות מבוססות בינה מלאכותית.</p>
+                    </div>`;
+            }
+
+            if (selectedInterests.includes('engineering') || mathUnits >= 4) {
+                recommendationsHTML += `
+                    <div class="bg-slate-900/80 p-4 rounded-xl border border-indigo-500/40 space-y-2">
+                        <div class="flex justify-between items-center"><h4 class="font-bold text-indigo-300">הנדסת חשמל ומערכות בקרה</h4><span class="bg-indigo-500/20 text-indigo-300 text-xs px-2.5 py-1 rounded-full">התאמה טובה ⚡</span></div>
+                        <p class="text-xs text-slate-300">משלב מתמטיקה, פיזיקה והנדסה מעשית. מתאים במיוחד לבוגרי 4-5 יחידות מתמטיקה.</p>
+                    </div>`;
+            }
+
+            recommendationsHTML += `
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-amber-500/40 space-y-2">
+                    <div class="flex justify-between items-center"><h4 class="font-bold text-amber-300">מנהל עסקים וניהול טכנולוגיה</h4><span class="bg-amber-500/20 text-amber-300 text-xs px-2.5 py-1 rounded-full">התאמה גמישה 📈</span></div>
+                    <p class="text-xs text-slate-300">שילוב בין ניהול ארגוני, שיווק וכלכלה בעידן הדיגיטלי. תנאי קבלה גמישים ונגישים.</p>
+                </div>
+            </div>`;
+
+            document.getElementById('recommendations-container').innerHTML = recommendationsHTML;
+
+            // מעבר למסך תוצאות
             openView('results-view');
         }
     </script>
