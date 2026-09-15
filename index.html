@@ -66,28 +66,28 @@ function renderEnhancedResults(data, age, profession, fields) {
 
     if (pivotContainer && recs) {
         var coursesList = recs.courses.map(function(c) { 
-            return '<li class="mb-1"><strong>' + c + '</strong></li>'; 
+            return `<li class="mb-1"><strong>${c}</strong></li>`; 
         }).join('');
 
         var questionsList = recs.whatToAsk.map(function(q) { 
-            return '<li class="mb-1">"' + q + '"</li>'; 
+            return `<li class="mb-1">"${q}"</li>`; 
         }).join('');
 
-        pivotContainer.innerHTML = 
-            '<h3 class="text-lg font-bold text-cyan-300 mb-2">🤖 תוכנית פעולה מומלצת וממוקדת מול מוסד הלימודים</h3>' +
-            '<div class="space-y-3 text-xs md:text-sm text-slate-200">' +
-                '<div class="bg-slate-900/80 p-3 rounded-lg border border-cyan-500/30">' +
-                    '<span class="font-bold text-cyan-400 block mb-1">🎓 מסלול הלימודים הראשי המומלץ:</span>' +
-                    '<p>' + recs.degreeTrack + '</p>' +
-                '</div>' +
-                '<div class="bg-slate-900/80 p-3 rounded-lg border border-indigo-500/30">' +
-                    '<span class="font-bold text-indigo-300 block mb-1">📘 קורסי AI ממוקדים שמומלץ לדרוש:</span>' +
-                    '<ul class="list-disc list-inside space-y-1 text-slate-300">' + coursesList + '</ul>' +
-                '</div>' +
-                '<div class="bg-slate-900/80 p-3 rounded-lg border border-amber-500/30">' +
-                    '<span class="font-bold text-amber-300 block mb-1">💬 מה בדיוק לבקש מיועץ הלימודים במוסד:</span>' +
-                    '<ul class="list-disc list-inside space-y-1 text-slate-300">' + questionsList + '</ul>' +
-                '</div>' +
-            '</div>';
+        pivotContainer.innerHTML = `
+            <h3 class="text-lg font-bold text-cyan-300 mb-2">🤖 תוכנית פעולה מומלצת וממוקדת מול מוסד הלימודים</h3>
+            <div class="space-y-3 text-xs md:text-sm text-slate-200">
+                <div class="bg-slate-900/80 p-3 rounded-lg border border-cyan-500/30">
+                    <span class="font-bold text-cyan-400 block mb-1">🎓 מסלול הלימודים הראשי המומלץ:</span>
+                    <p>${recs.degreeTrack}</p>
+                </div>
+                <div class="bg-slate-900/80 p-3 rounded-lg border border-indigo-500/30">
+                    <span class="font-bold text-indigo-300 block mb-1">📘 קורסי AI ממוקדים שמומלץ לדרוש:</span>
+                    <ul class="list-disc list-inside space-y-1 text-slate-300">${coursesList}</ul>
+                </div>
+                <div class="bg-slate-900/80 p-3 rounded-lg border border-amber-500/30">
+                    <span class="font-bold text-amber-300 block mb-1">💬 מה בדיוק לבקש מיועץ הלימודים במוסד:</span>
+                    <ul class="list-disc list-inside space-y-1 text-slate-300">${questionsList}</ul>
+                </div>
+            </div>`;
     }
 }
