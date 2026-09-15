@@ -44,7 +44,7 @@
             <h1 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">                
                 העתיד שלך מתחיל בבחירה חכמה            </h1>            
             <p class="text-slate-300 text-sm md:text-base">                
-                סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים והשפעת AI.            </h1>        
+                סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים והשפעת AI.            </p>        
         </div>
         <div class="space-y-4 pt-2">            
             <div>                
@@ -136,7 +136,7 @@
                         <option value="highschool">בוגר 12 שנות לימוד</option>                        
                         <option value="mechina_academic">בוגר מכינה אקדמית</option>                        
                         <option value="mechina_tech">בוגר מכינה טכנולוגית</option>
-                        <option value="student_highschool">תלמיד תיכון (כיתה י"א-י"ب)</option>
+                        <option value="student_highschool">תלמיד תיכון (כיתה י"א-י"ב)</option>
                         <option value="student_academic">סטודנט פעיל במוסד אקדמי אחר</option>
                         <option value="academic_degree" selected>בעל תואר אקדמי קודם</option>
                         <option value="industry_pro">עובד בתעשייה / נסיון מקצועי מעשי</option>
@@ -217,7 +217,7 @@
 
         <div id="recommendations-container" class="space-y-6"></div>
         
-        <!-- אזור הפניה למוסדות לימוד (מתוקן עם הקישורים הנכונים) -->
+        <!-- אזור הפניה למוסדות לימוד -->
         <div id="institutions-db-section" class="bg-slate-900/80 p-5 rounded-xl border border-cyan-500/40 space-y-3">
             <h3 class="text-base font-bold text-cyan-300">🏛️ הפניה למוסדות לימוד מומלצים באזור הנבחר (InstitutionsDB)</h3>
             <p class="text-xs text-slate-300">בהתאם לאזור שבחרת ולנתונים שלך, להלן מוסדות הלימוד המובילים והקישורים הישירים שלהם:</p>
@@ -297,7 +297,7 @@
             alert('נתוני הכניסות אופסו בהצלחה.');
         }
 
-        // פונקציה לייצור קישורי מוסדות לימוד דינמית (עם הקישור הנכון למכללת הדסה ולשאר המוסדות)
+        // פונקציה לייצור קישורי מוסדות לימוד דינמית (כולל הקישור המעודכן למכללת הדסה)
         function renderInstitutionLinks(city) {
             const container = document.getElementById('institutions-links-container');
             if (!container) return;
@@ -312,7 +312,7 @@
                     <a href="https://www.jce.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
                         ⚡ מכללת עזריאלי להנדסה
                     </a>
-                    <a href="https://www.hadassah.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                    <a href="https://www.jmc.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
                         🎓 המכללה האקדמית הדסה
                     </a>
                 `;
