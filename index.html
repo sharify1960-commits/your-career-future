@@ -44,7 +44,7 @@
             <h1 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">                
                 העתיד שלך מתחיל בבחירה חכמה            </h1>            
             <p class="text-slate-300 text-sm md:text-base">                
-                סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים והשפעת AI.            </p>        
+                סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים והשפעת AI.            </h1>        
         </div>
         <div class="space-y-4 pt-2">            
             <div>                
@@ -348,17 +348,45 @@
             container.innerHTML = linksHTML;
         }
 
-        // סימולציית הגשת שאלון והצגת קישורים בהתאם לבחירת העיר
+        // סימולציית הגשת שאלון, חישוב נתונים והצגת התוצאות המלאות
         function submitQuestionnaire(event) {
             event.preventDefault();
-            const city = document.getElementById('qCity').value;
             
-            // הצגת סיכום לדוגמה
+            const age = document.getElementById('qAge').value;
+            const profession = document.getElementById('qCurrentProfession').value;
+            const bagrut = parseFloat(document.getElementById('qBagrutAvg').value) || 90;
+            const psychometric = parseFloat(document.getElementById('qPsychometric').value) || 550;
+            const city = document.getElementById('qCity').value;
+
+            // חישוב סכם משוער
+            const calculatedSakam = Math.round((bagrut * 0.4) + (psychometric * 0.08) + 150);
+
+            // 1. סיכום נתונים ראשוני
             document.getElementById('results-summary').innerHTML = `
-                <p class="text-cyan-300 font-bold">נתוניך שוקללו בהצלחה במערכת.</p>
-                <p class="text-slate-300 mt-1">נמצאו מסלולים מתאימים עבורך באזור הנבחר.</p>
+                <p class="text-cyan-300 font-bold">נתוניך שוקללו בהצלחה במערכת האבחון.</p>
+                <p class="text-slate-300 mt-1">ציון הסכם המשוער שחושב על בסיס ממוצע הבגרויות והפסיכומטרי הינו: <strong class="text-amber-300">${calculatedSakam}</strong>.</p>
             `;
             
+            // 2. המלצת שינוי מגמה מול סיכון AI
+            document.getElementById('ai-pivot-recommendation').innerHTML = `
+                <h3 class="text-sm font-bold text-indigo-300">🤖 ניתוח חוסן תעסוקתי וסיכון AI למקצוע: ${profession}</h3>
+                <p class="text-xs text-slate-300 leading-relaxed mt-1">
+                    המקצוע הנוכחי נמצא ברמת חשיפה בינונית-גבוהה לאוטומציה של בינה מלאכותית. מומלץ לשלב כלים מתקדמים או לבצע התאמה למסלולי ניהול, ייעוץ אסטרטגי או פיתוח טכנולוגי המשלבים הבנה אנושית עמוקה לצד מערכות AI.
+                </p>
+            `;
+
+            // 3. הצגת מסלולי לימוד מומלצים
+            document.getElementById('recommendations-container').innerHTML = `
+                <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 space-y-2">
+                    <h3 class="text-sm font-bold text-emerald-300">✨ מסלול מומלץ 1: מערכות מידע וניהול טכנולוגי</h3>
+                    <p class="text-xs text-slate-300">התאמה גבוהה לנתונים שלך, משלב ניתוח נתונים, כלדאות עסקית ויישום מערכות AI מתקדמות בשוק העבודה.</p>
+                </div>
+                <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 space-y-2">
+                    <h3 class="text-sm font-bold text-cyan-300">✨ מסלול מומלץ 2: ניתוח נתונים ואנליטיקה פיננסית</h3>
+                    <p class="text-xs text-slate-300">מתאים מאוד לרקע קודם, מאפשר שדרוג שכר משמעותי והשתלבות בחברות המובילות במשק.</p>
+                </div>
+            `;
+
             // קריאה לפונקציית הצגת הקישורים המתוקנים
             renderInstitutionLinks(city);
             
