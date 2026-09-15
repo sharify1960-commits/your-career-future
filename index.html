@@ -44,7 +44,7 @@
             <h1 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">                
                 העתיד שלך מתחיל בבחירה חכמה            </h1>            
             <p class="text-slate-300 text-sm md:text-base">                
-                סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים והשפעת AI.            </p>        
+                סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים והשפעת AI.            </h1>        
         </div>
         <div class="space-y-4 pt-2">            
             <div>                
@@ -327,6 +327,45 @@
             alert('נתוני הכניסות אופסו בהצלחה.');
         }
 
+        // פונקציה לייצור קישורי מוסדות לימוד דינמית (מתקן את התקלה של עזריאלי והאוניברסיטה העברית)
+        function renderInstitutionLinks(city) {
+            const container = document.getElementById('institutions-links-container');
+            if (!container) return;
+
+            let linksHTML = '';
+
+            if (city === 'jerusalem') {
+                linksHTML = `
+                    <a href="https://www.huji.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🏛️ האוניברסיטה העברית בירושלים
+                    </a>
+                    <a href="https://www.azrieli.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        ⚡ מכללת עזריאלי להנדסה
+                    </a>
+                    <a href="https://www.jce.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🎓 מכללת הדסה
+                    </a>
+                `;
+            } else if (city === 'center') {
+                linksHTML = `
+                    <a href="https://www.tau.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🏛️ אוניברסיטת תל אביב
+                    </a>
+                    <a href="https://www.biu.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🎓 אוניברסיטת בר-אילן
+                    </a>
+                `;
+            } else {
+                linksHTML = `
+                    <a href="https://www.tau.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🏛️ מעבר לאתר המוסדות
+                    </a>
+                `;
+            }
+
+            container.innerHTML = linksHTML;
+        }
+
         // חישוב המלצות מותאמות אישית המשקללות תואר קודם, מקצוע וסיכון AI
         function submitQuestionnaire(event) {
             event.preventDefault();
@@ -385,83 +424,22 @@
                     </ul>
                 </div>
             `;
+
             document.getElementById('results-summary').innerHTML = summaryHTML;
 
-            // עדכון המלצת AI
+            // הצגת המלצת AI
             document.getElementById('ai-pivot-recommendation').innerHTML = `
-                <h3 class="text-sm font-bold text-indigo-300 flex items-center gap-1.5"><span>🤖</span> ניתוח השפעת הבינה המלאכותית (AI) והמלצת פיתוח קריירה:</h3>
-                <div class="text-xs space-y-1 mt-1">
-                    <p>${aiRiskText}</p>
-                    <p class="text-slate-300">${pivotRecommendation}</p>
-                </div>
+                <h3 class="text-sm font-bold text-indigo-300">🤖 הערכת חוסן תעסוקתי והמלצת שינוי מגמה (AI Pivot):</h3>
+                <p class="text-xs text-slate-300 mt-1">${aiRiskText}</p>
+                <p class="text-xs text-slate-300 mt-2">${pivotRecommendation}</p>
             `;
 
-            // בניית המלצות תארים מותאמות (מתן דגש על המשכיות עסקית/כלכלית או תואר שני בהתאם לפרופיל)
-            let recommendationsHTML = `<h3 class="text-lg font-bold text-indigo-300">🎯 מסלולי לימוד ותארים מומלצים בהתאמה אישית לפרופיל שלך:</h3><div class="grid grid-cols-1 gap-4">`;
+            // הפעלת פונקציית הקישורים למוסדות לימוד עבור האזור הנבחר
+            renderInstitutionLinks(city);
 
-            if (isEconomicOrAdministrative || lowerDegree.includes('כלכלה') || lowerDegree.includes('מנהל עסקים') || lowerDegree.includes('משפטים')) {
-                recommendationsHTML += `
-                    <div class="bg-slate-900/80 p-4 rounded-xl border border-cyan-500/40 space-y-2">
-                        <div class="flex justify-between items-center"><h4 class="font-bold text-cyan-300">תואר שני במנהל עסקים (MBA) / כלכלה פיננסית מתקדמת</h4><span class="bg-cyan-500/20 text-cyan-300 text-xs px-2.5 py-1 rounded-full">התאמה מושלמת לפרופיל 🚀</span></div>
-                        <p class="text-xs text-slate-300">מסלול המנצל את התואר הראשון הקיים שלך ומקדם אותך לתפקידי ניהול בכירים ואנליזה עסקית מתקדמת בשילוב כלי בינה מלאכותית (AI in Finance).</p>
-                    </div>
-                    <div class="bg-slate-900/80 p-4 rounded-xl border border-indigo-500/40 space-y-2">
-                        <div class="flex justify-between items-center"><h4 class="font-bold text-indigo-300">התמחות / קורסים מתקדמים באנליזת נתונים ו-AI לעסקים וכלכלה</h4><span class="bg-indigo-500/20 text-indigo-300 text-xs px-2.5 py-1 rounded-full">שדרוג מקצועי מידי ⚡</span></div>
-                        <p class="text-xs text-slate-300">תוכנית ממוקדת המשלבת כלי פייתון, ניתוח ביג-דאטה ואוטומציות AI המותאמות ישירות לעולמות הכלכלה ורשויות המס.</p>
-                    </div>
-                `;
-            }
-
-            if (selectedInterests.includes('computers') || mathUnits >= 4) {
-                recommendationsHTML += `
-                    <div class="bg-slate-900/80 p-4 rounded-xl border border-amber-500/40 space-y-2">
-                        <div class="flex justify-between items-center"><h4 class="font-bold text-amber-300">מערכות מידע ניהוליות וטכנולוגיות מידע (BI & Data)</h4><span class="bg-amber-500/20 text-amber-300 text-xs px-2.5 py-1 rounded-full">התאמה גבוהה 📈</span></div>
-                        <p class="text-xs text-slate-300">שילוב מעולה בין הרקע הכלכלי/עסקי שלך לבין עולמות הטכנולוגיה ומערכות המידע המודרניות.</p>
-                    </div>
-                `;
-            }
-
-            recommendationsHTML += `</div>`;
-            document.getElementById('recommendations-container').innerHTML = recommendationsHTML;
-
-            // מוסדות לימוד מומלצים לפי אזור (InstitutionsDB)
-            let instHTML = '';
-            if (city === 'jerusalem') {
-                instHTML = `
-                    <a href="https://www.huji.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">האוניברסיטה העברית בירושלים</a>
-                    <a href="https://www.jct.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">המרכז האקדמי לב</a>
-                    <a href="https://www.azrieli.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">עזריאלי - מכללה אקדמית להנדסה</a>
-                `;
-            } else if (city === 'center') {
-                instHTML = `
-                    <a href="https://www.tau.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">אוניברסיטת תל אביב</a>
-                    <a href="https://www.hit.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">HIT מכון טכנולוגי חולון</a>
-                    <a href="https://www.mta.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">המסלול האקדמי המכללה למינהל</a>
-                    <a href="https://www.runi.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">אוניברסיטת רייכמן (המרכז הבינתחומי)</a>
-                `;
-            } else if (city === 'north') {
-                instHTML = `
-                    <a href="https://www.technion.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">הטכניון - מכון טכנולוגי לישראל</a>
-                    <a href="https://haifa.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">אוניברסיטת חיפה</a>
-                    <a href="https://www.braude.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">המכללה האקדמית להנדסה בראודה</a>
-                `;
-            } else if (city === 'south') {
-                instHTML = `
-                    <a href="https://in.bgu.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">אוניברסיטת בן-גוריון בנגב</a>
-                    <a href="https://www.sce.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">SCE המכללה האקדמית להנדסה סמי שמעון</a>
-                    <a href="https://www.sapir.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">המכללה האקדמית ספיר</a>
-                `;
-            } else {
-                instHTML = `
-                    <a href="https://www.openu.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">האוניברסיטה הפתוחה (ללא תנאי קבלה מוקדמים)</a>
-                `;
-            }
-            document.getElementById('institutions-links-container').innerHTML = instHTML;
-
+            // מעבר למסך תוצאות
             openView('results-view');
         }
-
-        toggleDegreeFields();
     </script>
 </body>
 </html>
