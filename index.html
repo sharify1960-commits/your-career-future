@@ -3,13 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Career Future</title>
+    <title>העתיד המקצועי שלך</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-950 text-white min-h-screen p-4">
+<body class="bg-slate-950 text-white min-h-screen p-4 md:p-8 flex flex-col items-center justify-center">
 
-    <!-- אזור הצגת התוצאות -->
-    <div id="ai-pivot-recommendation" class="max-w-2xl mx-auto my-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800"></div>
+    <div class="max-w-2xl w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl">
+        <h1 class="text-2xl font-bold text-cyan-400 mb-6 text-center">אבחון ומכוון קריירה לימודי</h1>
+        
+        <!-- טופס קלט -->
+        <form id="career-form" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-1">השכלה נוכחית:</label>
+                <select id="status-field" class="w-full p-2.5 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:ring-2 focus:ring-cyan-500">
+                    <option value="high_school">תיכונית / ללא תואר</option>
+                    <option value="academic_degree">בעל תואר אקדמי</option>
+                    <option value="practical_engineer">הנדסאי</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">גיל:</label>
+                <input type="number" id="age-field" value="30" min="16" max="100" class="w-full p-2.5 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:ring-2 focus:ring-cyan-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">מקצוע / תחום עיסוק נוכחי:</label>
+                <input type="text" id="profession-field" placeholder="למשל: מנהל חשבונות, איש מכירות..." class="w-full p-2.5 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:ring-2 focus:ring-cyan-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-2">תחומי עניין מועדפים:</label>
+                <div class="grid grid-cols-2 gap-2 text-sm">
+                    <label class="flex items-center space-x-2 space-x-reverse bg-slate-800 p-2 rounded-lg cursor-pointer hover:bg-slate-700">
+                        <input type="checkbox" name="fields" value="הייטק ותוכנה" class="rounded text-cyan-500 focus:ring-cyan-500" checked>
+                        <span>הייטק ותוכנה</span>
+                    </label>
+                    <label class="flex items-center space-x-2 space-x-reverse bg-slate-800 p-2 rounded-lg cursor-pointer hover:bg-slate-700">
+                        <input type="checkbox" name="fields" value="כלכלה ופיננסים" class="rounded text-cyan-500 focus:ring-cyan-500">
+                        <span>כלכלה ופיננסים</span>
+                    </label>
+                    <label class="flex items-center space-x-2 space-x-reverse bg-slate-800 p-2 rounded-lg cursor-pointer hover:bg-slate-700">
+                        <input type="checkbox" name="fields" value="ניהול ועסקים" class="rounded text-cyan-500 focus:ring-cyan-500">
+                        <span>ניהול ועסקים</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-lg transition-colors mt-6">
+                צור תוכנית פעולה מותאמת אישית
+            </button>
+        </form>
+
+        <!-- אזור התוצאות - מוסתר כברירת מחדל -->
+        <div id="ai-pivot-recommendation" class="hidden mt-8 p-4 rounded-xl bg-slate-900/90 border border-slate-800 shadow-lg"></div>
+    </div>
 
     <script>
     function generateSpecificRecommendations(data) {
@@ -91,15 +139,30 @@
                     '<ul class="list-disc list-inside space-y-1 text-slate-300">' + questionsList + '</ul>' +
                 '</div>' +
             '</div>';
+
+        pivotContainer.classList.remove("hidden");
     }
 
-    // הפעלה בטוחה רק לאחר טעינה מלאה של הדף
     document.addEventListener("DOMContentLoaded", function() {
-        renderEnhancedResults({
-            status: 'academic_degree',
-            age: 35,
-            fields: ['הייטק ותוכנה']
-        });
+        var form = document.getElementById("career-form");
+        if (form) {
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+                
+                var selectedFields = Array.from(document.querySelectorAll('input[name="fields"]:checked')).map(function(el) { 
+                    return el.value; 
+                });
+
+                var formData = {
+                    status: document.getElementById("status-field") ? document.getElementById("status-field").value : "",
+                    age: document.getElementById("age-field") ? document.getElementById("age-field").value : 0,
+                    profession: document.getElementById("profession-field") ? document.getElementById("profession-field").value : "",
+                    fields: selectedFields
+                };
+
+                renderEnhancedResults(formData);
+            });
+        }
     });
     </script>
 </body>
