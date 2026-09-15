@@ -1,74 +1,72 @@
-<script>
-function generateSpecificRecommendations(data, ageParam, professionParam, fieldsParam) {
-    var status = "";
-    var age = 0;
-    var profession = "";
-    var fields = [];
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Career Future</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-white min-h-screen p-4">
 
-    if (typeof data === "object" && data !== null) {
-        status = data.status || data.education || data.degree || "";
-        age = parseInt(data.age || data.userAge || 0, 10);
-        profession = data.profession || data.job || "";
-        fields = data.fields || data.preferredFields || data.interests || [];
-    } else {
-        status = data || "";
-        age = parseInt(ageParam || 0, 10);
-        profession = professionParam || "";
-        fields = Array.isArray(fieldsParam) ? fieldsParam : [];
+    <!-- אזור הצגת התוצאות -->
+    <div id="ai-pivot-recommendation" class="max-w-2xl mx-auto my-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800"></div>
+
+    <script>
+    function generateSpecificRecommendations(data) {
+        var status = (data && data.status) || "";
+        var age = parseInt((data && data.age) || 0, 10);
+        var fields = (data && data.fields) || [];
+        if (typeof fields === 'string') fields = [fields];
+
+        var recs = {
+            courses: [],
+            degreeTrack: "",
+            whatToAsk: []
+        };
+
+        var fieldsStr = fields.join(" ");
+
+        if (fieldsStr.includes("הייטק") || fieldsStr.includes("תוכנה") || fieldsStr.includes("טכנולוגיה")) {
+            recs.courses.push("פיתוח יישומי AI ואינטגרציית LLM (Prompt Engineering & APIs)");
+            recs.courses.push("אוטומציה עסקית וכלי No-Code/Low-Code עם AI");
+        }
+        if (fieldsStr.includes("כלכלה") || fieldsStr.includes("פיננסים") || fieldsStr.includes("כספים")) {
+            recs.courses.push("ניתוח נתונים מתקדם וניבוי פיננסי באמצעות AI ו-Python");
+            recs.courses.push("מודלים של AI בקבלת החלטות פיננסיות");
+        }
+        if (fieldsStr.includes("ניהול") || fieldsStr.includes("עסקים")) {
+            recs.courses.push("ניהול מוצר וטרנספורמציה דיגיטלית בעידן ה-AI (AI Product Management)");
+        }
+
+        if (recs.courses.length === 0) {
+            recs.courses.push("יישום כלי GenAI לייעול תהליכי עבודה ופרודוקטיביות");
+            recs.courses.push("יסודות AI וניתוח נתונים יישומי");
+        }
+
+        if (status === "academic_degree" || status.includes("תואר") || status.includes("אקדמאי")) {
+            recs.degreeTrack = "תואר שני (M.Sc / MBA) בניהול טכנולוגיה ונתונים או תוכנית הסבה אקדמית מרוכזת (מבלי להתחיל תואר ראשון מאפס).";
+        } else if (age >= 30) {
+            recs.degreeTrack = "מסלול הנדסאים (הנדסאי תוכנה / תעשייה וניהול) - לימודי ערב מותאמים לעובדים או מכינת בוגרים (30+).";
+        } else {
+            recs.degreeTrack = "תואר ראשון מדעי/טכנולוגי (B.Sc / B.A במערכות מידע) או מסלול הנדסאים מואץ.";
+        }
+
+        var mainTrack = recs.degreeTrack.split("-")[0] || recs.degreeTrack;
+        recs.whatToAsk = [
+            "אני מבקש להירשם לקורס ממוקד בנושא: " + recs.courses[0],
+            "מהם תנאי הפטור או ההכרה בלימודים קודמים עבור מסלול: " + mainTrack.trim() + "?",
+            "האם התוכנית כוללת סדנאות מעשיות בשימוש בכלי AI עדכניים ופרויקט גמר יישומי לתעשייה?"
+        ];
+
+        return recs;
     }
 
-    if (typeof fields === "string") {
-        fields = [fields];
-    }
+    function renderEnhancedResults(data) {
+        var pivotContainer = document.getElementById("ai-pivot-recommendation");
+        if (!pivotContainer) return;
 
-    var recs = {
-        courses: [],
-        degreeTrack: "",
-        whatToAsk: []
-    };
+        var recs = generateSpecificRecommendations(data);
 
-    var fieldsStr = fields.join(" ");
-
-    if (fieldsStr.includes("הייטק") || fieldsStr.includes("תוכנה") || fieldsStr.includes("טכנולוגיה")) {
-        recs.courses.push("פיתוח יישומי AI ואינטגרציית LLM (Prompt Engineering & APIs)");
-        recs.courses.push("אוטומציה עסקית וכלי No-Code/Low-Code עם AI");
-    }
-    if (fieldsStr.includes("כלכלה") || fieldsStr.includes("פיננסים") || fieldsStr.includes("כספים")) {
-        recs.courses.push("ניתוח נתונים מתקדם וניבוי פיננסי באמצעות AI ו-Python");
-        recs.courses.push("מודלים של AI בקבלת החלטות פיננסיות");
-    }
-    if (fieldsStr.includes("ניהול") || fieldsStr.includes("עסקים")) {
-        recs.courses.push("ניהול מוצר וטרנספורמציה דיגיטלית בעידן ה-AI (AI Product Management)");
-    }
-
-    if (recs.courses.length === 0) {
-        recs.courses.push("יישום כלי GenAI לייעול תהליכי עבודה ופרודוקטיביות");
-        recs.courses.push("יסודות AI וניתוח נתונים יישומי");
-    }
-
-    if (status === "academic_degree" || status.includes("תואר") || status.includes("אקדמאי")) {
-        recs.degreeTrack = "תואר שני (M.Sc / MBA) בניהול טכנולוגיה ונתונים או תוכנית הסבה אקדמית מרוכזת (מבלי להתחיל תואר ראשון מאפס).";
-    } else if (age >= 30) {
-        recs.degreeTrack = "מסלול הנדסאים (הנדסאי תוכנה / תעשייה וניהול) - לימודי ערב מותאמים לעובדים או מכינת בוגרים (30+).";
-    } else {
-        recs.degreeTrack = "תואר ראשון מדעי/טכנולוגי (B.Sc / B.A במערכות מידע) או מסלול הנדסאים מואץ.";
-    }
-
-    var mainTrack = recs.degreeTrack.split("-")[0] || recs.degreeTrack;
-    recs.whatToAsk = [
-        "אני מבקש להירשם לקורס ממוקד בנושא: " + recs.courses[0],
-        "מהם תנאי הפטור או ההכרה בלימודים קודמים עבור מסלול: " + mainTrack.trim() + "?",
-        "האם התוכנית כוללת סדנאות מעשיות בשימוש בכלי AI עדכניים ופרויקט גמר יישומי לתעשייה?"
-    ];
-
-    return recs;
-}
-
-function renderEnhancedResults(data, age, profession, fields) {
-    var recs = generateSpecificRecommendations(data, age, profession, fields);
-    var pivotContainer = document.getElementById("ai-pivot-recommendation");
-
-    if (pivotContainer && recs) {
         var coursesList = recs.courses.map(function(c) { 
             return '<li class="mb-1"><strong>' + c + '</strong></li>'; 
         }).join("");
@@ -94,5 +92,15 @@ function renderEnhancedResults(data, age, profession, fields) {
                 '</div>' +
             '</div>';
     }
-}
-</script>
+
+    // הפעלה בטוחה רק לאחר טעינה מלאה של הדף
+    document.addEventListener("DOMContentLoaded", function() {
+        renderEnhancedResults({
+            status: 'academic_degree',
+            age: 35,
+            fields: ['הייטק ותוכנה']
+        });
+    });
+    </script>
+</body>
+</html>
