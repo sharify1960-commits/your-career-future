@@ -1,29 +1,49 @@
-function generateSpecificRecommendations(status, age, profession, preferredFields) {
+function generateSpecificRecommendations(data, ageParam, professionParam, fieldsParam) {
+    // חילוץ גמיש של הנתונים מכל סוג קלט (אובייקט או פרמטרים נפרדים)
+    let status = '', age = 0, profession = '', fields = [];
+
+    if (typeof data === 'object' && data !== null) {
+        status = data.status || data.education || data.degree || '';
+        age = parseInt(data.age || data.userAge || 0, 10);
+        profession = data.profession || data.job || '';
+        fields = data.fields || data.preferredFields || data.interests || [];
+    } else {
+        status = data || '';
+        age = parseInt(ageParam || 0, 10);
+        profession = professionParam || '';
+        fields = Array.isArray(fieldsParam) ? fieldsParam : [];
+    }
+
+    if (typeof fields === 'string') {
+        fields = [fields];
+    }
+
     let recs = {
         courses: [],
         degreeTrack: "",
         whatToAsk: []
     };
 
-    /* 1. קביעת קורסי AI לפי תחומי עניין */
-    if (preferredFields && preferredFields.includes('הייטק ותוכנה')) {
+    /* 1. קביעת קורסי AI ממוקדים */
+    if (fields.some(f => f.includes('הייטק') || f.includes('תוכנה') || f.includes('טכנולוגיה'))) {
         recs.courses.push("פיתוח יישומי AI ואינטגרציית LLM (Prompt Engineering & APIs)");
         recs.courses.push("אוטומציה עסקית וכלי No-Code/Low-Code עם AI");
     }
-    if (preferredFields && preferredFields.includes('כלכלה ופיננסים')) {
+    if (fields.some(f => f.includes('כלכלה') || f.includes('פיננסים') || f.includes('כספים'))) {
         recs.courses.push("ניתוח נתונים מתקדם וניבוי פיננסי באמצעות AI ו-Python");
         recs.courses.push("מודלים של AI בקבלת החלטות פיננסיות");
     }
-    if (preferredFields && preferredFields.includes('ניהול ועסקים')) {
+    if (fields.some(f => f.includes('ניהול') || f.includes('עסקים'))) {
         recs.courses.push("ניהול מוצר וטרנספורמציה דיגיטלית בעידן ה-AI (AI Product Management)");
     }
 
     if (recs.courses.length === 0) {
         recs.courses.push("יישום כלי GenAI לייעול תהליכי עבודה ופרודוקטיביות");
+        recs.courses.push("יסודות AI וניתוח נתונים יישומי");
     }
 
-    /* 2. קביעת מסלול אקדמי / מקצועי */
-    if (status === 'academic_degree') {
+    /* 2. קביעת מסלול לימודים ראשי */
+    if (status === 'academic_degree' || status.includes('תואר') || status.includes('אקדמאי')) {
         recs.degreeTrack = "תואר שני (M.Sc / MBA) בניהול טכנולוגיה ונתונים או תוכנית הסבה אקדמית מרוכזת (מבלי להתחיל תואר ראשון מאפס).";
     } else if (age >= 30) {
         recs.degreeTrack = "מסלול הנדסאים (הנדסאי תוכנה / תעשייה וניהול) - לימודי ערב מותאמים לעובדים או מכינת בוגרים (30+).";
@@ -32,30 +52,35 @@ function generateSpecificRecommendations(status, age, profession, preferredField
     }
 
     /* 3. שאלות ליועץ הלימודים */
-    var mainTrack = recs.degreeTrack.split('-')[0];
+    let mainTrack = recs.degreeTrack.split('-')[0] || recs.degreeTrack;
     recs.whatToAsk = [
         "אני מבקש להירשם לקורס ממוקד בנושא: " + recs.courses[0],
-        "מהם תנאי הפטור או ההכרה בלימודים קודמים עבור מסלול: " + mainTrack + "?",
+        "מהם תנאי הפטור או ההכרה בלימודים קודמים עבור מסלול: " + mainTrack.trim() + "?",
         "האם התוכנית כוללת סדנאות מעשיות בשימוש בכלי AI עדכניים ופרויקט גמר יישומי לתעשייה?"
     ];
 
     return recs;
 }
 
-function renderEnhancedResults(data) {
-    const recs = generateSpecificRecommendations(data.status, data.age, data.profession, data.fields);
+function renderEnhancedResults(data, age, profession, fields) {
+    const recs = generateSpecificRecommendations(data, age, profession, fields);
     const pivotContainer = document.getElementById('ai-pivot-recommendation');
-    
-    if (pivotContainer) {
-        const coursesList = recs.courses.map(function(c) { return '<li><strong>' + c + '</strong></li>'; }).join('');
-        const questionsList = recs.whatToAsk.map(function(q) { return '<li>"' + q + '"</li>'; }).join('');
+
+    if (pivotContainer && recs) {
+        const coursesList = (recs.courses || []).map(function(c) { 
+            return '<li class="mb-1"><strong>' + c + '</strong></li>'; 
+        }).join('');
+
+        const questionsList = (recs.whatToAsk || []).map(function(q) { 
+            return '<li class="mb-1">"' + q + '"</li>'; 
+        }).join('');
 
         pivotContainer.innerHTML = 
             '<h3 class="text-lg font-bold text-cyan-300 mb-2">🤖 תוכנית פעולה מומלצת וממוקדת מול מוסד הלימודים</h3>' +
             '<div class="space-y-3 text-xs md:text-sm text-slate-200">' +
                 '<div class="bg-slate-900/80 p-3 rounded-lg border border-cyan-500/30">' +
                     '<span class="font-bold text-cyan-400 block mb-1">🎓 מסלול הלימודים הראשי המומלץ:</span>' +
-                    '<p>' + recs.degreeTrack + '</p>' +
+                    '<p>' + (recs.degreeTrack || 'מסלול הנדסאים / תואר אקדמי מותאם') + '</p>' +
                 '</div>' +
                 '<div class="bg-slate-900/80 p-3 rounded-lg border border-indigo-500/30">' +
                     '<span class="font-bold text-indigo-300 block mb-1">📘 קורסי AI ממוקדים שמומלץ לדרוש:</span>' +
