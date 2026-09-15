@@ -1,443 +1,441 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY FUTURE IS HERE | העתיד שלי כאן</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background-color: #0b0f19; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
+<head>    
+    <meta charset="UTF-8">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>סימולציית תעסוקה וקריירה בעידן ה-AI | שריפי יצחק</title>        
+    <!-- Google tag (gtag.js) -->    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2JVRB3N1LT"></script>    
+    <script>      
+     window.dataLayer = window.dataLayer || [];      
+     function gtag(){dataLayer.push(arguments);}      
+     gtag('js', new Date());      
+     gtag('config', 'G-2JVRB3N1LT');    
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>    
+    <style>        
+        body { font-family: system-ui, -apple-system, sans-serif; }    
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-between p-4 md:p-8">
-
-    <!-- Header Logo & Branding -->
-    <header class="flex flex-col items-center text-center my-6 space-y-2">
-        <div class="w-16 h-16 bg-gradient-to-tr from-cyan-500 to-blue-600 rotate-45 flex items-center justify-center rounded-xl shadow-lg border-2 border-cyan-300">
-            <span class="-rotate-45 font-black text-2xl text-white tracking-widest">SR</span>
-        </div>
-        <h1 class="text-cyan-400 font-bold tracking-widest text-sm mt-3">MY FUTURE IS HERE | העתיד שלי כאן</h1>
-        <p class="text-slate-400 text-xs tracking-wider">YOUR CAREER FUTURE IS SHAPED BY DATA NOT BY LUCK</p>
-        <p class="text-indigo-400 text-xs font-semibold">פותח ונערך ע"י שריפי יצחק</p>
+<body class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-slate-100 min-h-screen flex flex-col items-center justify-between p-4">
+    
+    <!-- לוגו -->    
+    <header class="w-full max-w-3xl text-center my-4 space-y-3">        
+        <div class="flex justify-center items-center">            
+            <div class="w-16 h-16 bg-gradient-to-tr from-cyan-500 to-indigo-600 rotate-45 flex items-center justify-center rounded-xl border-2 border-cyan-300 shadow-lg shadow-cyan-500/20">                
+                <span class="-rotate-45 font-black text-2xl text-white tracking-widest">SR</span>            
+            </div>        
+        </div>        
+        <div>            
+            <span class="text-xs font-bold tracking-widest text-cyan-400 uppercase">MY FUTURE IS HERE | העתיד שלי כאן</span>            
+            <div class="text-xs text-slate-400 font-medium">YOUR CAREER FUTURE IS SHAPED BY DATA NOT BY LUCK</div>            
+            <div class="text-[11px] text-indigo-300 mt-1 font-semibold">פותח וערוך ע"י שריפי יצחק</div>    
+        </div>    
     </header>
 
-    <!-- Admin Banner -->
-    <div id="admin-banner" class="hidden w-full max-w-3xl mb-6 bg-amber-900/30 border border-amber-500/40 text-amber-300 text-xs md:text-sm py-2 px-4 rounded-xl text-center font-medium shadow-md">
-        🧪 מצב בדיקה מנהל (ADMIN) פעיל — הרצות במצב זה אינן נספרות בסטטיסטיקת המשתמשים
+    <!-- סרגל התראה במצב בדיקה (ADMIN) -->    
+    <div id="test-mode-banner" class="hidden w-full max-w-3xl bg-amber-500/20 border border-amber-500/40 text-amber-300 px-4 py-2 rounded-lg text-center text-xs font-bold mb-4">        
+        🧪 מצב בדיקה מנהל (ADMIN) פעיל — הרצות במצב זה אינן נספרות בסטטיסטיקת המשתמשים    
     </div>
 
-    <!-- Main Container -->
-    <main class="w-full max-w-3xl bg-[#131b2e] border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative">
+    <!-- מסך 1: כניסה למערכת -->    
+    <div id="login-container" class="max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">        
+        <div class="text-center space-y-2">            
+            <h1 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">                
+                העתיד שלך מתחיל בבחירה חכמה            
+            </h1>            
+            <p class="text-slate-300 text-sm md:text-base">                
+                סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים והשפעת AI.            
+            </p>        
+        </div>
+        <div class="space-y-4 pt-2">            
+            <div>                
+                <label for="userName" class="block text-sm font-medium text-slate-300 mb-1">שם מלא:</label>                
+                <input type="text" id="userName" placeholder="הכנס שם מלא" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 text-slate-100 text-sm">            
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">                
+                <div>                    
+                    <label for="userId" class="block text-sm font-medium text-slate-300 mb-1">תעודת זהות:</label>                    
+                    <input type="text" id="userId" placeholder="הכנס תעודת זהות" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 text-slate-100 text-sm">                
+                </div>                
+                <div>                    
+                    <label for="userPassword" class="block text-sm font-medium text-slate-300 mb-1">סיסמה:</label>                    
+                    <input type="password" id="userPassword" placeholder="הכנס סיסמה" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 text-slate-100 text-sm">                
+                </div>            
+            </div>
+            <button onclick="startSimulation()" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold rounded-lg shadow-lg transition duration-200 text-base cursor-pointer">                
+                התחל בסימולציה             
+            </button>        
+        </div>    
+    </div>
 
-        <!-- SCREEN 1: LOGIN -->
-        <section id="screen-login" class="space-y-6">
-            <div class="text-center space-y-2">
-                <h2 class="text-2xl md:text-3xl font-bold text-cyan-400">העתיד שלך מתחיל בבחירה חכמה</h2>
-                <p class="text-slate-300 text-sm">סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים.</p>
+    <!-- מסך ניהול ADMIN -->    
+    <div id="admin-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-amber-500/50 p-8 space-y-6">        
+        <div class="flex justify-between items-center border-b border-amber-500/30 pb-4">            
+            <h2 class="text-2xl font-bold text-amber-400">👑 מסך ניהול מנהל מערכת (ADMIN)</h2>            
+            <span class="bg-amber-500/20 text-amber-300 text-xs px-3 py-1 rounded-full border border-amber-500/40">גישת מנהל: שריפי יצחק</span>        
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">            
+            <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 text-center space-y-1">                
+                <span class="block text-slate-400 text-xs">סה"כ כניסות משתמשים אמיתיים:</span>                
+                <span id="stat-real-visits" class="text-4xl font-black text-cyan-400">0</span>            
+            </div>            
+            <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 text-center space-y-1">                
+                <span class="block text-slate-400 text-xs">סה"כ הרצות בדיקה (אדמין):</span>                
+                <span id="stat-test-visits" class="text-4xl font-black text-amber-400">0</span>            
+            </div>        
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 pt-2">            
+            <button onclick="runTestSimulation()" class="flex-1 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg transition cursor-pointer shadow-lg text-sm">                
+                🧪 הרץ סימולציית בדיקה (ללא ספירה)            
+            </button>            
+            <button onclick="resetStats()" class="px-4 py-3 bg-rose-900/40 hover:bg-rose-800 text-rose-200 text-xs font-bold rounded-lg border border-rose-700/50 transition cursor-pointer">                
+                איפוס נתוני כניסות            
+            </button>            
+            <button onclick="logoutAdmin()" class="px-5 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer text-sm">                
+                יציאה            
+            </button>        
+        </div>    
+    </div>
+
+    <!-- מסך 2: תפריט ראשי -->    
+    <div id="main-app" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">        
+        <div class="text-center space-y-2">            
+            <h2 id="welcome-title" class="text-2xl font-bold text-cyan-400"></h2>            
+            <p class="text-slate-300 text-sm">ברוכים הבאים למערכת ניתוח הקריירה, המלצות הלימודים והערכת סיכוני AI.</p>        
+        </div>
+        <div class="bg-slate-900/80 p-6 rounded-xl border border-slate-700 space-y-4">            
+            <h3 class="text-lg font-semibold text-indigo-300 flex items-center gap-2">                
+                <span>🎯</span> תפריט האפליקציה הראשית            
+            </h3>            
+            <div class="grid grid-cols-1 gap-3">                
+                <button onclick="openView('about-view')" class="p-4 bg-slate-800 hover:bg-slate-700 border border-cyan-500/40 rounded-lg text-right font-medium transition cursor-pointer flex flex-col">                    
+                    <span class="text-cyan-300 font-bold text-base">📊 1. מי אנחנו ולמה לבנות איתנו את העתיד?</span>                    
+                    <span class="text-xs text-slate-400 mt-1">שיטת עבודה, ניסיון ניהולי, בסיס מחקרי על AI ומגמות שוק העבודה</span>                
+                </button>                
+                <button onclick="openView('questionnaire-view')" class="p-4 bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/50 rounded-lg text-right font-medium transition cursor-pointer flex flex-col">                    
+                    <span class="text-indigo-200 font-bold text-base">📝 2. שאלון התאמת מסלול לימודים ואבחון סיכוני AI</span>                    
+                    <span class="text-xs text-slate-400 mt-1">שקלול בגרות, פסיכומטרי, תואר קודם (תואר ראשון/שני), מקצוע נוכחי והמלצת שינוי מגמה</span>                
+                </button>            
+            </div>        
+        </div>    
+    </div>
+
+    <!-- מסך אודות -->    
+    <div id="about-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">        
+        <h2 class="text-2xl font-bold text-cyan-300">📊 מי אנחנו ולמה לבנות איתנו את העתיד?</h2>        
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 space-y-4 text-slate-300 text-sm leading-relaxed">            
+            <p>                
+                מערכת <strong>SR - Career & AI Navigation</strong> הינה מערכת חכמה פרי פיתוחו של <strong>שריפי יצחק</strong>, המבוססת על אלגוריתמים מתקדמים לשקלול רמה אקדמית והערכת חוסן תעסוקתי בעידן בינה מלאכותית.            
+            </p>        
+        </div>        
+        <button onclick="openView('main-app')" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer">            
+            ← חזרה לתפריט הראשי        
+        </button>    
+    </div>
+
+    <!-- מסך שאלון אבחון -->    
+    <div id="questionnaire-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">        
+        <h2 class="text-2xl font-bold text-indigo-300">📝 שאלון התאמה ואבחון אקדמי משוקלל</h2>        
+        <p class="text-slate-300 text-sm">הזן את נתוני הגיל, ההשכלה, התואר הקודם, המקצוע הנוכחי ומדדי הקבלה:</p>        
+            
+        <form onsubmit="submitQuestionnaire(event)" class="space-y-4">            
+            <!-- 1. גיל -->            
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30">                
+                <label for="qAge" class="block text-sm font-bold text-cyan-300 mb-1">🎂 1. גיל:</label>                
+                <input type="number" id="qAge" min="18" max="90" value="25" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:ring-2 focus:ring-cyan-500">                
+                <span class="text-[11px] text-slate-400 mt-1 block">* מעל גיל 30/35 קיימים במסלולים שונים תנאי קבלה מקלים או מכינות ייעודיות לבוגרים.</span>            
             </div>
 
-            <form id="login-form" class="space-y-4 max-w-lg mx-auto pt-4">
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">שם מלא:</label>
-                    <input type="text" id="login-name" value="ad" class="w-full p-3 bg-[#0d1322] border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-cyan-500" required>
-                </div>
+            <!-- 2. סטטוס תעסוקתי / השכלה מורחב -->            
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-indigo-500/30 space-y-3">                
+                <div>                    
+                    <label for="qEducationStatus" class="block text-sm font-bold text-indigo-300 mb-1">🎓 2. סטטוס תעסוקתי / השכלה:</label>                    
+                    <select id="qEducationStatus" onchange="toggleDegreeFields()" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                        
+                        <option value="highschool">בוגר 12 שנות לימוד</option>                        
+                        <option value="mechina_academic">בוגר מכינה אקדמית</option>                        
+                        <option value="mechina_tech">בוגר מכינה טכנולוגית</option>
+                        <option value="student_highschool">תלמיד תיכון (כיתה י"א-י"ב)</option>
+                        <option value="student_academic">סטודנט פעיל במוסד אקדמי אחר</option>
+                        <option value="academic_degree" selected>בעל תואר אקדמי קודם (תואר ראשון/שני)</option>
+                        <option value="industry_pro">עובד בתעשייה / נסיון מקצועי מעשי</option>
+                        <option value="other">אחר / מתלבט</option>
+                    </select>                    
+                    <span class="text-[11px] text-slate-400 mt-1 block">* סטטוס זה משמש כמשתנה מוביל בקביעת תנאי הקבלה וההצעה לפונה.</span>                
+                </div>            
+            </div>
 
+            <!-- שדות נוספים לתואר קודם ותואר שני -->
+            <div id="previous-degree-section" class="bg-slate-900/80 p-4 rounded-xl border border-indigo-500/50 space-y-3">
+                <h3 class="text-sm font-bold text-indigo-300">🎓 פירוט תואר אקדמי קודם והתאמה לתואר שני</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">תעודת זהות:</label>
-                        <input type="text" id="login-id" value="admin" class="w-full p-3 bg-[#0d1322] border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-cyan-500" required>
+                        <label for="qPrevDegreeName" class="block text-xs font-medium text-slate-300 mb-1">מהו שם התואר הראשון שלך?</label>
+                        <input type="text" id="qPrevDegreeName" placeholder="לדוגמה: כלכלה / מדעי המחשב / משפטים / חינוך" value="כלכלה" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">סיסמה:</label>
-                        <input type="password" id="login-password" placeholder="הכנס סיסמה" class="w-full p-3 bg-[#0d1322] border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:border-cyan-500">
+                        <label for="qPrevDegreeAvg" class="block text-xs font-medium text-slate-300 mb-1">ממוצע ציונים בתואר הראשון:</label>
+                        <input type="number" id="qPrevDegreeAvg" min="60" max="100" step="0.1" placeholder="לדוגמה: 88" value="88" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
+                        <span class="text-[10px] text-cyan-400 mt-1 block">* ממוצע 80+ / 85+ מאפשר קבלה למסלולי תואר שני או השלמות ייעודיות.</span>
                     </div>
                 </div>
-
-                <button type="submit" class="w-full py-3.5 mt-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg transition-all">
-                    התחל בסימולציה
-                </button>
-            </form>
-        </section>
-
-        <!-- SCREEN 2: ADMIN DASHBOARD -->
-        <section id="screen-admin" class="hidden space-y-6">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-                <h2 class="text-2xl font-bold text-cyan-300 flex items-center gap-2">
-                    <span>👑</span> מסך ניהול מנהל מערכת (ADMIN)
-                </h2>
-                <span class="bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs px-3 py-1.5 rounded-full">
-                    גישת מנהל: שריפי יצחק
-                </span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-[#0b101d] p-6 rounded-xl border border-slate-800 text-center space-y-2">
-                    <p class="text-xs text-slate-400">סה"כ כניסות משתמשים אמיתיים:</p>
-                    <p class="text-4xl font-extrabold text-cyan-400" id="stat-users">0</p>
-                </div>
-                <div class="bg-[#0b101d] p-6 rounded-xl border border-slate-800 text-center space-y-2">
-                    <p class="text-xs text-slate-400">סה"כ הרצות בדיקה (אדמין):</p>
-                    <p class="text-4xl font-extrabold text-amber-400" id="stat-admin-runs">3</p>
+            <!-- מקצוע נוכחי להערכת סיכון AI -->
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30 space-y-2">
+                <label for="qCurrentProfession" class="block text-sm font-bold text-cyan-300">💼 מקצוע או תחום עיסוק נוכחי:</label>
+                <input type="text" id="qCurrentProfession" placeholder="לדוגמה: כלכלן / מורה / מובטל" value="מובטל" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
+                <span class="text-[11px] text-slate-400 block">* משמש לבדיקת חוסן תעסוקתי מול בינה מלאכותית והמלצה על שדרוג מקצועי או הסבה.</span>
+            </div>
+
+            <!-- תחומי העדפה מועדפים -->
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-indigo-500/40 space-y-2">
+                <label class="block text-sm font-bold text-indigo-300 mb-1">🎯 תחומי לימוד וקריירה מועדפים (ניתן לבחור כמה אפשרויות):</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-200 pt-1">
+                    <label class="flex items-center gap-2 bg-slate-900 p-2 rounded border border-slate-700 cursor-pointer hover:border-indigo-500">
+                        <input type="checkbox" name="preferredFields" value="הייטק ותוכנה" checked class="rounded bg-slate-800 text-indigo-500 focus:ring-indigo-500"> הייטק, תוכנה ומערכות מידע
+                    </label>
+                    <label class="flex items-center gap-2 bg-slate-900 p-2 rounded border border-slate-700 cursor-pointer hover:border-indigo-500">
+                        <input type="checkbox" name="preferredFields" value="כלכלה ופיננסים" checked class="rounded bg-slate-800 text-indigo-500 focus:ring-indigo-500"> כלכלה, נתונים ואנליטיקה פיננסית
+                    </label>
+                    <label class="flex items-center gap-2 bg-slate-900 p-2 rounded border border-slate-700 cursor-pointer hover:border-indigo-500">
+                        <input type="checkbox" name="preferredFields" value="ניהול ועסקים" class="rounded bg-slate-800 text-indigo-500 focus:ring-indigo-500"> ניהול עסקי, מנהל עסקים (MBA) ויזמות
+                    </label>
+                    <label class="flex items-center gap-2 bg-slate-900 p-2 rounded border border-slate-700 cursor-pointer hover:border-indigo-500">
+                        <input type="checkbox" name="preferredFields" value="חינוך וייעוץ" class="rounded bg-slate-800 text-indigo-500 focus:ring-indigo-500"> חינוך, הוראה אקדמית וייעוץ חינוכי
+                    </label>
                 </div>
             </div>
 
-            <div class="flex flex-wrap gap-3 pt-4">
-                <button id="btn-admin-logout" class="px-5 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold rounded-lg border border-slate-700">
-                    יציאה
-                </button>
-                <button id="btn-admin-reset" class="px-5 py-3 bg-pink-950/60 hover:bg-pink-900/60 text-pink-300 text-sm font-semibold rounded-lg border border-pink-800/50">
-                    איפוס נתוני כניסות
-                </button>
-                <button id="btn-admin-test-run" class="flex-1 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm rounded-lg shadow-md transition-colors">
-                    🧪 הרץ סימולציית בדיקה (ללא ספירה)
-                </button>
-            </div>
-        </section>
-
-        <!-- SCREEN 3: MAIN MENU -->
-        <section id="screen-menu" class="hidden space-y-6">
-            <div class="text-center space-y-2">
-                <h2 id="menu-user-greeting" class="text-2xl font-bold text-cyan-300">שלום, מנהל מערכת (מצב בדיקה)</h2>
-                <p class="text-slate-300 text-xs md:text-sm">ברוכים הבאים למערכת ניתוח הקריירה והמלצות הלימודים המותאמות אישית.</p>
+            <!-- 3. ממוצע בגרויות / מכינה -->            
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30">                
+                <div class="flex justify-between items-center mb-1">
+                    <label for="qBagrutAvg" class="block text-sm font-bold text-cyan-300">📈 3. ממוצע בגרויות / מכינה:</label>
+                    <button type="button" onclick="alert('חישוב סכם ובגרויות משוקלל לפי רמת הקושי של מקצועות הבחירה (כגון 4-5 יח` מתמטיקה ואנגלית) בתוספת בונוסים המוענקים על ידי האוניברסיטאות והמכללות המובילות בישראל.')" class="text-[11px] text-cyan-400 hover:underline cursor-pointer">ℹ️ כיצד ממוצע זה מחושב?</button>
+                </div>
+                <input type="number" id="qBagrutAvg" min="50" max="120" step="0.1" value="95" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">            
             </div>
 
-            <div class="bg-[#0b101d] p-5 rounded-xl border border-slate-800 space-y-4">
-                <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
-                    🎯 תפריט האפליקציה הראשית
-                </h3>
-
-                <div class="space-y-3">
-                    <button id="btn-menu-about" class="w-full text-right p-4 rounded-xl bg-slate-900 hover:bg-slate-800/80 border border-slate-800 transition-all flex flex-col gap-1">
-                        <span class="font-bold text-cyan-400 text-sm">📊 1. מי אנחנו ולמה לבנות איתנו את העתיד?</span>
-                        <span class="text-xs text-slate-400">שיטת עבודה, ניסיון ניהולי, בסיס מחקרי על AI ומגמות שוק העבודה</span>
-                    </button>
-
-                    <button id="btn-menu-questionnaire" class="w-full text-right p-4 rounded-xl bg-indigo-950/40 hover:bg-indigo-900/50 border border-indigo-800/50 transition-all flex flex-col gap-1">
-                        <span class="font-bold text-indigo-300 text-sm">📄 2. שאלון התאמת מסלול לימודים מקיף ואבחון תארים</span>
-                        <span class="text-xs text-slate-400">שקלול בגרות, פסיכומטרי, מתמטיקה וגיל להמלצת תארים (מדעי המחשב, כלכלה ועוד)</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- SCREEN 4: DETAILED QUESTIONNAIRE -->
-        <section id="screen-questionnaire" class="hidden space-y-6">
-            <div class="space-y-1">
-                <h2 class="text-xl font-bold text-cyan-300 flex items-center gap-2">
-                    📄 שאלון התאמה ואבחון אקדמי משוקלל
-                </h2>
-                <p class="text-slate-400 text-xs">הזן את נתוני הגיל, הבגרויות, המתמטיקה והפסיכומטרי (או השאר ריק במידה ואינם נמצאים) לקבלת תחזית והמלצות:</p>
+            <!-- 4. נתוני מתמטיקה -->            
+            <div id="math-section" class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/40 space-y-3">                
+                <h3 class="text-sm font-bold text-cyan-300">📐 4. נתוני מתמטיקה (אם רלוונטי)</h3>                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">                    
+                    <div>                        
+                        <label for="qMathUnits" class="block text-sm font-medium text-slate-300 mb-1">מספר יחידות לימוד:</label>                        
+                        <select id="qMathUnits" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                            
+                            <option value="0">ללא / לא זוכר</option>                            
+                            <option value="3">3 יחידות</option>                            
+                            <option value="4">4 יחידות</option>                            
+                            <option value="5" selected>5 יחידות</option>                        
+                        </select>                    
+                    </div>                    
+                    <div>                        
+                        <label for="qMathGrade" class="block text-sm font-medium text-slate-300 mb-1">ציון סופי במתמטיקה:</label>                        
+                        <input type="number" id="qMathGrade" min="50" max="100" value="90" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                    
+                    </div>                
+                </div>            
             </div>
 
-            <form id="questionnaire-form" class="space-y-4 text-xs md:text-sm">
-                
-                <!-- 1. גיל -->
-                <div class="bg-[#0b101d] p-4 rounded-xl border border-slate-800 space-y-2">
-                    <label class="block font-bold text-slate-200">🎂 1. גיל:</label>
-                    <input type="number" id="q-age" value="25" min="16" max="100" class="w-full p-2.5 bg-[#131b2e] border border-slate-700 rounded-lg text-slate-100 focus:border-cyan-500">
-                    <p class="text-[11px] text-slate-400">* מעל גיל 30/35 קיימים במסלולים שונים תנאי קבלה מקלים או מכינות ייעודיות לבוגרים.</p>
-                </div>
+            <!-- 5. פסיכומטרי -->            
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-amber-500/40">                
+                <label for="qPsychometric" class="block text-sm font-bold text-amber-300 mb-1">🧠 5. ציון פסיכומטרי (השאר ריק אם אין):</label>                
+                <input type="number" id="qPsychometric" min="200" max="800" placeholder="לדוגמה: 620" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">            
+            </div>
 
-                <!-- 2. בגרות -->
-                <div class="bg-[#0b101d] p-4 rounded-xl border border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block font-bold text-slate-200 mb-1">🎓 2א. מצב בגרות:</label>
-                        <select id="q-bagrut-status" class="w-full p-2.5 bg-[#131b2e] border border-slate-700 rounded-lg text-slate-100 focus:border-cyan-500">
-                            <option value="בגרות מלאה">בגרות מלאה</option>
-                            <option value="בגרות חלקית">בגרות חלקית</option>
-                            <option value="ללא בגרות">ללא בגרות</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block font-bold text-slate-200 mb-1">📈 2ב. ממוצע בגרות (אם יש):</label>
-                        <input type="text" id="q-bagrut-avg" placeholder="לדוגמה: 85 (אופציונלי)" class="w-full p-2.5 bg-[#131b2e] border border-slate-700 rounded-lg text-slate-100 focus:border-cyan-500">
-                    </div>
-                </div>
+            <!-- 6. עיר / אזור מועדף -->            
+            <div class="bg-indigo-950/40 p-4 rounded-xl border border-cyan-500/40">                
+                <label for="qCity" class="block text-sm font-bold text-cyan-300 mb-1">📍 6. עיר / אזור מועדף ללימודים (InstitutionsDB):</label>                
+                <select id="qCity" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                    
+                    <option value="jerusalem" selected>ירושלים והסביבה (כולל מודיעין, בית שמש)</option>                    
+                    <option value="center">תל אביב והמרכז (גוש דן, השרון)</option>                    
+                    <option value="north">חיפה והצפון (קריות, גליל)</option>                    
+                    <option value="south">באר שבע והדרום (אשקלון, אשדוד)</option>                    
+                    <option value="online">💻 לימודים מקוונים / אונליין בלבד</option>                
+                </select>            
+            </div>
 
-                <!-- 3. מתמטיקה -->
-                <div class="bg-[#0b101d] p-4 rounded-xl border border-slate-800 space-y-3">
-                    <label class="block font-bold text-cyan-400">📐 3. נתוני בגרות במתמטיקה (אם רלוונטי):</label>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-slate-300 mb-1">מספר יחידות לימוד:</label>
-                            <select id="q-math-units" class="w-full p-2.5 bg-[#131b2e] border border-slate-700 rounded-lg text-slate-100 focus:border-cyan-500">
-                                <option value="3">3 יחידות</option>
-                                <option value="4" selected>4 יחידות</option>
-                                <option value="5">5 יחידות</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-slate-300 mb-1">ציון סופי במתמטיקה:</label>
-                            <input type="text" id="q-math-score" placeholder="לדוגמה: 80 (השאר ריק אם אין)" class="w-full p-2.5 bg-[#131b2e] border border-slate-700 rounded-lg text-slate-100 focus:border-cyan-500">
-                        </div>
-                    </div>
-                </div>
+            <div class="pt-4 flex gap-3">                
+                <button type="submit" class="flex-1 py-3.5 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold rounded-lg shadow-lg transition cursor-pointer text-base">                    
+                    🚀 חשב ציון סכם והצג תארים מתאימים                
+                </button>                
+                <button type="button" onclick="openView(isTestMode ? 'admin-view' : 'main-app')" class="px-5 py-3.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer">                    
+                    ← חזרה                
+                </button>            
+            </div>        
+        </form>    
+    </div>
 
-                <!-- 4. פסיכומטרי -->
-                <div class="bg-[#0b101d] p-4 rounded-xl border border-slate-800 space-y-2">
-                    <label class="block font-bold text-pink-300">🧠 4. ציון פסיכומטרי (אם יש, השאר ריק אם אין):</label>
-                    <input type="text" id="q-psych" placeholder="לדוגמה: 620 (לא שדה חובה)" class="w-full p-2.5 bg-[#131b2e] border border-slate-700 rounded-lg text-slate-100 focus:border-cyan-500">
-                    <p class="text-[11px] text-slate-400">* פסיכומטרי וגיל משוקללים יחד עם הבגרות לקביעת אפשרויות הקבלה.</p>
-                </div>
+    <!-- מסך תוצאות אבחון -->    
+    <div id="results-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">        
+        <h2 class="text-2xl font-bold text-emerald-400">🎓 תוצאות אבחון משוקלל וסיכויי קבלה</h2>        
+        
+        <div id="results-summary" class="bg-slate-900/90 p-5 rounded-xl border border-slate-700 text-sm leading-relaxed space-y-3"></div>        
+        
+        <!-- אזור המלצת תואר שני מפורט -->
+        <div id="master-degree-recommendation" class="bg-cyan-950/60 p-5 rounded-xl border border-cyan-500/50 space-y-3"></div>
 
-                <!-- 5. אזור מועדף -->
-                <div class="bg-[#0b101d] p-4 rounded-xl border border-slate-800 space-y-2">
-                    <label class="block font-bold text-slate-200">📍 5. עיר / אזור מועדף ללימודים:</label>
-                    <select id="q-region" class="w-full p-2.5 bg-[#131b2e] border border-slate-700 rounded-lg text-slate-100 focus:border-cyan-500">
-                        <option value="מרכז">תל אביב והמרכז (גוש דן, השרון)</option>
-                        <option value="ירושלים">ירושלים והסביבה</option>
-                        <option value="צפון">חיפה והצפון</option>
-                        <option value="דרום">באר שבע והדרום</option>
-                    </select>
-                </div>
+        <!-- אזור המלצת שינוי מגמה מול סיכון AI -->
+        <div id="ai-pivot-recommendation" class="bg-indigo-950/60 p-5 rounded-xl border border-indigo-500/50 space-y-3"></div>
 
-                <div class="flex gap-3 pt-2">
-                    <button type="button" id="btn-back-to-menu" class="px-5 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl border border-slate-700">
-                        ← חזרה
-                    </button>
-                    <button type="submit" class="flex-1 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg transition-all">
-                        🚀 חשב ציון סכם והצג תארים מתאימים
-                    </button>
-                </div>
-            </form>
-        </section>
+        <!-- אזור הפניה למוסדות לימוד -->
+        <div id="institutions-db-section" class="bg-slate-900/80 p-5 rounded-xl border border-cyan-500/40 space-y-3">
+            <h3 class="text-base font-bold text-cyan-300">🏛️ הפניה למוסדות לימוד מומלצים באזור הנבחר (InstitutionsDB)</h3>
+            <p class="text-xs text-slate-300">בהתאם לאזור שבחרת ולנתונים שלך, להלן מוסדות הלימוד המובילים והקישורים הישירים שלהם:</p>
+            <div id="institutions-links-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2"></div>
+        </div>
 
-        <!-- SCREEN 5: RESULTS -->
-        <section id="screen-results" class="hidden space-y-6">
-            <div id="ai-pivot-recommendation"></div>
-            <button id="btn-results-back" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl border border-slate-700 transition-colors">
-                ← חזרה לתפריט
-            </button>
-        </section>
+        <button onclick="openView('questionnaire-view')" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer">            
+            ← חזרה לשאלון ותיקון נתונים        
+        </button>    
+    </div>
 
-    </main>
-
-    <!-- Footer -->
-    <footer class="my-6 text-center text-xs text-slate-500 flex items-center justify-center gap-1">
-        <span>🔒</span>
-        <span>הגנה משפטית ומניעת העתקה — כל הזכויות שמורות © לשריפי יצחק</span>
+    <footer class="w-full max-w-3xl text-center text-xs text-slate-400 border-t border-slate-800/80 mt-8 pt-4 pb-2 space-y-1">        
+        <div>🔒 <strong>הגנה משפטית ומניעת העתקה — כל הזכויות שמורות © לשריפי יצחק</strong></div>    
     </footer>
 
-    <script>
-    var isAdmin = false;
-    var adminRuns = 3;
-    var realUsers = 0;
+    <script>        
+        let isTestMode = false;
 
-    // מאגר קורסים ומוסדות לימוד ספציפיים עם קישורים פעילים
-    var specificCoursesCatalog = [
-        {
-            title: "קורס פיתוח יישומי AI ואינטגרציית LLM",
-            institution: "הטכניון - היחידה ללימודי המשך",
-            description: "הכשרה מעשית בבניית סוכני AI, פיתוח Prompt Engineering וחיבור API.",
-            url: "https://cont-edu.technion.ac.il/",
-            tags: ["מרכז", "צפון", "היברידי"]
-        },
-        {
-            title: "הכשרת מומחי אוטומציה עסקית וכלי No-Code",
-            institution: "האוניברסיטה הפתוחה - מערך לימודי חוץ",
-            description: "בניית תהליכי עבודה אוטומטיים לארגונים ללא צורך ברישום קוד מורכב.",
-            url: "https://www.openu.ac.il/",
-            tags: ["מרכז", "ירושלים", "דרום", "צפון", "מקוון"]
-        },
-        {
-            title: "מסלול הנדסאי תוכנה וסייבר (לימודי ערב / יום)",
-            institution: "המכללה הטכנולוגית רופין",
-            description: "הכשרה טכנולוגית מקיפה המותאמת גם לעובדים ולאנשים עובדים.",
-            url: "https://www.ruppin.ac.il/",
-            tags: ["מרכז", "שרון"]
-        },
-        {
-            title: "תואר ראשון B.Sc במדעי המחשב ומערכות מידע",
-            institution: "מכללת אפקה להנדסה בתל אביב",
-            description: "תוכנית אקדמית מלאה עם התמחות בבינה מלאכותית ועיבוד נתונים.",
-            url: "https://www.afeka.ac.il/",
-            tags: ["מרכז"]
-        },
-        {
-            title: "מכינה אקדמית ייעודית לבוגרים (30+)",
-            institution: "האוניברסיטה העברית / עזריאלי מכללה להנדסה",
-            description: "מסלול קבלה מואץ למועמדים מעל גיל 30 ללא צורך בתעודת בגרות מלאה.",
-            url: "https://www.jce.ac.il/",
-            tags: ["ירושלים"]
-        }
-    ];
-
-    function showScreen(screenId) {
-        var screens = ['screen-login', 'screen-admin', 'screen-menu', 'screen-questionnaire', 'screen-results'];
-        screens.forEach(function(id) {
-            var el = document.getElementById(id);
-            if (el) el.classList.add('hidden');
-        });
-        
-        var target = document.getElementById(screenId);
-        if (target) target.classList.remove('hidden');
-
-        var banner = document.getElementById('admin-banner');
-        if (banner) {
-            if (isAdmin && screenId !== 'screen-login') {
-                banner.classList.remove('hidden');
+        function toggleDegreeFields() {
+            const status = document.getElementById('qEducationStatus').value;
+            const degSection = document.getElementById('previous-degree-section');
+            if (status === 'academic_degree') {
+                degSection.classList.remove('hidden');
             } else {
-                banner.classList.add('hidden');
+                degSection.classList.add('hidden');
             }
         }
-    }
 
-    function generateSpecificRecommendations(data) {
-        var age = parseInt(data.age || 0, 10);
-        var mathUnits = data.mathUnits || "4";
-        var psych = parseInt(data.psych || 0, 10);
-        var bagrutStatus = data.bagrutStatus || "בגרות מלאה";
-        var region = data.region || "מרכז";
-
-        var recs = {
-            degreeTrack: "",
-            courses: [],
-            whatToAsk: []
-        };
-
-        // התאמת מסלול אקדמי ראשי
-        if (bagrutStatus === "בגרות מלאה" && (psych >= 600 || mathUnits === "5")) {
-            recs.degreeTrack = "תואר אקדמי מלא בטכנולוגיה / תואר שני (M.Sc / MBA) בניהול מערכות מידע ו-AI.";
-        } else if (age >= 30) {
-            recs.degreeTrack = "מסלול מכינה ייעודית לבוגרים (30+) או לימודי הנדסאים במסלול ערב מותאם.";
-        } else {
-            recs.degreeTrack = "תואר ראשון יישומי (B.A/B.Sc) או תעודת הנדסאי תוכנה מוסמך.";
-        }
-
-        // סינון קורסים ספציפיים מתוך הקטלוג
-        recs.courses = specificCoursesCatalog.filter(function(course) {
-            return course.tags.includes(region) || course.tags.includes("מקוון") || course.tags.includes("היברידי");
-        });
-
-        if (recs.courses.length === 0) {
-            recs.courses = specificCoursesCatalog.slice(0, 3);
-        }
-
-        var mainInstitution = recs.courses[0] ? recs.courses[0].institution : "מוסד הלימודים";
-        recs.whatToAsk = [
-            "אני מבקש לקבל סילבוס מלא ופרטי הרשמה לקורס: " + (recs.courses[0] ? recs.courses[0].title : "פיתוח AI"),
-            "מהם תנאי הקבלה וההכרה בלימודים קודמים במסלול " + recs.degreeTrack.split(' ')[0] + " ב-" + mainInstitution + "?",
-            "האם קיימים מלגות, מסלולי ערב או סיוע בהשמה לתעשייה בסיום הלימודים?"
-        ];
-
-        return recs;
-    }
-
-    function renderEnhancedResults(data) {
-        var pivotContainer = document.getElementById("ai-pivot-recommendation");
-        if (!pivotContainer) return;
-
-        var recs = generateSpecificRecommendations(data);
-
-        // בניה של כרטיסי הקורסים הספציפיים עם כפתורי הפניה ישירים
-        var coursesCardsHTML = recs.courses.map(function(c) { 
-            return '<div class="bg-[#0d1424] p-3.5 rounded-xl border border-slate-700/60 flex flex-col justify-between gap-2">' +
-                        '<div>' +
-                            '<div class="flex items-center justify-between gap-2 mb-1">' +
-                                '<h4 class="font-bold text-cyan-300 text-xs md:text-sm">' + c.title + '</h4>' +
-                                '<span class="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800 px-2 py-0.5 rounded-full">' + c.institution + '</span>' +
-                            '</div>' +
-                            '<p class="text-xs text-slate-300 mb-2">' + c.description + '</p>' +
-                        '</div>' +
-                        '<a href="' + c.url + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 w-full py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs rounded-lg transition-all shadow-md">' +
-                            '🔗 מעבר לאתר הקורס ב-' + c.institution + ' ←' +
-                        '</a>' +
-                   '</div>'; 
-        }).join("");
-
-        var questionsList = recs.whatToAsk.map(function(q) { 
-            return '<li class="mb-1.5 text-slate-200">"' + q + '"</li>'; 
-        }).join("");
-
-        pivotContainer.innerHTML = 
-            '<h3 class="text-lg font-bold text-cyan-300 mb-3 flex items-center gap-2">🤖 תוכנית פעולה וקורסים ספציפיים מומלצים</h3>' +
-            '<div class="space-y-4 text-xs md:text-sm">' +
-                '<div class="bg-[#0b101d] p-4 rounded-xl border border-cyan-500/30 space-y-1">' +
-                    '<span class="font-bold text-cyan-400 block text-xs">🎓 מסלול הלימודים הראשי המומלץ עבורך:</span>' +
-                    '<p class="text-slate-100 font-semibold">' + recs.degreeTrack + '</p>' +
-                '</div>' +
-
-                '<div class="bg-[#0b101d] p-4 rounded-xl border border-indigo-500/30 space-y-3">' +
-                    '<span class="font-bold text-indigo-300 block text-xs">📘 קורסים ומוסדות לימוד ספציפיים שנמצאו מתאימים:</span>' +
-                    '<div class="grid grid-cols-1 gap-3">' + coursesCardsHTML + '</div>' +
-                '</div>' +
-
-                '<div class="bg-[#0b101d] p-4 rounded-xl border border-amber-500/30 space-y-2">' +
-                    '<span class="font-bold text-amber-300 block text-xs">💬 שאלות מומלצות לשאול את יועץ הלימודים במוסד:</span>' +
-                    '<ul class="list-disc list-inside space-y-1 text-xs">' + questionsList + '</ul>' +
-                '</div>' +
-            '</div>';
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        var loginForm = document.getElementById('login-form');
-        if (loginForm) {
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                var idVal = document.getElementById('login-id').value.trim().toLowerCase();
-                
-                if (idVal === 'admin') {
-                    isAdmin = true;
-                    showScreen('screen-admin');
-                } else {
-                    isAdmin = false;
-                    realUsers++;
-                    document.getElementById('stat-users').innerText = realUsers;
-                    document.getElementById('menu-user-greeting').innerText = "שלום, " + document.getElementById('login-name').value;
-                    showScreen('screen-menu');
-                }
+        function openView(viewId) {
+            const views = ['login-container', 'admin-view', 'main-app', 'about-view', 'questionnaire-view', 'results-view'];
+            views.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
             });
+            const target = document.getElementById(viewId);
+            if (target) target.classList.remove('hidden');
         }
 
-        document.getElementById('btn-admin-logout').addEventListener('click', function() {
-            isAdmin = false;
-            showScreen('screen-login');
-        });
+        function startSimulation() {
+            const name = document.getElementById('userName').value.trim();
+            const id = document.getElementById('userId').value.trim();
+            const pass = document.getElementById('userPassword').value.trim();
 
-        document.getElementById('btn-admin-reset').addEventListener('click', function() {
-            realUsers = 0;
-            document.getElementById('stat-users').innerText = '0';
-        });
+            if (!name || !id || !pass) {
+                alert('אנא מלא את כל השדות (שם, תעודת זהות וסיסמה)');
+                return;
+            }
 
-        document.getElementById('btn-admin-test-run').addEventListener('click', function() {
-            adminRuns++;
-            document.getElementById('stat-admin-runs').innerText = adminRuns;
-            document.getElementById('menu-user-greeting').innerText = "שלום, מנהל מערכת (מצב בדיקה)";
-            showScreen('screen-menu');
-        });
+            if (pass === '999999' || name.toLowerCase() === 'admin') {
+                isTestMode = true;
+                document.getElementById('test-mode-banner').classList.remove('hidden');
+                openView('admin-view');
+                return;
+            }
 
-        document.getElementById('btn-menu-questionnaire').addEventListener('click', function() {
-            showScreen('screen-questionnaire');
-        });
+            isTestMode = false;
+            document.getElementById('test-mode-banner').classList.add('hidden');
+            document.getElementById('welcome-title').innerText = `שלום, ${name}`;
+            openView('main-app');
+        }
 
-        document.getElementById('btn-menu-about').addEventListener('click', function() {
-            alert("מערכת ניתוח קריירה והכוון לימודי בלעדית. פותחה על ידי שריפי יצחק.");
-        });
+        function logoutAdmin() {
+            isTestMode = false;
+            document.getElementById('test-mode-banner').classList.add('hidden');
+            document.getElementById('userName').value = '';
+            document.getElementById('userId').value = '';
+            document.getElementById('userPassword').value = '';
+            openView('login-container');
+        }
 
-        document.getElementById('btn-back-to-menu').addEventListener('click', function() {
-            showScreen('screen-menu');
-        });
+        function runTestSimulation() {
+            isTestMode = true;
+            document.getElementById('welcome-title').innerText = `שלום, מנהל (בדיקה)`;
+            openView('main-app');
+        }
 
-        document.getElementById('questionnaire-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            var formData = {
-                age: document.getElementById('q-age').value,
-                bagrutStatus: document.getElementById('q-bagrut-status').value,
-                bagrutAvg: document.getElementById('q-bagrut-avg').value,
-                mathUnits: document.getElementById('q-math-units').value,
-                mathScore: document.getElementById('q-math-score').value,
-                psych: document.getElementById('q-psych').value,
-                region: document.getElementById('q-region').value
-            };
+        function resetStats() {
+            alert('נתוני הכניסות אופסו בהצלחה.');
+        }
 
-            renderEnhancedResults(formData);
-            showScreen('screen-results');
-        });
+        function renderInstitutionLinks(city) {
+            const container = document.getElementById('institutions-links-container');
+            if (!container) return;
 
-        document.getElementById('btn-results-back').addEventListener('click', function() {
-            showScreen('screen-menu');
-        });
-    });
+            let linksHTML = '';
+
+            if (city === 'jerusalem') {
+                linksHTML = `
+                    <a href="https://www.huji.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🏛️ האוניברסיטה העברית בירושלים
+                    </a>
+                    <a href="https://www.jce.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        ⚡ מכללת עזריאלי להנדסה
+                    </a>
+                    <a href="https://www.jmc.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🎓 המכללה האקדמית הדסה
+                    </a>
+                `;
+            } else if (city === 'center') {
+                linksHTML = `
+                    <a href="https://www.tau.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🏛️ אוניברסיטת תל אביב
+                    </a>
+                    <a href="https://www.biu.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🎓 אוניברסיטת בר-אילן
+                    </a>
+                    <a href="https://www.colman.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🎓 המכללה למנהל
+                    </a>
+                `;
+            } else if (city === 'north') {
+                linksHTML = `
+                    <a href="https://www.technion.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        ⚡ הטכניון מכון טכנולוגי
+                    </a>
+                    <a href="https://haifa.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🏛️ אוניברסיטת חיפה
+                    </a>
+                    <a href="https://www.braude.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        ⚡ המכללה האקדמית להנדסה בראודה
+                    </a>
+                `;
+            } else if (city === 'south') {
+                linksHTML = `
+                    <a href="https://in.bgu.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🏛️ אוניברסיטת בן-גוריון בנגב
+                    </a>
+                    <a href="https://www.sce.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        ⚡ מכללת סמי שמעון (SCE)
+                    </a>
+                    <a href="https://www.sapir.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block">
+                        🎓 המכללה האקדמית ספיר
+                    </a>
+                `;
+            } else {
+                linksHTML = `
+                    <a href="https://www.openu.ac.il" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-800 hover:bg-slate-700 border border-cyan-500/30 rounded-lg text-center text-cyan-300 font-medium text-xs transition block col-span-full">
+                        💻 האוניברסיטה הפתוחה – מסלולים מקוונים מכל מקום
+                    </a>
+                `;
+            }
+            container.innerHTML = linksHTML;
+        }
+
+        function submitQuestionnaire(event) {
+            event.preventDefault();
+            
+            const age = parseInt(document.getElementById('qAge').value) || 25;
+            const educationStatus = document.getElementById('qEducationStatus').value;
+            const profession = document.getElementById('qCurrentProfession').value.trim();
+            const bagrut = parseFloat(document.getElementById('qBagrutAvg').value) || 90;
+            const psychometric = parseFloat(document.getElementById('qPsychometric').value) || 0;
+            const city = document.getElementById('qCity').value;
+
+            // כאן תופיע הלוגיקה המשוקללת להצגת התוצאות...
+            renderInstitutionLinks(city);
+            openView('results-view');
+        }
     </script>
 </body>
 </html>
