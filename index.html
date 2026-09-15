@@ -3,60 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>העתיד המקצועי שלך</title>
+    <title>AI Study Advisor - העתיד המקצועי שלך</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-950 text-white min-h-screen p-4 md:p-8 flex flex-col items-center justify-center">
+<body class="bg-slate-950 text-white min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
 
-    <div class="max-w-2xl w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl">
-        <h1 class="text-2xl font-bold text-cyan-400 mb-6 text-center">אבחון ומכוון קריירה לימודי</h1>
+    <div class="max-w-2xl w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
         
-        <!-- טופס קלט -->
-        <form id="career-form" class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium mb-1">השכלה נוכחית:</label>
-                <select id="status-field" class="w-full p-2.5 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:ring-2 focus:ring-cyan-500">
-                    <option value="high_school">תיכונית / ללא תואר</option>
-                    <option value="academic_degree">בעל תואר אקדמי</option>
-                    <option value="practical_engineer">הנדסאי</option>
-                </select>
+        <!-- ==================== מסך 1: מסך כניסה / נחיתה ראשי ==================== -->
+        <div id="landing-screen" class="text-center space-y-6">
+            <div class="inline-block p-3 bg-cyan-500/10 rounded-2xl border border-cyan-500/20 text-cyan-400 text-4xl mb-2">
+                🚀
             </div>
-
-            <div>
-                <label class="block text-sm font-medium mb-1">גיל:</label>
-                <input type="number" id="age-field" value="30" min="16" max="100" class="w-full p-2.5 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:ring-2 focus:ring-cyan-500">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium mb-1">מקצוע / תחום עיסוק נוכחי:</label>
-                <input type="text" id="profession-field" placeholder="למשל: מנהל חשבונות, איש מכירות..." class="w-full p-2.5 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:ring-2 focus:ring-cyan-500">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium mb-2">תחומי עניין מועדפים:</label>
-                <div class="grid grid-cols-2 gap-2 text-sm">
-                    <label class="flex items-center space-x-2 space-x-reverse bg-slate-800 p-2 rounded-lg cursor-pointer hover:bg-slate-700">
-                        <input type="checkbox" name="fields" value="הייטק ותוכנה" class="rounded text-cyan-500 focus:ring-cyan-500" checked>
-                        <span>הייטק ותוכנה</span>
-                    </label>
-                    <label class="flex items-center space-x-2 space-x-reverse bg-slate-800 p-2 rounded-lg cursor-pointer hover:bg-slate-700">
-                        <input type="checkbox" name="fields" value="כלכלה ופיננסים" class="rounded text-cyan-500 focus:ring-cyan-500">
-                        <span>כלכלה ופיננסים</span>
-                    </label>
-                    <label class="flex items-center space-x-2 space-x-reverse bg-slate-800 p-2 rounded-lg cursor-pointer hover:bg-slate-700">
-                        <input type="checkbox" name="fields" value="ניהול ועסקים" class="rounded text-cyan-500 focus:ring-cyan-500">
-                        <span>ניהול ועסקים</span>
-                    </label>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">
+                העתיד המקצועי שלך מתחיל כאן
+            </h1>
+            <p class="text-slate-300 text-base md:text-lg max-w-lg mx-auto leading-relaxed">
+                מערכת חכמה לאבחון, התאמה והכוון אקדמי ותעסוקתי מבוסס AI. גלה את מסלול הלימודים והקורסים המדויקים עבורך תוך דקה.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-right text-xs md:text-sm text-slate-400 py-4 border-y border-slate-800">
+                <div class="flex items-center space-x-2 space-x-reverse">
+                    <span class="text-cyan-400">✓</span>
+                    <span>התאמה לפי רקע וגיל</span>
+                </div>
+                <div class="flex items-center space-x-2 space-x-reverse">
+                    <span class="text-cyan-400">✓</span>
+                    <span>קורסי AI ממוקדים</span>
+                </div>
+                <div class="flex items-center space-x-2 space-x-reverse">
+                    <span class="text-cyan-400">✓</span>
+                    <span>תסריט שיחה ליועץ</span>
                 </div>
             </div>
 
-            <button type="submit" class="w-full py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-lg transition-colors mt-6">
-                צור תוכנית פעולה מותאמת אישית
+            <button id="start-btn" class="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-lg rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5">
+                להתחלת אבחון קריירה אישי ➔
             </button>
-        </form>
+        </div>
 
-        <!-- אזור התוצאות - מוסתר כברירת מחדל -->
-        <div id="ai-pivot-recommendation" class="hidden mt-8 p-4 rounded-xl bg-slate-900/90 border border-slate-800 shadow-lg"></div>
+        <!-- ==================== מסך 2: שאלון אבחון (מוסתר בהתחלה) ==================== -->
+        <div id="form-screen" class="hidden">
+            <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+                <h2 class="text-2xl font-bold text-cyan-400">אבחון ומכוון קריירה לימודי</h2>
+                <button id="back-to-landing-btn" class="text-xs text-slate-400 hover:text-white underline">חזרה לדף הבית</button>
+            </div>
+
+            <form id="career-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">השכלה נוכחית:</label>
+                    <select id="status-field" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:ring-2 focus:ring-cyan-500">
+                        <option value="high_school">תיכונית / ללא תואר</option>
+                        <option value="academic_degree">בעל תואר אקדמי</option>
+                        <option value="practical_engineer">הנדסאי</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">גיל:</label>
+                    <input type="number" id="age-field" value="30" min="16" max="100" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:ring-2 focus:ring-cyan-500">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">מקצוע / תחום עיסוק נוכחי:</label>
+                    <input type="text" id="profession-field" placeholder="למשל: מנהל חשבונות, איש מכירות..." class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 focus:ring-2 focus:ring-cyan-500">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">תחומי עניין מועדפים:</label>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center space-x-2 space-x-reverse bg-slate-800 p-2.5 rounded-lg cursor-pointer hover:bg-slate-700">
+                            <input type="checkbox" name="fields" value="הייטק ותוכנה" class="rounded text-cyan-500 focus:ring-cyan-500" checked>
+                            <span>הייטק ותוכנה</span>
+                        </label>
+                        <label class="flex items-center space-x-2 space-x-reverse bg-slate-800 p-2.5 rounded-lg cursor-pointer hover:bg-slate-700">
+                            <input type="checkbox" name="fields" value="כלכלה ופיננסים" class="rounded text-cyan-500 focus:ring-cyan-500">
+                            <span>כלכלה ופיננסים</span>
+                        </label>
+                        <label class="flex items-center space-x-2 space-x-reverse bg-slate-800 p-2.5 rounded-lg cursor-pointer hover:bg-slate-700">
+                            <input type="checkbox" name="fields" value="ניהול ועסקים" class="rounded text-cyan-500 focus:ring-cyan-500">
+                            <span>ניהול ועסקים</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-lg transition-colors mt-6">
+                    צור תוכנית פעולה מותאמת אישית
+                </button>
+            </form>
+        </div>
+
+        <!-- ==================== מסך 3: תוצאות (מוסתר בהתחלה) ==================== -->
+        <div id="results-screen" class="hidden space-y-6">
+            <div id="ai-pivot-recommendation"></div>
+            
+            <button id="restart-btn" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-lg transition-colors border border-slate-700">
+                🔄 בצע אבחון מחדש
+            </button>
+        </div>
+
     </div>
 
     <script>
@@ -139,12 +184,35 @@
                     '<ul class="list-disc list-inside space-y-1 text-slate-300">' + questionsList + '</ul>' +
                 '</div>' +
             '</div>';
-
-        pivotContainer.classList.remove("hidden");
     }
 
     document.addEventListener("DOMContentLoaded", function() {
+        var landingScreen = document.getElementById("landing-screen");
+        var formScreen = document.getElementById("form-screen");
+        var resultsScreen = document.getElementById("results-screen");
+
+        var startBtn = document.getElementById("start-btn");
+        var backBtn = document.getElementById("back-to-landing-btn");
+        var restartBtn = document.getElementById("restart-btn");
         var form = document.getElementById("career-form");
+
+        // לחיצה על "התחל אבחון" מעבירה לשאלון
+        if (startBtn) {
+            startBtn.addEventListener("click", function() {
+                landingScreen.classList.add("hidden");
+                formScreen.classList.remove("hidden");
+            });
+        }
+
+        // חזרה למסך הבית
+        if (backBtn) {
+            backBtn.addEventListener("click", function() {
+                formScreen.classList.add("hidden");
+                landingScreen.classList.remove("hidden");
+            });
+        }
+
+        // שליחת השאלון מעבירה למסך התוצאות
         if (form) {
             form.addEventListener("submit", function(e) {
                 e.preventDefault();
@@ -161,6 +229,17 @@
                 };
 
                 renderEnhancedResults(formData);
+
+                formScreen.classList.add("hidden");
+                resultsScreen.classList.remove("hidden");
+            });
+        }
+
+        // אבחון מחדש מחזיר למסך הבית
+        if (restartBtn) {
+            restartBtn.addEventListener("click", function() {
+                resultsScreen.classList.add("hidden");
+                landingScreen.classList.remove("hidden");
             });
         }
     });
