@@ -393,7 +393,7 @@
                 <p class="text-cyan-300 font-bold">נתוניך שוקללו בהצלחה במערכת האבחון.</p>
                 <p class="text-slate-300 mt-1 flex flex-wrap items-center gap-2">
                     <span>ציון הסכם המשוער (משוקלל בגרות + פסיכומטרי) הינו: <strong class="text-amber-300 text-base">${calculatedSakam}</strong></span>
-                    <a href="https://he.wikipedia.org/wiki/%D6%B8%D6%B9%D7%9E%D6%B7%D7%A2%D6%B7%D7%9C_%D6%BC%D6%B4%D7%A9%D6%B8%D6%BC%D7%A7%D6%B8%D7%9C" target="_blank" class="text-indigo-400 hover:underline text-xs inline-flex items-center gap-1 font-medium">🔗 כיצד מחושב הציון המשוקלל?</a>
+                    <a href="javascript:void(0)" onclick="alert('הנוסחה המקובלת ביותר לחישוב ציון משוקלל (סכם או ציון התאמה) היא שקלול של 60% ציון פסיכומטרי ו-40% ממוצע בגרויות משוקלל (עם בונוסים), אך המשקלים משתנים בין מוסדות הלימוד והחוגים השונים.\\n\\nשלבי החישוב המרכזיים:\\n• חישוב ממוצע בגרויות: חישוב הממוצע תוך הוספת בונוסים למקצועות מוגברים (כגון 5 יחידות מתמטיקה ואנגלית) לפי השיטה של כל מוסד אקדמי.\\n• המרת ציונים: המרת ציון הפסיכומטרי והבגרות לערכים נומריים בהתאם לנוסחאות הספציפיות של האוניברסיטה או המכללה.')" class="text-indigo-400 hover:underline text-xs inline-flex items-center gap-1 font-medium cursor-pointer">🔗 כיצד מחושב הציון המשוקלל?</a>
                 </p>
                 <p class="text-xs text-slate-400 mt-1">תחומים מועדפים שנבחרו: <strong class="text-indigo-300">${selectedFields.length > 0 ? selectedFields.join(', ') : 'לא צוין'}</strong></p>
             `;
@@ -409,33 +409,11 @@
                     masterSection.innerHTML = `
                         <h3 class="text-sm font-bold text-cyan-300">🎓 המלצה למסלול תואר שני מתקדם (על בסיס ${prevDegreeName} בממוצע ${prevDegreeAvg})</h3>
                         <p class="text-xs text-slate-300 leading-relaxed mt-1">
-                            בהינתן ממוצע גבוה בתואר הראשון (${prevDegreeAvg}), אתה עומד בתנאי הסף לקבלה ישירה למגוון מסלולי <strong>תואר שני (מוסמך)</strong> או השלמות ממוקדות. מומלץ לשלב תואר שני במערכות מידע, ניתוח נתונים (Data Analytics) או מינהל עסקים כדי למקסם את שכרך ולשלב כוח אדם אקדמי מוביל.
-                        </p>
-                    `;
-                } else {
-                    masterSection.classList.remove('hidden');
-                    masterSection.innerHTML = `
-                        <h3 class="text-sm font-bold text-amber-300">💡 המלצה לשדרוג או הסבה אקדמית</h3>
-                        <p class="text-xs text-slate-300 leading-relaxed mt-1">
-                            על בסיס ממוצע התואר הקודם (${prevDegreeAvg}), מומלץ לשקול השלמות נקודתיות או לימודי תעודה מתקדמים בתחומי האנליטיקה וה-AI כדי לרענן את ארגז הכלים המקצועי שלך.
+                            בהינתן ממוצע גבוה בתואר הראשון (${prevDegreeAvg}), אתה עומד בתנאי הסף לקבלה ישירה למגוון מסלולי תואר שני.
                         </p>
                     `;
                 }
-            } else {
-                masterSection.classList.add('hidden');
             }
-
-            // 3. חוסן תעסוקתי מול AI
-            const aiPivotSection = document.getElementById('ai-pivot-recommendation');
-            aiPivotSection.classList.remove('hidden');
-            aiPivotSection.innerHTML = `
-                <h3 class="text-sm font-bold text-indigo-300">🛡️ ניתוח חוסן תעסוקתי מול בינה מלאכותית (AI)</h3>
-                <p class="text-xs text-slate-300 leading-relaxed mt-1">
-                    העיסוק הנוכחי שלך (<strong class="text-cyan-300">${profession}</strong>) מאופיין במטלות אנליטיות שחלקן ניתנות לאוטומציה. ההמלצה המרכזית של המערכת היא לשלב כלי AI יומיומיים בעבודתך, או לבצע הסבה לתפקידי ניהול, ייעוץ אסטרטגי ואנליטיקה מתקדמת הדורשים חשיבה ביקורתית ומגע אנושי שאינם בני תחליף.
-                </p>
-            `;
-
-            renderInstitutionLinks(city);
             openView('results-view');
         }
     </script>
