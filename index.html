@@ -190,7 +190,10 @@
             <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30">                
                 <div class="flex justify-between items-center mb-1">
                     <label for="qBagrutAvg" class="block text-sm font-bold text-cyan-300">📈 3. ממוצע בגרויות / מכינה:</label>
-                    <button type="button" onclick="alert('חישוב סכם ובגרויות משוקקל לפי רמת הקושי של מקצועות הבחירה (כגון 4-5 יח` מתמטיקה ואנגלית) בתוספת בונוסים המוענקים על ידי האוניברסיטאות והמכללות המובילות בישראל.')" class="text-[11px] text-cyan-400 hover:underline cursor-pointer">ℹ️ כיצד ממוצע זה מחושב?</button>
+                    <div class="flex items-center gap-3">
+                        <a href="https://he.wikipedia.org/wiki/%D6%B8%D6%B9%D7%9E%D6%B7%D7%A2%D6%B7%D7%9C_%D6%BC%D6%B4%D7%A9%D6%B8%D6%BC%D7%A7%D6%B8%D7%9C" target="_blank" class="text-[11px] text-indigo-400 hover:underline cursor-pointer font-medium">🔗 הסבר חישוב ממוצע משוקלל</a>
+                        <button type="button" onclick="alert('חישוב סכם ובגרויות משוקקל לפי רמת הקושי של מקצועות הבחירה (כגון 4-5 יח` מתמטיקה ואנגלית) בתוספת בונוסים המוענקים על ידי האוניברסיטאות והמכללות המובילות בישראל.')" class="text-[11px] text-cyan-400 hover:underline cursor-pointer">ℹ️ כיצד ממוצע זה מחושב?</button>
+                    </div>
                 </div>
                 <input type="number" id="qBagrutAvg" min="50" max="120" step="0.1" value="95" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">            
             </div>
@@ -410,15 +413,15 @@
                     masterSection.innerHTML = `
                         <h3 class="text-sm font-bold text-cyan-300">🎓 המלצה למסלול תואר שני מתקדם (על בסיס ${prevDegreeName} בממוצע ${prevDegreeAvg})</h3>
                         <p class="text-xs text-slate-300 leading-relaxed mt-1">
-                            בהינתן ממוצע גבוה בתואר הראשון (${prevDegreeAvg}), אתה עומד בתנאי הסף לקבלה ישירה למגוון מסלולי <strong>תואר שני (מוסמך)</strong> או השלמות ממוקדות. מומלץ לשלב תואר שני במערכות מידע, ניתוח נתונים (Data Analytics) או מינהל עסקים כדי למקסם את שכרך ולשלב כלים טכנולוגיים מתקדמים לצד הרקע שלך ב-${prevDegreeName}.
+                            בהינתן ממוצע גבוה בתואר הראשון (${prevDegreeAvg}), אתה עומד בתנאי הסף לקבלה ישירה למגוון מסלולי <strong>תואר שני (מוסמך)</strong> או השלמות ממוקדות. מומלץ לשלב תואר שני במערכות מידע, ניתוח נתונים (Data Analytics) או מינהל עסקים כדי למקסם את שכרך ולשלב כוח אדם אקדמי מוביל.
                         </p>
                     `;
                 } else {
                     masterSection.classList.remove('hidden');
                     masterSection.innerHTML = `
-                        <h3 class="text-sm font-bold text-cyan-300">🔄 המלצת הסבה מקצועית או תעודה מתקדמת</h3>
+                        <h3 class="text-sm font-bold text-amber-300">💡 המלצה לשדרוג או הסבה אקדמית</h3>
                         <p class="text-xs text-slate-300 leading-relaxed mt-1">
-                            יש לך כבר רקע אקדמי ב-${prevDegreeName}. עם ממוצע של ${prevDegreeAvg}, מומלץ לשקול לימודי תעודה מתקדמים או הסבה מקצועית ממוקדת לעולמות הבינה המלאכותית וניתוח הנתונים במקום תואר שני מלא, כדי לשדרג את האופק המקצועי בקצרה.
+                            על בסיס ממוצע התואר הקודם (${prevDegreeAvg}), מומלץ לשקול השלמות נקודתיות או לימודי תעודה מתקדמים בתחומי האנליטיקה וה-AI כדי לרענן את ארגז הכלים המקצועי שלך.
                         </p>
                     `;
                 }
@@ -427,28 +430,18 @@
             }
 
             // 3. המלצת שינוי מגמה מול סיכון AI
-            document.getElementById('ai-pivot-recommendation').innerHTML = `
-                <h3 class="text-sm font-bold text-indigo-300">🤖 ניתוח חוסן תעסוקתי וסיכון AI למקצוע: ${profession}</h3>
+            const aiPivotSection = document.getElementById('ai-pivot-recommendation');
+            aiPivotSection.classList.remove('hidden');
+            aiPivotSection.innerHTML = `
+                <h3 class="text-sm font-bold text-indigo-300">🛡️ ניתוח חוסן תעסוקתי מול בינה מלאכותית (AI)</h3>
                 <p class="text-xs text-slate-300 leading-relaxed mt-1">
-                    המקצוע הנוכחי נמצא ברמת חשיפה בינונית-גבוהה לאוטומציה של בינה מלאכותית. מומלץ לשלב כלים מתקדמים או לבצע התאמה למסלולי ניהול, ייעוץ אסטרטגי או פיתוח טכנולוגי המשלבים הבנה אנושית עמוקה לצד מערכות AI.
+                    העיסוק הנוכחי שלך (<strong class="text-cyan-300">${profession}</strong>) מאופיין במטלות אנליטיות שחלקן ניתנות לאוטומציה. ההמלצה המרכזית של המערכת היא לשלב כלי AI יומיומיים בעבודתך, או לבצע הסבה לתפקידי ניהול, ייעוץ אסטרטגי ואנליטיקה מתקדמת הדורשים חשיבה ביקורתית ומגע אנושי שאינם בני תחליף.
                 </p>
             `;
 
-            // 4. הצגת מסלולי לימוד מומלצים
-            document.getElementById('recommendations-container').innerHTML = `
-                <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 space-y-2">
-                    <h3 class="text-sm font-bold text-emerald-300">✨ מסלול מומלץ 1: מערכות מידע וניהול טכנולוגי</h3>
-                    <p class="text-xs text-slate-300">התאמה גבוהה לנתונים שלך, משלב ניתוח נתונים, קבלת החלטות עסקית ויישום מערכות AI מתקדמות בשוק העבודה.</p>
-                </div>
-                <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 space-y-2">
-                    <h3 class="text-sm font-bold text-cyan-300">✨ מסלול מומלץ 2: ניתוח נתונים ואנליטיקה פיננסית</h3>
-                    <p class="text-xs text-slate-300">מתאים מאוד לרקע קודם, מאפשר שדרוג שכר משמעותי והשתלבות בחברות המובילות במשק.</p>
-                </div>
-            `;
-
-            // קריאה לפונקציית הצגת הקישורים המתוקנים
+            // 4. הפעלה והצגת מוסדות לימוד לפי האזור שנבחר
             renderInstitutionLinks(city);
-            
+
             openView('results-view');
         }
     </script>
