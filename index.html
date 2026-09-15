@@ -44,7 +44,7 @@
             <h1 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">                
                 העתיד שלך מתחיל בבחירה חכמה            </h1>            
             <p class="text-slate-300 text-sm md:text-base">                
-                סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים והשפעת AI.            </h1>        
+                סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים והשפעת AI.            </p>        
         </div>
         <div class="space-y-4 pt-2">            
             <div>                
@@ -167,7 +167,7 @@
                 <span class="text-[11px] text-slate-400 block">* משמש לבדיקת חוסן תעסוקתי מול בינה מלאכותית והמלצה על שדרוג מקצועי או הסבה.</span>
             </div>
 
-            <!-- תחומי העדפה מועדפים (בחירה מרובת אפשרויות) -->
+            <!-- תחומי העדפה מועדפים -->
             <div class="bg-slate-900/60 p-4 rounded-xl border border-indigo-500/40 space-y-2">
                 <label class="block text-sm font-bold text-indigo-300 mb-1">🎯 תחומי לימוד וקריירה מועדפים (ניתן לבחור כמה אפשרויות):</label>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-200 pt-1">
@@ -190,10 +190,7 @@
             <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30">                
                 <div class="flex justify-between items-center mb-1">
                     <label for="qBagrutAvg" class="block text-sm font-bold text-cyan-300">📈 3. ממוצע בגרויות / מכינה:</label>
-                    <div class="flex items-center gap-3">
-                        <a href="https://he.wikipedia.org/wiki/%D6%B8%D6%B9%D7%9E%D6%B7%D7%A2%D6%B7%D7%9C_%D6%BC%D6%B4%D7%A9%D6%B8%D6%BC%D7%A7%D6%B8%D7%9C" target="_blank" class="text-[11px] text-indigo-400 hover:underline cursor-pointer font-medium">🔗 הסבר חישוב ממוצע משוקלל</a>
-                        <button type="button" onclick="alert('חישוב סכם ובגרויות משוקקל לפי רמת הקושי של מקצועות הבחירה (כגון 4-5 יח` מתמטיקה ואנגלית) בתוספת בונוסים המוענקים על ידי האוניברסיטאות והמכללות המובילות בישראל.')" class="text-[11px] text-cyan-400 hover:underline cursor-pointer">ℹ️ כיצד ממוצע זה מחושב?</button>
-                    </div>
+                    <button type="button" onclick="alert('חישוב סכם ובגרויות משוקקל לפי רמת הקושי של מקצועות הבחירה (כגון 4-5 יח` מתמטיקה ואנגלית) בתוספת בונוסים המוענקים על ידי האוניברסיטאות והמכללות המובילות בישראל.')" class="text-[11px] text-cyan-400 hover:underline cursor-pointer">ℹ️ כיצד ממוצע זה מחושב?</button>
                 </div>
                 <input type="number" id="qBagrutAvg" min="50" max="120" step="0.1" value="95" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">            
             </div>
@@ -239,7 +236,7 @@
         <h2 class="text-2xl font-bold text-emerald-400">🎓 תוצאות אבחון משוקלל וסיכויי קבלה</h2>            
         <div id="results-summary" class="bg-slate-900/90 p-5 rounded-xl border border-slate-700 text-sm leading-relaxed space-y-3"></div>            
         
-        <!-- אזור המלצת תואר שני או החלפה לפי סוג תואר -->
+        <!-- אזור המלצת תואר שני -->
         <div id="master-degree-recommendation" class="bg-cyan-950/60 p-5 rounded-xl border border-cyan-500/50 space-y-2"></div>
 
         <!-- אזור המלצת שינוי מגמה מול סיכון AI -->
@@ -252,7 +249,6 @@
             <h3 class="text-base font-bold text-cyan-300">🏛️ הפניה למוסדות לימוד מומלצים באזור הנבחר (InstitutionsDB)</h3>
             <p class="text-xs text-slate-300">בהתאם לאזור שבחרת ולנתונים שלך, להלן מוסדות הלימוד המובילים והקישורים הישירים שלהם:</p>
             <div id="institutions-links-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2">
-                <!-- יתמלא דינמית בהתאם לאזור -->
             </div>
         </div>
 
@@ -327,7 +323,6 @@
             alert('נתוני הכניסות אופסו בהצלחה.');
         }
 
-        // פונקציה לייצור קישורי מוסדות לימוד דינמית
         function renderInstitutionLinks(city) {
             const container = document.getElementById('institutions-links-container');
             if (!container) return;
@@ -378,7 +373,6 @@
             container.innerHTML = linksHTML;
         }
 
-        // סימולציית הגשת שאלון, חישוב נתונים והצגת התוצאות המלאות
         function submitQuestionnaire(event) {
             event.preventDefault();
             
@@ -389,20 +383,22 @@
             const psychometric = parseFloat(document.getElementById('qPsychometric').value) || 550;
             const city = document.getElementById('qCity').value;
 
-            // איסוף תחומי העדפה נבחרים (Checkbox)
             const selectedFields = Array.from(document.querySelectorAll('input[name="preferredFields"]:checked')).map(cb => cb.value);
 
-            // חישוב סכם משוער
+            // חישוב ציון סכם משוער (בגרות + פסיכומטרי)
             const calculatedSakam = Math.round((bagrut * 0.4) + (psychometric * 0.08) + 150);
 
-            // 1. סיכום נתונים ראשוני
+            // 1. סיכום נתונים עם קישור להסבר החישוב המשוקלל
             document.getElementById('results-summary').innerHTML = `
                 <p class="text-cyan-300 font-bold">נתוניך שוקללו בהצלחה במערכת האבחון.</p>
-                <p class="text-slate-300 mt-1">ציון הסכם המשוער שחושב על בסיס ממוצע הבגרויות והפסיכומטרי הינו: <strong class="text-amber-300">${calculatedSakam}</strong>.</p>
+                <p class="text-slate-300 mt-1 flex flex-wrap items-center gap-2">
+                    <span>ציון הסכם המשוער (משוקלל בגרות + פסיכומטרי) הינו: <strong class="text-amber-300 text-base">${calculatedSakam}</strong></span>
+                    <a href="https://he.wikipedia.org/wiki/%D6%B8%D6%B9%D7%9E%D6%B7%D7%A2%D6%B7%D7%9C_%D6%BC%D6%B4%D7%A9%D6%B8%D6%BC%D7%A7%D6%B8%D7%9C" target="_blank" class="text-indigo-400 hover:underline text-xs inline-flex items-center gap-1 font-medium">🔗 כיצד מחושב הציון המשוקלל?</a>
+                </p>
                 <p class="text-xs text-slate-400 mt-1">תחומים מועדפים שנבחרו: <strong class="text-indigo-300">${selectedFields.length > 0 ? selectedFields.join(', ') : 'לא צוין'}</strong></p>
             `;
             
-            // 2. מנגנון תואר שני / החלפה לפי תואר קודם
+            // 2. תואר שני / השלמות
             const masterSection = document.getElementById('master-degree-recommendation');
             if (educationStatus === 'academic_degree') {
                 const prevDegreeName = document.getElementById('qPrevDegreeName').value || 'תואר ראשון כללי';
@@ -429,7 +425,7 @@
                 masterSection.classList.add('hidden');
             }
 
-            // 3. המלצת שינוי מגמה מול סיכון AI
+            // 3. חוסן תעסוקתי מול AI
             const aiPivotSection = document.getElementById('ai-pivot-recommendation');
             aiPivotSection.classList.remove('hidden');
             aiPivotSection.innerHTML = `
@@ -439,9 +435,7 @@
                 </p>
             `;
 
-            // 4. הפעלה והצגת מוסדות לימוד לפי האזור שנבחר
             renderInstitutionLinks(city);
-
             openView('results-view');
         }
     </script>
