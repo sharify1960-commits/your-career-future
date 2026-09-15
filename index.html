@@ -267,9 +267,9 @@
 
     <!-- מסך תוצאות אבחון -->    
     <div id="results-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">        
-        <h2 class="text-2xl font-bold text-emerald-400">🎓 תוצאות אבחון משוקלל וסיכויי קבלה</h2>            
+        <h2 class="text-2xl font-bold text-emerald-400">🎓 תוצאות אבחון משוקלל וסיכויי קבלה</h2>        
         
-        <div id="results-summary" class="bg-slate-900/90 p-5 rounded-xl border border-slate-700 text-sm leading-relaxed space-y-3"></div>            
+        <div id="results-summary" class="bg-slate-900/90 p-5 rounded-xl border border-slate-700 text-sm leading-relaxed space-y-3"></div>        
         
         <!-- אזור המלצת תואר שני מפורט -->
         <div id="master-degree-recommendation" class="bg-cyan-950/60 p-5 rounded-xl border border-cyan-500/50 space-y-3"></div>
@@ -425,76 +425,63 @@
         function submitQuestionnaire(event) {
             event.preventDefault();
             
-            const age = document.getElementById('qAge').value;
+            const age = parseInt(document.getElementById('qAge').value) || 25;
             const educationStatus = document.getElementById('qEducationStatus').value;
             const profession = document.getElementById('qCurrentProfession').value;
             const bagrut = parseFloat(document.getElementById('qBagrutAvg').value) || 90;
-            const psychometric = parseFloat(document.getElementById('qPsychometric').value) || 550;
+            const psychometric = parseFloat(document.getElementById('qPsychometric').value) || 0;
             const city = document.getElementById('qCity').value;
 
-            const selectedFields = Array.from(document.querySelectorAll('input[name="preferredFields"]:checked')).map(cb => cb.value);
+            const summaryContainer = document.getElementById('results-summary');
+            const masterContainer = document.getElementById('master-degree-recommendation');
+            const aiContainer = document.getElementById('ai-pivot-recommendation');
 
-            // חישוב ציון סכם משוער (בגרות + פסיכומטרי)
-            const calculatedSakam = Math.round((bagrut * 0.4) + (psychometric * 0.08) + 150);
-
-            // 1. סיכום נתונים
-            document.getElementById('results-summary').innerHTML = `
-                <p class="text-cyan-300 font-bold text-base">נתוניך שוקללו בהצלחה במערכת האבחון.</p>
-                <p class="text-slate-300 mt-1 flex flex-wrap items-center gap-2">
-                    <span>ציון הסכם המשוער (משוקלל בגרות + פסיכומטרי) הינו: <strong class="text-amber-300 text-lg">${calculatedSakam}</strong></span>
-                    <a href="javascript:void(0)" onclick="alert('הנוסחה המקובלת ביותר לחישוב ציון משוקלל (סכם או ציון התאמה) היא שקלול של 60% ציון פסיכומטרי ו-40% ממוצע בגרויות משוקלל (עם בונוסים), אך המשקלים משתנים בין מוסדות הלימוד והחוגים השונים.\\n\\nשלבי החישוב המרכזיים:\\n• חישוב ממוצע בגרויות: חישוב הממוצע תוך הוספת בונוסים למקצועות מוגברים (כגון 5 יחידות מתמטיקה ואנגלית) לפי השיטה של כל מוסד אקדמי.\\n• המרת ציונים: המרת ציון הפסיכומטרי והבגרות לערכים נומריים בהתאם לנוסחאות הספציפיות של האוניברסיטה או המכללה.')" class="text-indigo-400 hover:underline text-xs inline-flex items-center gap-1 font-medium cursor-pointer">🔗 כיצד מחושב הציון המשוקלל?</a>
-                </p>
-                <p class="text-xs text-slate-400 mt-1">תחומים מועדפים שנבחרו: <strong class="text-indigo-300">${selectedFields.length > 0 ? selectedFields.join(', ') : 'לא צוין'}</strong></p>
-            `;
-            
-            // 2. תואר שני / השלמות מפורטות
-            const masterSection = document.getElementById('master-degree-recommendation');
-            if (educationStatus === 'academic_degree') {
-                const prevDegreeName = document.getElementById('qPrevDegreeName').value || 'תואר ראשון כללי';
-                const prevDegreeAvg = parseFloat(document.getElementById('qPrevDegreeAvg').value) || 80;
-
-                masterSection.classList.remove('hidden');
-                masterSection.innerHTML = `
-                    <h3 class="text-base font-bold text-cyan-300 border-b border-cyan-500/30 pb-2">🎓 המלצות מפורטות לתארים שניים מתקדמים (על בסיס ${prevDegreeName} בממוצע ${prevDegreeAvg})</h3>
-                    <div class="space-y-3 pt-1">
-                        <div class="bg-slate-900/80 p-3.5 rounded-lg border border-cyan-500/30">
-                            <div class="font-bold text-cyan-300 text-sm">1. תואר שני במנהל עסקים (MBA) – התמחות בפיננסים, דאטה ובינה מלאכותית</div>
-                            <p class="text-slate-300 text-xs mt-1 leading-relaxed">המשך ישיר ומנצח לבעלי רקע ב-${prevDegreeName}. המסלול מתמקד בקבלת החלטות עסקיות מבוססות Data, ניהול סיכונים ואוטומציה פיננסית.</p>
-                            <span class="inline-block mt-2 text-[11px] bg-cyan-950 text-cyan-300 px-2.5 py-0.5 rounded border border-cyan-800">תנאי קבלה: קבלה ישירה ללא פסיכומטרי/GMAT בזכות ממוצע ${prevDegreeAvg}</span>
-                        </div>
-                        <div class="bg-slate-900/80 p-3.5 rounded-lg border border-cyan-500/30">
-                            <div class="font-bold text-cyan-300 text-sm">2. תואר שני M.Sc במערכות מידע וניתוח נתונים (Data Analytics)</div>
-                            <p class="text-slate-300 text-xs mt-1 leading-relaxed">שילוב טכנולוגי עוצמתי. מעניק שליטה בפייתון, SQL ומודלים אלגוריתמיים לניתוח ביג-דאטה בארגונים פיננסיים וציבוריים.</p>
-                            <span class="inline-block mt-2 text-[11px] bg-cyan-950 text-cyan-300 px-2.5 py-0.5 rounded border border-cyan-800">תנאי קבלה: השלמה ממוקדת של 2-3 קורסי תכנות וסטטיסטיקה</span>
-                        </div>
-                        <div class="bg-slate-900/80 p-3.5 rounded-lg border border-cyan-500/30">
-                            <div class="font-bold text-cyan-300 text-sm">3. תואר שני M.A בכלכלה יישומית ופינטק (FinTech)</div>
-                            <p class="text-slate-300 text-xs mt-1 leading-relaxed">מסלול ייעודי המכשיר אנליסטים בכירים להתמודדות עם מעבר המגזר הפיננסי ואגפי התקציבים לאוטומציה ואלגוריתמיקה.</p>
-                            <span class="inline-block mt-2 text-[11px] bg-cyan-950 text-cyan-300 px-2.5 py-0.5 rounded border border-cyan-800">תנאי קבלה: פטור משקולי רקע כלכלי/כמותי</span>
-                        </div>
+            // בדיקת גיל והמלצת מסלול
+            if (age >= 45) {
+                summaryContainer.innerHTML = `
+                    <div class="bg-amber-500/20 border border-amber-500/50 p-4 rounded-xl text-amber-200 mb-3 space-y-2">
+                        <h4 class="font-bold text-base flex items-center gap-2">💡 המלצת מסלול ייעודית לפי גיל (${age}):</h4>
+                        <p class="text-xs leading-relaxed">
+                            בגילאי 45 ומעלה, כניסה למסלול אקדמי מלא ורב-שנתי (3–4 שנים) כרוכה בעלות אלטרנטיבית גבוהה של זמן ומשאבים. 
+                            <strong>בעדיפות ראשונה, מומלץ להתמקד בקורסי הכשרה מקצועיים, קצרים ופרקטיים (3–6 חודשים)</strong> שמביאים לתוצאות מהירות בשטח ומייצרים הכנסה גבוהה בזמן קצר.
+                        </p>
+                    </div>
+                    <div class="space-y-2 text-slate-200">
+                        <p class="font-semibold text-cyan-300">🎯 קורסים פרקטיים מומלצים ליצירת הכנסה מהירה:</p>
+                        <ul class="list-disc list-inside text-xs space-y-1 text-slate-300">
+                            <li><strong>מיישם/מפתח כלי בינה מלאכותית (AI Solutions Specialist)</strong> — שילוב אוטומציות ו-AI בעסקים.</li>
+                            <li><strong>אנליסט נתונים ומערכות (Data & Business Analyst)</strong> — ניתוח נתונים ודוחות עסקיים.</li>
+                            <li><strong>ניהול פרויקטים ודיגיטל (Digital Project Management)</strong> — ניהול תהליכים ופרויקטים בארגונים.</li>
+                            <li><strong>שיווק דיגיטלי ומכירות B2B</strong> — יצירת מנועי צמיחה והכנסה מידית.</li>
+                        </ul>
                     </div>
                 `;
             } else {
-                masterSection.classList.add('hidden');
+                summaryContainer.innerHTML = `
+                    <div class="space-y-2 text-slate-200">
+                        <p class="font-semibold text-emerald-400">✅ התאמה למסלול אקדמי / מקצועי (גיל ${age}):</p>
+                        <p class="text-xs text-slate-300">
+                            ממוצע הבגרויות שלך (${bagrut}) והנתונים האקדמיים מאפשרים שילוב במסלולים אקדמיים מלאים בתחומי הטכנולוגיה, הפיננסים והניהול.
+                        </p>
+                    </div>
+                `;
             }
 
-            // 3. ניתוח חוסן תעסוקתי מול AI
-            const aiSection = document.getElementById('ai-pivot-recommendation');
-            aiSection.classList.remove('hidden');
-            aiSection.innerHTML = `
-                <h3 class="text-base font-bold text-indigo-300 border-b border-indigo-500/30 pb-2">🤖 ניתוח חוסן תעסוקתי מול AI והמלצה לשינוי/שדרוג מגמה</h3>
-                <div class="space-y-2 text-xs text-slate-200 pt-1">
-                    <p><strong>עיסוק נוכחי מוזן:</strong> <span class="text-indigo-300 font-bold">${profession || 'לא צוין'}</span></p>
-                    <p><strong>רמת סיכון לאוטומציה ע"י בינה מלאכותית:</strong> <span class="text-amber-400 font-bold">בינונית-גבוהה (55%-65%)</span></p>
-                    <p class="text-slate-300 leading-relaxed bg-slate-900/80 p-3 rounded-lg border border-indigo-500/30">
-                        <strong>ניתוח מגמה:</strong> תחומים כגון ביקורת, עיבוד נתונים תקציביים ודוחות כספיים עוברים אוטומציה מהירה. כדי לשמור על יתרון יחסי, מומלץ לעבור מביצוע משימות חישוב ידניות לניהול מערכות AI, קבלת החלטות אסטרטגית, וייעוץ פיננסי-טכנולוגי בכיר.
-                    </p>
-                </div>
+            masterContainer.innerHTML = `
+                <h4 class="font-bold text-cyan-300 text-sm">🎓 התאמה לתואר שני / שדרוג מקצועי:</h4>
+                <p class="text-xs text-slate-300">
+                    עבור מקצוע כגון <strong>${profession}</strong>, מומלץ לשלב קורסי התמחות ב-AI ובדאטה כדי לשמור על חוסן תעסוקתי גבוה בשוק העבודה.
+                </p>
             `;
 
-            // 4. הפעלת הצגת מוסדות הלימוד לפי האזור הנבחר
-            renderInstitutionLinks(city);
+            aiContainer.innerHTML = `
+                <h4 class="font-bold text-indigo-300 text-sm">🤖 ניתוח חוסן תעסוקתי מול AI:</h4>
+                <p class="text-xs text-slate-300">
+                    תחום העיסוק "${profession}" עובר אוטומציה מתקדמת. אימוץ כלים דיגיטליים וקורסים ממוקדים יבטיחו יתרון תחרותי משמעותי.
+                </p>
+            `;
 
+            renderInstitutionLinks(city);
             openView('results-view');
         }
     </script>
