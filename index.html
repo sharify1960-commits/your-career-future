@@ -5,25 +5,24 @@ function generateSpecificRecommendations(status, age, profession, preferredField
         whatToAsk: []
     };
 
-    // 1. קביעת קורסי AI ממוקדים לפי תחומי העניין והמקצוע
-    if (preferredFields.includes('הייטק ותוכנה')) {
+    /* 1. קביעת קורסי AI לפי תחומי עניין */
+    if (preferredFields && preferredFields.includes('הייטק ותוכנה')) {
         recs.courses.push("פיתוח יישומי AI ואינטגרציית LLM (Prompt Engineering & APIs)");
         recs.courses.push("אוטומציה עסקית וכלי No-Code/Low-Code עם AI");
     }
-    if (preferredFields.includes('כלכלה ופיננסים')) {
+    if (preferredFields && preferredFields.includes('כלכלה ופיננסים')) {
         recs.courses.push("ניתוח נתונים מתקדם וניבוי פיננסי באמצעות AI ו-Python");
         recs.courses.push("מודלים של AI בקבלת החלטות פיננסיות");
     }
-    if (preferredFields.includes('ניהול ועסקים')) {
+    if (preferredFields && preferredFields.includes('ניהול ועסקים')) {
         recs.courses.push("ניהול מוצר וטרנספורמציה דיגיטלית בעידן ה-AI (AI Product Management)");
     }
 
-    // ברירת מחדל לקורס AI בסיסי אם לא נבחר תחום ספציפי
     if (recs.courses.length === 0) {
         recs.courses.push("יישום כלי GenAI לייעול תהליכי עבודה ופרודוקטיביות");
     }
 
-    // 2. קביעת מסלול אקדמי / מקצועי (תואר שני / הנדסאים / תעודה)
+    /* 2. קביעת מסלול אקדמי / מקצועי */
     if (status === 'academic_degree') {
         recs.degreeTrack = "תואר שני (M.Sc / MBA) בניהול טכנולוגיה ונתונים או תוכנית הסבה אקדמית מרוכזת (מבלי להתחיל תואר ראשון מאפס).";
     } else if (age >= 30) {
@@ -32,45 +31,40 @@ function generateSpecificRecommendations(status, age, profession, preferredField
         recs.degreeTrack = "תואר ראשון מדעי/טכנולוגי (B.Sc / B.A במערכות מידע) או מסלול הנדסאים מואץ.";
     }
 
-    // 3. מה בדיוק לבקש/לשאול במוסד הלימודים
+    /* 3. שאלות ליועץ הלימודים */
+    var mainTrack = recs.degreeTrack.split('-')[0];
     recs.whatToAsk = [
-        `"אני מבקש להירשם לקורס ממוקד בנושא: ${recs.courses[0]}"`,
-        `"מהם תנאי הפטור או ההכרה בלימודים קודמים עבור מסלול: ${recs.degreeTrack.split('-')[0]}?"`,
-        `"האם התוכנית כוללת סדנאות מעשיות בשימוש בכלי AI עדכניים ופרויקט גמר יישומי לתעשייה?"`
+        "אני מבקש להירשם לקורס ממוקד בנושא: " + recs.courses[0],
+        "מהם תנאי הפטור או ההכרה בלימודים קודמים עבור מסלול: " + mainTrack + "?",
+        "האם התוכנית כוללת סדנאות מעשיות בשימוש בכלי AI עדכניים ופרויקט גמר יישומי לתעשייה?"
     ];
 
     return recs;
 }
 
-// שילוב התוצאה המפורטת ברנדור התשובה
 function renderEnhancedResults(data) {
     const recs = generateSpecificRecommendations(data.status, data.age, data.profession, data.fields);
-    
     const pivotContainer = document.getElementById('ai-pivot-recommendation');
+    
     if (pivotContainer) {
-        pivotContainer.innerHTML = `
-            <h3 class="text-lg font-bold text-cyan-300 mb-2">🤖 תוכנית פעולה מומלצת וממוקדת מול מוסד הלימודים</h3>
-            
-            <div class="space-y-3 text-xs md:text-sm text-slate-200">
-                <div class="bg-slate-900/80 p-3 rounded-lg border border-cyan-500/30">
-                    <span class="font-bold text-cyan-400 block mb-1">🎓 מסלול הלימודים הראשי המומלץ:</span>
-                    <p>${recs.degreeTrack}</p>
-                </div>
+        const coursesList = recs.courses.map(function(c) { return '<li><strong>' + c + '</strong></li>'; }).join('');
+        const questionsList = recs.whatToAsk.map(function(q) { return '<li>"' + q + '"</li>'; }).join('');
 
-                <div class="bg-slate-900/80 p-3 rounded-lg border border-indigo-500/30">
-                    <span class="font-bold text-indigo-300 block mb-1">📘 קורסי AI ממוקדים שמומלץ לדרוש:</span>
-                    <ul class="list-disc list-inside space-y-1 text-slate-300">
-                        ${recs.courses.map(c => `<li><strong>${c}</strong></li>`).join('')}
-                    </ul>
-                </div>
-
-                <div class="bg-slate-900/80 p-3 rounded-lg border border-amber-500/30">
-                    <span class="font-bold text-amber-300 block mb-1">💬 מה בדיוק לבקש מיועץ הלימודים במוסד:</span>
-                    <ul class="list-disc list-inside space-y-1 text-slate-300">
-                        ${recs.whatToAsk.map(q => `<li>${q}</li>`).join('')}
-                    </ul>
-                </div>
-            </div>
-        `;
+        pivotContainer.innerHTML = 
+            '<h3 class="text-lg font-bold text-cyan-300 mb-2">🤖 תוכנית פעולה מומלצת וממוקדת מול מוסד הלימודים</h3>' +
+            '<div class="space-y-3 text-xs md:text-sm text-slate-200">' +
+                '<div class="bg-slate-900/80 p-3 rounded-lg border border-cyan-500/30">' +
+                    '<span class="font-bold text-cyan-400 block mb-1">🎓 מסלול הלימודים הראשי המומלץ:</span>' +
+                    '<p>' + recs.degreeTrack + '</p>' +
+                '</div>' +
+                '<div class="bg-slate-900/80 p-3 rounded-lg border border-indigo-500/30">' +
+                    '<span class="font-bold text-indigo-300 block mb-1">📘 קורסי AI ממוקדים שמומלץ לדרוש:</span>' +
+                    '<ul class="list-disc list-inside space-y-1 text-slate-300">' + coursesList + '</ul>' +
+                '</div>' +
+                '<div class="bg-slate-900/80 p-3 rounded-lg border border-amber-500/30">' +
+                    '<span class="font-bold text-amber-300 block mb-1">💬 מה בדיוק לבקש מיועץ הלימודים במוסד:</span>' +
+                    '<ul class="list-disc list-inside space-y-1 text-slate-300">' + questionsList + '</ul>' +
+                '</div>' +
+            '</div>';
     }
 }
