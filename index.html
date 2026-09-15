@@ -233,6 +233,16 @@
         <h2 class="text-2xl font-bold text-emerald-400">🎓 תוצאות אבחון משוקלל וסיכויי קבלה</h2>            
         <div id="results-summary" class="bg-slate-900/90 p-5 rounded-xl border border-slate-700 text-sm leading-relaxed space-y-3"></div>            
         <div id="recommendations-container" class="space-y-6"></div>
+        
+        <!-- אזור הפניה למוסדות לימוד (InstitutionsDB) -->
+        <div id="institutions-db-section" class="bg-slate-900/80 p-5 rounded-xl border border-cyan-500/40 space-y-3">
+            <h3 class="text-base font-bold text-cyan-300">🏛️ הפניה למוסדות לימוד מומלצים באזור הנבחר (InstitutionsDB)</h3>
+            <p class="text-xs text-slate-300">בהתאם לאזור שבחרת ולנתונים שלך, להלן מוסדות הלימוד והקישורים הישירים למערכות הרישום:</p>
+            <div id="institutions-links-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <!-- יתמלא דינמית בהתאם לאזור -->
+            </div>
+        </div>
+
         <button onclick="openView('questionnaire-view')" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer">            
             ← חזרה לשאלון ותיקון נתונים        </button>    </div>
 
@@ -298,7 +308,7 @@
             alert('נתוני הכניסות אופסו בהצלחה.');
         }
 
-        // פונקציית חישוב הציונים והצגת ההמלצות
+        // פונקציית חישוב הציונים והצגת ההמלצות והמוסדות
         function submitQuestionnaire(event) {
             event.preventDefault();
 
@@ -320,18 +330,17 @@
                 <div class="space-y-2">
                     <p class="font-bold text-cyan-300">📊 סיכום הנתונים האישיים שלך:</p>
                     <ul class="list-disc list-inside text-slate-300 space-y-1">
-                        <li>גיל: <span class="text-white font-semibold">${age}</span></li>
+                        <li>גיל המועמד: <span class="text-white font-semibold">${age}</span></li>
                         <li>ממוצע בגרויות / מכינה: <span class="text-white font-semibold">${bagrut}</span></li>
                         <li>מתמטיקה: <span class="text-white font-semibold">${mathUnits} יחידות (ציון: ${mathGrade || 'לא צוין'})</span></li>
-                        <li>פסיכומטרי: <span class="text-white font-semibold">${psychometric}</span></li>
-                        <li>ציון סכם משוער מותאם: <span class="text-emerald-400 font-bold">${estimatedScore}</span></li>
+                        <li>ציון סכם אקדמי משוקלל: <span class="text-emerald-400 font-bold">${estimatedScore}</span></li>
                     </ul>
                 </div>
             `;
             document.getElementById('results-summary').innerHTML = summaryHTML;
 
             // בניית המלצות תארים דינמיות
-            let recommendationsHTML = `<h3 class="text-lg font-bold text-indigo-300">🎯 מסלולי לימוד ותארים מומלצים עבורך:</h3><div class="grid grid-cols-1 gap-4">`;
+            let recommendationsHTML = `<h3 class="text-lg font-bold text-indigo-300">🎯 מסלولي לימוד ותארים מומלצים עבורך:</h3><div class="grid grid-cols-1 gap-4">`;
 
             if (selectedInterests.includes('computers') || mathUnits >= 4) {
                 recommendationsHTML += `
@@ -357,6 +366,35 @@
             </div>`;
 
             document.getElementById('recommendations-container').innerHTML = recommendationsHTML;
+
+            // בניית קישורים למוסדות לפי האזור שנבחר (InstitutionsDB)
+            let instHTML = '';
+            if (city === 'jerusalem') {
+                instHTML = `
+                    <a href="https://www.huji.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">האוניברסיטה העברית בירושלים</a>
+                    <a href="https://www.jct.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">המרכז האקדמי לב</a>
+                `;
+            } else if (city === 'center') {
+                instHTML = `
+                    <a href="https://www.tau.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">אוניברסיטת תל אביב</a>
+                    <a href="https://www.hit.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">HIT מכון טכנולוגי חולון</a>
+                `;
+            } else if (city === 'north') {
+                instHTML = `
+                    <a href="https://www.technion.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">הטכניון - חיפה</a>
+                    <a href="https://haifa.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">אוניברסיטת חיפה</a>
+                `;
+            } else if (city === 'south') {
+                instHTML = `
+                    <a href="https://in.bgu.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">אוניברסיטת בן-גוריון בנגב</a>
+                    <a href="https://www.sce.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">SCE המכללה האקדמית להנדסה</a>
+                `;
+            } else {
+                instHTML = `
+                    <a href="https://www.openu.ac.il" target="_blank" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-center text-xs text-cyan-300 font-bold transition">האוניברסיטה הפתוחה (ללא תנאי קבלה מוקדמים)</a>
+                `;
+            }
+            document.getElementById('institutions-links-container').innerHTML = instHTML;
 
             openView('results-view');
         }
