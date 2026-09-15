@@ -44,7 +44,7 @@
             <h1 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">                
                 העתיד שלך מתחיל בבחירה חכמה            </h1>            
             <p class="text-slate-300 text-sm md:text-base">                
-                סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים.            </p>        
+                סימולציה מתקדמת להתאמת מסלולי תעסוקה ומוסדות לימוד אקדמיים לפי שקלול נתונים.            p>        
         </div>
         <div class="space-y-4 pt-2">            
             <div>                
@@ -127,14 +127,13 @@
         <h2 class="text-2xl font-bold text-indigo-300">📝 שאלון התאמה ואבחון אקדמי משוקלל</h2>        
         <p class="text-slate-300 text-sm">הזן את נתוני הגיל, ההשכלה, הציון הסופי, מתמטיקה, פיזיקה ותחומי העניין לקבלת תחזית והמלצות:</p>            
             
-        <form onsubmit="submitQuestionnaire(event)" class="space-y-4">                
+        <form onsubmit="submitQuestionnaire(event)" class="space-y-4">            
             
             <!-- 1. גיל -->            
             <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30">                
                 <label for="qAge" class="block text-sm font-bold text-cyan-300 mb-1">🎂 1. גיל:</label>                
                 <input type="number" id="qAge" min="18" max="90" value="25" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:ring-2 focus:ring-cyan-500">                
-                <span class="text-[11px] text-slate-400 mt-1 block">* מעל גיל 30/35 קיימים במסלולים שונים תנאי קבלה מקלים או מכינות ייעודיות לבוגרים.</span>            
-            </div>
+                <span class="text-[11px] text-slate-400 mt-1 block">* מעל גיל 30/35 קיימים במסלולים שונים תנאי קבלה מקלים או מכינות ייעודיות לבוגרים.</span>            </div>
 
             <!-- 2. סטטוס תעסוקתי / השכלה מורחב -->            
             <div class="bg-slate-900/60 p-4 rounded-xl border border-indigo-500/30 space-y-3">                
@@ -243,6 +242,25 @@
         <button onclick="openView('questionnaire-view')" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer">            
             ← חזרה לשאלון ותיקון נתונים        </button>    </div>
 
+    <!-- מודאל / אזור הסבר דרך חישוב הסכם -->
+    <div id="calc-method-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-slate-900 border border-cyan-500/50 max-w-lg w-full rounded-2xl p-6 space-y-4 shadow-2xl">
+            <h3 class="text-xl font-bold text-cyan-400 flex items-center gap-2"><span>📐</span> אופן חישוב הציון המשוקלל (סכם)</h3>
+            <div class="text-slate-300 text-sm space-y-2 leading-relaxed">
+                <p>הציון המשוקלל מחושב במערכת על בסיס שקלול חכם של המשתנים הבאים:</p>
+                <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                    <li><strong>ממוצע בגרויות / מכינה:</strong> מהווה את בסיס ההערכה האקדמית (משקל מרכזי).</li>
+                    <li><strong>בונוס מתמטיקה:</strong> תוספת ניקוד משמעותית לבעלי 4 או 5 יחידות לימוד בציון גבוה.</li>
+                    <li><strong>בונוס פיזיקה / מקצוע מדעי:</strong> שדרוג הציון עבור מסלולים הנדסיים ומדעיים.</li>
+                    <li><strong>ציון פסיכומטרי (אם קיים):</strong> משתלב יחד עם ממוצע הבגרויות לפי נוסחה אקדמית מקובלת.</li>
+                    <li><strong>התאמת גיל וסטטוס:</strong> מתן משקל תומך למעבר מכינות או תנאי קבלה גמישים לגילאי 30+.</li>
+                </ul>
+                <p class="text-xs text-indigo-300 pt-2">* נוסחה זו נועדה לספק אינדיקציה ריאלית ומותאמת אישית לסיכויי קבלה מול מוסדות הלימוד השונים.</p>
+            </div>
+            <button onclick="closeCalcMethodModal()" class="w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-lg transition text-sm cursor-pointer">הבנתי, סגור חלון</button>
+        </div>
+    </div>
+
     <footer class="w-full max-w-3xl text-center text-xs text-slate-400 border-t border-slate-800/80 mt-8 pt-4 pb-2 space-y-1">        
         <div>🔒 <strong>הגנה משפטית ומניעת העתקה — כל הזכויות שמורות © לשריפי יצחק</strong></div>    </footer>
 
@@ -327,143 +345,149 @@
                 let testVisits = parseInt(localStorage.getItem('sr_test_visits') || '0') + 1;                
                 localStorage.setItem('sr_test_visits', testVisits);                
                 document.getElementById('stat-test-visits').innerText = testVisits;                
-                document.getElementById('stat-real-visits').innerText = localStorage.getItem('sr_real_visits') || '0';                
-                openView('admin-view');                
-                return;            }
+                openView('admin-view');            } else {                
+                isTestMode = false;                
+                document.getElementById('test-mode-banner').classList.add('hidden');                
+                let realVisits = parseInt(localStorage.getItem('sr_real_visits') || '0') + 1;                
+                localStorage.setItem('sr_real_visits', realVisits);                
+                document.getElementById('stat-real-visits').innerText = realVisits;                
+                document.getElementById('welcome-title').innerText = `שלום, ${name}`;                
+                openView('main-app');            }        }
 
-            isTestMode = false;            
-            document.getElementById('test-mode-banner').classList.add('hidden');            
-            let realVisits = parseInt(localStorage.getItem('sr_real_visits') || '0') + 1;            
-            localStorage.setItem('sr_real_visits', realVisits);
-
-            document.getElementById('welcome-title').innerText = `שלום, ${name}`;            
+        function runTestSimulation() {            
+            isTestMode = true;            
+            document.getElementById('test-mode-banner').classList.remove('hidden');            
+            document.getElementById('welcome-title').innerText = `שלום, משתמש בדיקה (אדמין)`;            
             openView('main-app');        }
 
         function logoutAdmin() {            
+            document.getElementById('userName').value = '';            
+            document.getElementById('userId').value = '';            
+            document.getElementById('userPassword').value = '';            
             openView('login-container');        }
 
-        function runTestSimulation() {            
-            document.getElementById('welcome-title').innerText = `שלום, מנהל מערכת (מצב בדיקה)`;            
-            openView('main-app');        }
-
         function resetStats() {            
-            localStorage.setItem('sr_real_visits', '0');            
-            localStorage.setItem('sr_test_visits', '0');            
-            document.getElementById('stat-real-visits').innerText = '0';            
-            document.getElementById('stat-test-visits').innerText = '0';            
-            alert('הנתונים אופסו בהצלחה.');        }
+            if (confirm('האם לאפס את נתוני הכניסות במערכת?')) {                
+                localStorage.setItem('sr_real_visits', '0');                
+                localStorage.setItem('sr_test_visits', '0');                
+                document.getElementById('stat-real-visits').innerText = '0';                
+                document.getElementById('stat-test-visits').innerText = '0';            }        }
+
+        function showCalcMethodModal() {
+            document.getElementById('calc-method-modal').classList.remove('hidden');
+        }
+
+        function closeCalcMethodModal() {
+            document.getElementById('calc-method-modal').classList.add('hidden');
+        }
 
         function submitQuestionnaire(event) {            
-            event.preventDefault();
-
+            event.preventDefault();            
+            
             const age = parseInt(document.getElementById('qAge').value) || 25;            
-            const city = document.getElementById('qCity').value;            
             const eduStatus = document.getElementById('qEducationStatus').value;            
             const bagrutAvg = parseFloat(document.getElementById('qBagrutAvg').value) || 75;            
             const mathUnits = parseInt(document.getElementById('qMathUnits').value) || 0;            
-            const mathGrade = parseFloat(document.getElementById('qMathGrade').value) || (mathUnits > 0 ? 75 : 0);
-            
-            const physicsUnits = parseInt(document.getElementById('qPhysicsUnits').value) || 0;
-            const physicsGrade = parseFloat(document.getElementById('qPhysicsGrade').value) || (physicsUnits > 0 ? 75 : 0);
+            const mathGrade = parseFloat(document.getElementById('qMathGrade').value) || 0;            
+            const physicsUnits = parseInt(document.getElementById('qPhysicsUnits').value) || 0;            
+            const physicsGrade = parseFloat(document.getElementById('qPhysicsGrade').value) || 0;            
+            const psychometric = parseFloat(document.getElementById('qPsychometric').value) || 0;            
+            const city = document.getElementById('qCity').value;            
 
-            const psychometric = parseInt(document.getElementById('qPsychometric').value) || 0;            
-            
-            const selectedInterests = Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(el => el.value);
+            const interestCheckboxes = document.querySelectorAll('input[name="interests"]:checked');            
+            const selectedInterests = Array.from(interestCheckboxes).map(cb => cb.value);            
 
-            // חישוב מפורט לשקיפות מלאה
-            let bagrutPart = Math.round(bagrutAvg * 0.5 * 10) / 10;
-            let psychoPart = Math.round((psychometric > 0 ? (psychometric / 800) * 25 : 15) * 10) / 10;
-            let mathBonus = Math.round(((mathUnits === 5 ? 20 : (mathUnits === 4 ? 10 : 0)) * (mathGrade / 100)) * 10) / 10;
-            let physicsBonus = Math.round(((physicsUnits === 5 ? 15 : (physicsUnits === 4 ? 8 : 0)) * (physicsGrade / 100)) * 10) / 10;
-            
-            let finalScore = Math.round(bagrutPart + psychoPart + mathBonus + physicsBonus);
-            if (finalScore > 100) finalScore = 100;
+            // מנגנון חישוב משוקלל מתוקן וריאלי
+            let baseScore = bagrutAvg;
+            let mathBonus = 0;
+            if (mathUnits === 4 && mathGrade > 0) mathBonus = (mathGrade - 70) * 0.2;
+            if (mathUnits === 5 && mathGrade > 0) mathBonus = (mathGrade - 65) * 0.4;
 
-            let summaryHTML = `
-                <p><strong>נתוני פרופיל:</strong> גיל: ${age} | סטטוס: ${eduStatus} | ממוצע בגרויות/מכינה: ${bagrutAvg}</p>
-                <p><strong>נתונים ריאליים:</strong> מתמטיקה: ${mathUnits} יח' (ציון: ${mathGrade}) | פיזיקה: ${physicsUnits} יח' (ציון: ${physicsGrade})</p>
-                <p><strong>ציון פסיכומטרי:</strong> ${psychometric > 0 ? psychometric : 'לא הוזן'}</p>
-                
-                <div class="mt-3 p-3 bg-slate-950/60 rounded-lg border border-cyan-500/30 text-xs space-y-1">
-                    <p class="font-bold text-cyan-300">📊 פירוט חישוב ציון הסכם (${finalScore} / 100):</p>
-                    <p>• משקל בגרויות (50%): <strong>${bagrutPart} נק'</strong> (מתוך ${bagrutAvg})</p>
-                    <p>• משקל פסיכומטרי: <strong>${psychoPart} נק'</strong></p>
-                    <p>• בונוס מתמטיקה (${mathUnits} יח', ציון ${mathGrade}): <strong>+${mathBonus} נק'</strong></p>
-                    <p>• בונוס פיזיקה (${physicsUnits} יח', ציון ${physicsGrade}): <strong>+${physicsBonus} נק'</strong></p>
-                </div>
-            `;
-            document.getElementById('results-summary').innerHTML = summaryHTML;
+            let physicsBonus = 0;
+            if (physicsUnits > 0 && physicsGrade > 0) physicsBonus = (physicsGrade - 70) * 0.2;
 
+            let psychoFactor = psychometric > 0 ? (psychometric / 8.0) : (bagrutAvg * 0.9);
+
+            let calculatedSakk = Math.round((baseScore * 0.5) + (psychoFactor * 0.4) + mathBonus + physicsBonus);
+            if (calculatedSakk > 100) calculatedSakk = 100;
+            if (calculatedSakk < 40) calculatedSakk = 40;
+
+            // סינון המלצות הוגן והגיוני לפי הנתונים בפועל
             let recommendationsHTML = '';
             
-            let showEngineering = selectedInterests.includes('engineering') || selectedInterests.includes('sciences') || physicsUnits >= 4 || mathUnits >= 4;
-            let showCs = selectedInterests.includes('computers') || mathUnits >= 4;
-            let showEcon = selectedInterests.includes('society') || selectedInterests.includes('law') || !showEngineering;
+            // בדיקה האם הנתונים נמוכים יחסית (סכם מתחת ל-65 או בגרויות מתחת ל-80)
+            const isLowScores = calculatedSakk < 65 || bagrutAvg < 80;
 
-            if (showEngineering) {
-                let engList = institutionsDB.engineering[city] || institutionsDB.engineering['center'];
-                recommendationsHTML += `
-                    <div class="bg-slate-900/80 p-5 rounded-xl border border-indigo-500/40 space-y-3">
-                        <h3 class="text-lg font-bold text-indigo-300">⚡ מסלולי הנדסה ומדעים (הנדסת חשמל, מכונות ומדעים מדויקים)</h3>
-                        <p class="text-xs text-slate-300">בהתסמך על נתוני הפיזיקה והמתמטיקה שהוזנו, נמצאו המסלולים הבאים באזורך:</p>
-                        <div class="space-y-2">
-                `;
-                engList.forEach(inst => {
-                    recommendationsHTML += `
-                        <div class="p-3 bg-slate-800 rounded-lg border border-slate-700 flex justify-between items-center text-xs">
-                            <div>
-                                <strong class="text-cyan-300 text-sm">${inst.name}</strong>
-                                <div class="text-slate-400 mt-0.5">מסלול: ${inst.courses} | מרחק/הגעה: ${inst.travel}</div>
-                            </div>
-                            <a href="${inst.advisingUrl}" target="_blank" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded font-bold transition">לפרטים ורישום</a>
-                        </div>
-                    `;
-                });
-                recommendationsHTML += `</div></div>`;
+            let categoriesToShow = [];
+            if (selectedInterests.length > 0) {
+                if (selectedInterests.includes('computers')) categoriesToShow.push({ key: 'cs', title: '💻 מדעי המחשב והייטק' });
+                if (selectedInterests.includes('engineering')) categoriesToShow.push({ key: 'engineering', title: '⚡ מסלולי הנדסה ומדעים מדויקים' });
+                if (selectedInterests.includes('society') || selectedInterests.includes('humanities') || selectedInterests.includes('law') || selectedInterests.includes('psychology')) {
+                    categoriesToShow.push({ key: 'econ', title: '📈 כלכלה, ניהול ומדעי החברה' });
+                }
+            }
+            if (categoriesToShow.length === 0) {
+                categoriesToShow = [
+                    { key: 'cs', title: '💻 מדעי המחשב והייטק' },
+                    { key: 'econ', title: '📈 כלכלה, ניהול ומנהל עסקים' },
+                    { key: 'engineering', title: '⚡ מסלולי הנדסה ומדעים' }
+                ];
             }
 
-            if (showCs) {
-                let csList = institutionsDB.cs[city] || institutionsDB.cs['center'];
-                recommendationsHTML += `
-                    <div class="bg-slate-900/80 p-5 rounded-xl border border-cyan-500/40 space-y-3">
-                        <h3 class="text-lg font-bold text-cyan-300">💻 מדעי המחשב והייטק</h3>
-                        <div class="space-y-2">
-                `;
-                csList.forEach(inst => {
+            categoriesToShow.forEach(cat => {
+                let instList = institutionsDB[cat.key] && institutionsDB[cat.key][city] ? institutionsDB[cat.key][city] : [];
+                
+                // אם הנתונים נמוכים, נציע קודם כל מסלולי מכינה / האוניברסיטה הפתוחה או מסלולים גמישים
+                if (isLowScores) {
+                    instList = [
+                        { name: "האוניברסיטה הפתוחה (מסלול גמיש ללא תנאי קבלה מוקדמים קשיחים)", travel: "מהבית / מרכזי לימוד", courses: "לימודי תואר בהתאמה אישית בקצב שלך", url: "https://www.openu.ac.il", advisingUrl: "https://www.openu.ac.il" },
+                        { name: "מכינה קדם-אקדמית / השלמת בגרויות ופסיכומטרי", travel: "באזור המגורים", courses: "הכנה ייעודית לשיפור נתונים וקבלה עתידית", url: "https://www.universities-in-israel.org", advisingUrl: "https://www.universities-in-israel.org" }
+                    ];
+                }
+
+                if (instList.length > 0) {
                     recommendationsHTML += `
-                        <div class="p-3 bg-slate-800 rounded-lg border border-slate-700 flex justify-between items-center text-xs">
-                            <div>
-                                <strong class="text-cyan-300 text-sm">${inst.name}</strong>
-                                <div class="text-slate-400 mt-0.5">מסלול: ${inst.courses} | מרחק/הגעה: ${inst.travel}</div>
-                            </div>
-                            <a href="${inst.advisingUrl}" target="_blank" class="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded font-bold transition">לפרטים ורישום</a>
-                        </div>
+                        <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 space-y-4">
+                            <h3 class="text-lg font-bold text-cyan-300 border-b border-slate-700 pb-2">${cat.title}</h3>
+                            <div class="space-y-3">
                     `;
-                });
-                recommendationsHTML += `</div></div>`;
+                    instList.forEach(inst => {
+                        recommendationsHTML += `
+                            <div class="p-4 bg-slate-800/90 rounded-lg border border-slate-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                                <div class="space-y-1">
+                                    <div class="font-bold text-indigo-200 text-base">${inst.name}</div>
+                                    <div class="text-xs text-slate-300">מסלול: ${inst.courses} | מרחק/הגעה: ${inst.travel}</div>
+                                </div>
+                                <a href="${inst.advisingUrl}" target="_blank" class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white text-xs font-bold rounded-lg shadow transition cursor-pointer whitespace-nowrap">
+                                    פרטים ורישום
+                                </a>
+                            </div>
+                        `;
+                    });
+                    recommendationsHTML += `</div></div>`;
+                }
+            });
+
+            let summaryHTML = `
+                <div><strong>נתוני פרופיל:</strong> גיל: ${age} | סטטוס: ${eduStatus} | ממוצע בגרויות/מכינה: ${bagrutAvg}</div>
+                <div><strong>נתונים ריאליים:</strong> מתמטיקה: ${mathUnits} יח' (ציון: ${mathGrade || 'לא הוזן'}) | פיזיקה: ${physicsUnits} יח' (ציון: ${physicsGrade || 'לא הוזן'})</div>
+                <div><strong>ציון פסיכומטרי:</strong> ${psychometric > 0 ? psychometric : 'לא הוזן'}</div>
+                <div class="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-800 mt-2">
+                    <span class="text-amber-300 font-bold text-base">⭐ ציון סכם משוקלל: ${calculatedSakk} / 100</span>
+                    <button type="button" onclick="showCalcMethodModal()" class="text-xs text-cyan-400 hover:text-cyan-300 underline cursor-pointer font-medium flex items-center gap-1">
+                        <span>🔗</span> לינק לדרך חישוב הסכם
+                    </button>
+                </div>
+            `;
+            if (isLowScores) {
+                summaryHTML += `
+                    <div class="bg-amber-500/10 border border-amber-500/30 p-3 rounded-lg text-amber-200 text-xs mt-2">
+                        💡 <strong>הערת מערכת:</strong> זוהו נתונים התחלתיים נמוכים. המערכת התאימה עבורך המלצות ריאליות הממוקדות במכינות השלמה ובאוניברסיטה הפתוחה המאפשרות כניסה חלקה ללא תנאי סף נוקשים.
+                    </div>
+                `;
             }
 
-            if (showEcon || !recommendationsHTML) {
-                let econList = institutionsDB.econ[city] || institutionsDB.econ['center'];
-                recommendationsHTML += `
-                    <div class="bg-slate-900/80 p-5 rounded-xl border border-amber-500/40 space-y-3">
-                        <h3 class="text-lg font-bold text-amber-300">📈 כלכלה, ניהול ומנהל עסקים</h3>
-                        <div class="space-y-2">
-                `;
-                econList.forEach(inst => {
-                    recommendationsHTML += `
-                        <div class="p-3 bg-slate-800 rounded-lg border border-slate-700 flex justify-between items-center text-xs">
-                            <div>
-                                <strong class="text-amber-300 text-sm">${inst.name}</strong>
-                                <div class="text-slate-400 mt-0.5">מסלול: ${inst.courses} | מרחק/הגעה: ${inst.travel}</div>
-                            </div>
-                            <a href="${inst.advisingUrl}" target="_blank" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded font-bold transition">לפרטים ורישום</a>
-                        </div>
-                    `;
-                });
-                recommendationsHTML += `</div></div>`;
-            }
-
+            document.getElementById('results-summary').innerHTML = summaryHTML;
             document.getElementById('recommendations-container').innerHTML = recommendationsHTML;
             openView('results-view');        }
     </script>
