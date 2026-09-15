@@ -6,10 +6,10 @@
     <title>סימולציית תעסוקה וקריירה בעידן ה-AI | שריפי יצחק</title>        
     <!-- Google tag (gtag.js) -->    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2JVRB3N1LT"></script>    
-    <script>     
-     window.dataLayer = window.dataLayer || [];     
-     function gtag(){dataLayer.push(arguments);}     
-     gtag('js', new Date());     
+    <script>      
+     window.dataLayer = window.dataLayer || [];      
+     function gtag(){dataLayer.push(arguments);}      
+     gtag('js', new Date());      
      gtag('config', 'G-2JVRB3N1LT');    
     </script>
     <script src="https://cdn.tailwindcss.com"></script>    
@@ -137,7 +137,7 @@
     <!-- מסך שאלון אבחון -->    
     <div id="questionnaire-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">        
         <h2 class="text-2xl font-bold text-indigo-300">📝 שאלון התאמה ואבחון אקדמי משוקלל</h2>        
-        <p class="text-slate-300 text-sm">הזן את נתוני הגיל, ההשכלה, התואר הקודם, המקצוע הנוכחי ומדדי הקבלה:</p>            
+        <p class="text-slate-300 text-sm">הזן את נתוני הגיל, ההשכלה, התואר הקודם, המקצוע הנוכחי ומדדי הקבלה:</p>        
             
         <form onsubmit="submitQuestionnaire(event)" class="space-y-4">            
             <!-- 1. גיל -->            
@@ -184,7 +184,7 @@
             <!-- מקצוע נוכחי להערכת סיכון AI -->
             <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30 space-y-2">
                 <label for="qCurrentProfession" class="block text-sm font-bold text-cyan-300">💼 מקצוע או תחום עיסוק נוכחי:</label>
-                <input type="text" id="qCurrentProfession" placeholder="לדוגמה: כלכלן רשות המסים / אנליסט / מורה / מהנדס" value="כלכלן רשות המסים" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
+                <input type="text" id="qCurrentProfession" placeholder="לדוגמה: כלכלן / מורה / מובטל" value="מובטל" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
                 <span class="text-[11px] text-slate-400 block">* משמש לבדיקת חוסן תעסוקתי מול בינה מלאכותית והמלצה על שדרוג מקצועי או הסבה.</span>
             </div>
 
@@ -211,7 +211,7 @@
             <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30">                
                 <div class="flex justify-between items-center mb-1">
                     <label for="qBagrutAvg" class="block text-sm font-bold text-cyan-300">📈 3. ממוצע בגרויות / מכינה:</label>
-                    <button type="button" onclick="alert('חישוב סכם ובגרויות משוקקל לפי רמת הקושי של מקצועות הבחירה (כגון 4-5 יח` מתמטיקה ואנגלית) בתוספת בונוסים המוענקים על ידי האוניברסיטאות והמכללות המובילות בישראל.')" class="text-[11px] text-cyan-400 hover:underline cursor-pointer">ℹ️ כיצד ממוצע זה מחושב?</button>
+                    <button type="button" onclick="alert('חישוב סכם ובגרויות משוקלל לפי רמת הקושי של מקצועות הבחירה (כגון 4-5 יח` מתמטיקה ואנגלית) בתוספת בונוסים המוענקים על ידי האוניברסיטאות והמכללות המובילות בישראל.')" class="text-[11px] text-cyan-400 hover:underline cursor-pointer">ℹ️ כיצד ממוצע זה מחושב?</button>
                 </div>
                 <input type="number" id="qBagrutAvg" min="50" max="120" step="0.1" value="95" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">            
             </div>
@@ -427,7 +427,7 @@
             
             const age = parseInt(document.getElementById('qAge').value) || 25;
             const educationStatus = document.getElementById('qEducationStatus').value;
-            const profession = document.getElementById('qCurrentProfession').value;
+            const profession = document.getElementById('qCurrentProfession').value.trim();
             const bagrut = parseFloat(document.getElementById('qBagrutAvg').value) || 90;
             const psychometric = parseFloat(document.getElementById('qPsychometric').value) || 0;
             const city = document.getElementById('qCity').value;
@@ -436,52 +436,47 @@
             const masterContainer = document.getElementById('master-degree-recommendation');
             const aiContainer = document.getElementById('ai-pivot-recommendation');
 
-            // בדיקת גיל והמלצת מסלול
-            if (age >= 45) {
-                summaryContainer.innerHTML = `
-                    <div class="bg-amber-500/20 border border-amber-500/50 p-4 rounded-xl text-amber-200 mb-3 space-y-2">
-                        <h4 class="font-bold text-base flex items-center gap-2">💡 המלצת מסלול ייעודית לפי גיל (${age}):</h4>
-                        <p class="text-xs leading-relaxed">
-                            בגילאי 45 ומעלה, כניסה למסלול אקדמי מלא ורב-שנתי (3–4 שנים) כרוכה בעלות אלטרנטיבית גבוהה של זמן ומשאבים. 
-                            <strong>בעדיפות ראשונה, מומלץ להתמקד בקורסי הכשרה מקצועיים, קצרים ופרקטיים (3–6 חודשים)</strong> שמביאים לתוצאות מהירות בשטח ומייצרים הכנסה גבוהה בזמן קצר.
-                        </p>
-                    </div>
-                    <div class="space-y-2 text-slate-200">
-                        <p class="font-semibold text-cyan-300">🎯 קורסים פרקטיים מומלצים ליצירת הכנסה מהירה:</p>
-                        <ul class="list-disc list-inside text-xs space-y-1 text-slate-300">
-                            <li><strong>מיישם/מפתח כלי בינה מלאכותית (AI Solutions Specialist)</strong> — שילוב אוטומציות ו-AI בעסקים.</li>
-                            <li><strong>אנליסט נתונים ומערכות (Data & Business Analyst)</strong> — ניתוח נתונים ודוחות עסקיים.</li>
-                            <li><strong>ניהול פרויקטים ודיגיטל (Digital Project Management)</strong> — ניהול תהליכים ופרויקטים בארגונים.</li>
-                            <li><strong>שיווק דיגיטלי ומכירות B2B</strong> — יצירת מנועי צמיחה והכנסה מידית.</li>
-                        </ul>
-                    </div>
+            // 1. סיכום נתוני קבלה
+            summaryContainer.innerHTML = `
+                <h3 class="text-base font-bold text-emerald-300 mb-2">📊 סיכום נתונים וציון סכם משוער:</h3>
+                <p><strong>גיל:</strong> ${age} | <strong>סטטוס:</strong> ${educationStatus}</p>
+                <p><strong>ממוצע בגרות/מכינה:</strong> ${bagrut} ${psychometric ? '| <strong>פסיכומטרי:</strong> ' + psychometric : ''}</p>
+                <p><strong>עיסוק/מקצוע נוכחי:</strong> ${profession}</p>
+            `;
+
+            // 2. בדיקת תואר קודם
+            const prevDegreeName = document.getElementById('qPrevDegreeName')?.value || '';
+            const prevDegreeAvg = parseFloat(document.getElementById('qPrevDegreeAvg')?.value) || 0;
+
+            if (educationStatus === 'academic_degree') {
+                masterContainer.classList.remove('hidden');
+                masterContainer.innerHTML = `
+                    <h3 class="text-base font-bold text-cyan-300">🎓 המלצה למסלול אקדמי מתקדם (תואר שני / השלמות):</h3>
+                    <p class="text-xs text-slate-200">על בסיס תואר ראשון ב-${prevDegreeName} בממוצע ${prevDegreeAvg}, מומלץ לבחון מסלולי תואר שני מתקדמים (MBA, ניתוח נתונים, ניהול טכנולוגיה) או תוכנית השלמה ייעודית.</p>
                 `;
             } else {
-                summaryContainer.innerHTML = `
-                    <div class="space-y-2 text-slate-200">
-                        <p class="font-semibold text-emerald-400">✅ התאמה למסלול אקדמי / מקצועי (גיל ${age}):</p>
-                        <p class="text-xs text-slate-300">
-                            ממוצע הבגרויות שלך (${bagrut}) והנתונים האקדמיים מאפשרים שילוב במסלולים אקדמיים מלאים בתחומי הטכנולוגיה, הפיננסים והניהול.
-                        </p>
-                    </div>
-                `;
+                masterContainer.classList.add('hidden');
             }
 
-            masterContainer.innerHTML = `
-                <h4 class="font-bold text-cyan-300 text-sm">🎓 התאמה לתואר שני / שדרוג מקצועי:</h4>
-                <p class="text-xs text-slate-300">
-                    עבור מקצוע כגון <strong>${profession}</strong>, מומלץ לשלב קורסי התמחות ב-AI ובדאטה כדי לשמור על חוסן תעסוקתי גבוה בשוק העבודה.
-                </p>
-            `;
+            // 3. ניתוח AI - בדיקת מקרה מובטל/בלתי מועסק
+            const isUnemployed = profession.includes('מובטל') || profession.includes('בלתי מועסק') || profession.includes('דורש עבודה') || profession === '';
+            
+            let aiText = '';
+            if (isUnemployed) {
+                aiText = `למובטל בגילך (${age}) מומלץ להתמקד ברכישת מיומנויות דיגיטליות עדכניות, אימוץ כלי AI וקורסים ממוקדים שיבטיחו יתרון תחרותי משמעותי ויפתחו דלתות מהירות לשוק העבודה.`;
+            } else {
+                aiText = `תחום העיסוק "${profession}" עובר אוטומציה מתקדמת. אימוץ כלים דיגיטליים וקורסים ממוקדים יבטיחו יתרון תחרותי משמעותי.`;
+            }
 
             aiContainer.innerHTML = `
-                <h4 class="font-bold text-indigo-300 text-sm">🤖 ניתוח חוסן תעסוקתי מול AI:</h4>
-                <p class="text-xs text-slate-300">
-                    תחום העיסוק "${profession}" עובר אוטומציה מתקדמת. אימוץ כלים דיגיטליים וקורסים ממוקדים יבטיחו יתרון תחרותי משמעותי.
-                </p>
+                <h3 class="text-base font-bold text-indigo-300 mb-1">🤖 ניתוח חוסן תעסוקתי מול AI:</h3>
+                <p class="text-xs text-slate-200 leading-relaxed">${aiText}</p>
             `;
 
+            // 4. מוסדות לימוד
             renderInstitutionLinks(city);
+
+            // מעבר למסך תוצאות
             openView('results-view');
         }
     </script>
