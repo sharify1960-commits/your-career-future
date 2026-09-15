@@ -136,7 +136,7 @@
                         <option value="highschool">בוגר 12 שנות לימוד</option>                        
                         <option value="mechina_academic">בוגר מכינה אקדמית</option>                        
                         <option value="mechina_tech">בוגר מכינה טכנולוגית</option>
-                        <option value="student_highschool">תלמיד תיכון (כיתה י"א-י"ب)</option>
+                        <option value="student_highschool">תלמיד תיכון (כיתה י"א-י"ב)</option>
                         <option value="student_academic">סטודנט פעיל במוסד אקדמי אחר</option>
                         <option value="academic_degree" selected>בעל תואר אקדמי קודם</option>
                         <option value="industry_pro">עובד בתעשייה / נסיון מקצועי מעשי</option>
@@ -150,11 +150,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="qPrevDegreeName" class="block text-xs font-medium text-slate-300 mb-1">מהו שם התואר הראשון שלך?</label>
-                        <input type="text" id="qPrevDegreeName" placeholder="לדוגמה: מדעי המדינה / כלכלה / חינוך" value="מדעי המדינה ויחב״ל" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
+                        <input type="text" id="qPrevDegreeName" placeholder="לדוגמה: כלכלה / משפטים / מנהל עסקים" value="כלכלה" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
                     </div>
                     <div>
                         <label for="qPrevDegreeAvg" class="block text-xs font-medium text-slate-300 mb-1">ממוצע ציונים בתואר הראשון:</label>
-                        <input type="number" id="qPrevDegreeAvg" min="60" max="100" step="0.1" placeholder="לדוגמה: 85" value="88" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
+                        <input type="number" id="qPrevDegreeAvg" min="60" max="100" step="0.1" placeholder="לדוגמה: 85" value="90" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
                     </div>
                 </div>
             </div>
@@ -162,14 +162,14 @@
             <!-- מקצוע נוכחי להערכת סיכון AI -->
             <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30 space-y-2">
                 <label for="qCurrentProfession" class="block text-sm font-bold text-cyan-300">💼 מקצוע או תחום עיסוק נוכחי:</label>
-                <input type="text" id="qCurrentProfession" placeholder="לדוגמה: ניהול חנות / שירות לקוחות / הוראה / אדמיניסטרציה" value="ניהול חנות ומכירות" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
-                <span class="text-[11px] text-slate-400 block">* משמש לבדיקת חוסן תעסוקתי מול בינה מלאכותית והמלצה על הצורך בשינוי מגמה.</span>
+                <input type="text" id="qCurrentProfession" placeholder="לדוגמה: כלכלן רשות המסים / אנליסט / רואה חשבון" value="כלכלן רשות המסים" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">
+                <span class="text-[11px] text-slate-400 block">* משמש לבדיקת חוסן תעסוקתי מול בינה מלאכותית והמלצה על שדרוג מקצועי או הסבה.</span>
             </div>
 
             <!-- 3. ממוצע בגרויות / מכינה -->            
             <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30">                
                 <label for="qBagrutAvg" class="block text-sm font-bold text-cyan-300 mb-1">📈 3. ממוצע בגרויות / מכינה:</label>                
-                <input type="number" id="qBagrutAvg" min="50" max="120" step="0.1" value="95" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                
+                <input type="number" id="qBagrutAvg" min="50" max="120" step="0.1" value="90" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                
                 <span class="text-[11px] text-slate-400 mt-1 block">* בוגרי מכינות יכולים להזין את הציון הסופי במכינה.</span>            </div>
 
             <!-- 4. נתוני מתמטיקה -->            
@@ -209,22 +209,22 @@
                     <label class="flex items-center space-x-2 space-x-reverse p-2.5 bg-slate-900 border border-slate-700 rounded-lg hover:bg-slate-800 cursor-pointer">                        
                         <input type="checkbox" name="interests" value="engineering" class="rounded text-indigo-600 focus:ring-indigo-500">                        
                         <span class="text-xs text-slate-200">הנדסה (חשמל/מכונות)</span>                    </label>                    
-                    <label class="flex items-center space-x-2 space-x-reverse p-2.5 bg-slate-900 border border-slate-700 rounded-lg hover:bg-slate-800 cursor-pointer" checked>                        
-                        <input type="checkbox" name="interests" value="computers" checked class="rounded text-indigo-600 focus:ring-indigo-500">                        
+                    <label class="flex items-center space-x-2 space-x-reverse p-2.5 bg-slate-900 border border-slate-700 rounded-lg hover:bg-slate-800 cursor-pointer">                        
+                        <input type="checkbox" name="interests" value="computers" class="rounded text-indigo-600 focus:ring-indigo-500">                        
                         <span class="text-xs text-slate-200">מחשבים</span>                    </label>                    
+                    <label class="flex items-center space-x-2 space-x-reverse p-2.5 bg-slate-900 border border-slate-700 rounded-lg hover:bg-slate-800 cursor-pointer" checked>                        
+                        <input type="checkbox" name="interests" value="business" checked class="rounded text-indigo-600 focus:ring-indigo-500">                        
+                        <span class="text-xs text-slate-200">כלכלה וניהול</span>                    </label>                    
                     <label class="flex items-center space-x-2 space-x-reverse p-2.5 bg-slate-900 border border-slate-700 rounded-lg hover:bg-slate-800 cursor-pointer">                        
                         <input type="checkbox" name="interests" value="law" class="rounded text-indigo-600 focus:ring-indigo-500">                        
-                        <span class="text-xs text-slate-200">משפטים</span>                    </label>                    
-                    <label class="flex items-center space-x-2 space-x-reverse p-2.5 bg-slate-900 border border-slate-700 rounded-lg hover:bg-slate-800 cursor-pointer">                        
-                        <input type="checkbox" name="interests" value="psychology" class="rounded text-indigo-600 focus:ring-indigo-500">                        
-                        <span class="text-xs text-slate-200">פסיכולוגיה</span>                    </label>                </div>            </div>
+                        <span class="text-xs text-slate-200">משפטים</span>                    </label>                </div>            </div>
 
             <!-- 7. עיר / אזור מועדף -->            
             <div class="bg-indigo-950/40 p-4 rounded-xl border border-cyan-500/40">                
                 <label for="qCity" class="block text-sm font-bold text-cyan-300 mb-1">📍 7. עיר / אזור מועדף ללימודים (InstitutionsDB):</label>                
                 <select id="qCity" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                    
-                    <option value="jerusalem">ירושלים והסביבה (כולל מודיעין, בית שמש)</option>                    
-                    <option value="center" selected>תל אביב והמרכז (גוש דן, השרון)</option>                    
+                    <option value="jerusalem" selected>ירושלים והסביבה (כולל מודיעין, בית שמש)</option>                    
+                    <option value="center">תל אביב והמרכז (גוש דן, השרון)</option>                    
                     <option value="north">חיפה והצפון (קריות, גליל)</option>                    
                     <option value="south">באר שבע והדרום (אשקלון, אשדוד)</option>                    
                     <option value="online">💻 לימודים מקוונים / אונליין בלבד</option>                </select>            </div>
@@ -247,12 +247,12 @@
 
         <div id="recommendations-container" class="space-y-6"></div>
         
-        <!-- אזור הפניה למוסדות לימוד (InstitutionsDB) - מספר מוסדות לפי אזור -->
+        <!-- אזור הפניה למוסדות לימוד (InstitutionsDB) -->
         <div id="institutions-db-section" class="bg-slate-900/80 p-5 rounded-xl border border-cyan-500/40 space-y-3">
             <h3 class="text-base font-bold text-cyan-300">🏛️ הפניה למוסדות לימוד מומלצים באזור הנבחר (InstitutionsDB)</h3>
             <p class="text-xs text-slate-300">בהתאם לאזור שבחרת ולנתונים שלך, להלן מוסדות הלימוד המובילים והקישורים הישירים שלהם:</p>
             <div id="institutions-links-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2">
-                <!-- יתמלא דינמית בהתאם לאזור עם מספר מוסדות -->
+                <!-- יתמלא דינמית בהתאם לאזור -->
             </div>
         </div>
 
@@ -275,7 +275,6 @@
             }
         }
 
-        // פונקציית ניווט בין מסכים
         function openView(viewId) {
             const views = ['login-container', 'admin-view', 'main-app', 'about-view', 'questionnaire-view', 'results-view'];
             views.forEach(id => {
@@ -286,7 +285,6 @@
             if (target) target.classList.remove('hidden');
         }
 
-        // פונקציית התחברות מדויקת: מנהל נפתח אך ורק אם הסיסמה היא 999999 או השם הוא admin
         function startSimulation() {
             const name = document.getElementById('userName').value.trim();
             const id = document.getElementById('userId').value.trim();
@@ -329,7 +327,7 @@
             alert('נתוני הכניסות אופסו בהצלחה.');
         }
 
-        // פונקציית חישוב הציונים והצגת ההמלצות, ניתוח AI והמוסדות
+        // חישוב המלצות מותאמות אישית המשקללות תואר קודם, מקצוע וסיכון AI
         function submitQuestionnaire(event) {
             event.preventDefault();
 
@@ -344,26 +342,27 @@
             const psychometric = parseInt(document.getElementById('qPsychometric').value) || 500;
             const city = document.getElementById('qCity').value;
 
-            // איסוף תחומי עניין שנבחרו
             const selectedInterests = Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(cb => cb.value);
 
-            // חישוב ציון סכם משוער
             let estimatedScore = Math.round((bagrut * 0.4) + (psychometric * 0.08) + (mathGrade ? mathGrade * 0.12 : 10));
 
-            // בדיקת סיכון AI לפי המקצוע הנוכחי
+            // ניתוח השפעת AI ומקצוע נוכחי
             let aiRiskText = "";
             let pivotRecommendation = "";
             const lowerProf = currentProfession.toLowerCase();
-            
-            if (lowerProf.includes('מכירות') || lowerProf.includes('ניהול חנות') || lowerProf.includes('שירות') || lowerProf.includes('אדמיניסטרציה') || lowerProf.includes('פקיד') || lowerProf.includes('הנהלת חשבונות')) {
+            const lowerDegree = prevDegreeName.toLowerCase();
+
+            let isEconomicOrAdministrative = lowerProf.includes('כלכלן') || lowerProf.includes('כלכלה') || lowerProf.includes('אנליסט') || lowerProf.includes('ראיית חשבונות') || lowerProf.includes('מנהל עסקים');
+
+            if (isEconomicOrAdministrative) {
+                aiRiskText = `<span class="text-cyan-400 font-bold">🛡️ רמת סיכון נמוכה / חוסן תעסוקתי גבוה (משתבח בעזרת AI)</span>`;
+                pivotRecommendation = `התחום המקצועי שלך (${currentProfession}) מבוסס אנליזה וניהול נתונים, ולכן נחשב לחסין ואף משתבח משמעותית בעזרת כלי בינה מלאכותית. <strong>המלצה:</strong> אין צורך בשינוי מגמה או זניחת המקצוע. מומלץ למנף את הרקע הקיים ולשלב **תואר שני מתקדם (כגון מנהל עסקים, כלכלה פיננסית או ניהול מערכות מידע)** לצד השתלמות מקצועית ביישומי AI אנליטיים.`;
+            } else if (lowerProf.includes('מכירות') || lowerProf.includes('שירות') || lowerProf.includes('אדמיניסטרציה') || lowerProf.includes('פקיד')) {
                 aiRiskText = `<span class="text-rose-400 font-bold">⚠️ סיכון גבוה לאוטומציה והיעלמות מקצועית (AI Displacement Risk: High)</span>`;
-                pivotRecommendation = `המקצוע הנוכחי שלך (${currentProfession}) חשוף מאוד לתהליכי אוטומציה של בינה מלאכותית. <strong>המלצה מובהקת:</strong> מומלץ לבצע שינוי מגמה והסבה לעולמות הטכנולוגיה, ניהול מתקדם או מערכות מידע כדי להבטיח את עתידך המקצועי.`;
-            } else if (lowerProf.includes('הוראה') || lowerProf.includes('חינוך') || lowerProf.includes('ניהול')) {
-                aiRiskText = `<span class="text-amber-400 font-bold">⚡ סיכון בינוני - נדרש שדרוג מיומנויות AI</span>`;
-                pivotRecommendation = `המקצוע שלך כולל רכיבים אנושיים חזקים שלא ייעלמו לגמרי, אך הבינה המלאכותית תשנה אותם דרסטית. <strong>המלצה:</strong> כדאי לשלב לימודי טכנולוגיה, ניהול דיגיטלי או בינה מלאכותית כדי לשדרג את ערכך בשוק.`;
+                pivotRecommendation = `המקצוע הנוכחי שלך (${currentProfession}) חשוף מאוד לתהליכי אוטומציה. <strong>המלצה מובהקת:</strong> מומלץ לבצע שינוי מגמה והסבה לעולמות ניהול מתקדם, מערכות מידע או טכנולוגיה עסקית כדי לשדרג את מעמדך בשוק.`;
             } else {
-                aiRiskText = `<span class="text-emerald-400 font-bold">🛡️ רמת סיכון נמוכה / חוסן תעסוקתי גבוה</span>`;
-                pivotRecommendation = `התחום שלך נחשב לעמיד יחסית או משתבח בעזרת כליי AI. <strong>המלצה:</strong> מומלץ להעמיק התמחות טכנולוגית או ניהולית כדי למנף את הכלים החדשים לצמיחה בקריירה.`;
+                aiRiskText = `<span class="text-amber-400 font-bold">⚡ סיכון בינוני - נדרש שדרוג מיומנויות AI</span>`;
+                pivotRecommendation = `המקצוע שלך כולל רכיבים אנושיים שיישארו, אך דורש שדרוג טכנולוגי. <strong>המלצה:</strong> שלב לימודי ניהול דיגיטלי וכלים מתקדמים לשיפור היעילות המקצועית.`;
             }
 
             // סיכום נתונים
@@ -390,42 +389,42 @@
 
             // עדכון המלצת AI
             document.getElementById('ai-pivot-recommendation').innerHTML = `
-                <h3 class="text-sm font-bold text-indigo-300 flex items-center gap-1.5"><span>🤖</span> ניתוח השפעת הבינה המלאכותית (AI) והמלצת שינוי מגמה:</h3>
+                <h3 class="text-sm font-bold text-indigo-300 flex items-center gap-1.5"><span>🤖</span> ניתוח השפעת הבינה המלאכותית (AI) והמלצת פיתוח קריירה:</h3>
                 <div class="text-xs space-y-1 mt-1">
                     <p>${aiRiskText}</p>
                     <p class="text-slate-300">${pivotRecommendation}</p>
                 </div>
             `;
 
-            // בניית המלצות תארים דינמיות
-            let recommendationsHTML = `<h3 class="text-lg font-bold text-indigo-300">🎯 מסלولي לימוד ותארים מומלצים עבורך:</h3><div class="grid grid-cols-1 gap-4">`;
+            // בניית המלצות תארים מותאמות (מתן דגש על המשכיות עסקית/כלכלית או תואר שני בהתאם לפרופיל)
+            let recommendationsHTML = `<h3 class="text-lg font-bold text-indigo-300">🎯 מסלולי לימוד ותארים מומלצים בהתאמה אישית לפרופיל שלך:</h3><div class="grid grid-cols-1 gap-4">`;
+
+            if (isEconomicOrAdministrative || lowerDegree.includes('כלכלה') || lowerDegree.includes('מנהל עסקים') || lowerDegree.includes('משפטים')) {
+                recommendationsHTML += `
+                    <div class="bg-slate-900/80 p-4 rounded-xl border border-cyan-500/40 space-y-2">
+                        <div class="flex justify-between items-center"><h4 class="font-bold text-cyan-300">תואר שני במנהל עסקים (MBA) / כלכלה פיננסית מתקדמת</h4><span class="bg-cyan-500/20 text-cyan-300 text-xs px-2.5 py-1 rounded-full">התאמה מושלמת לפרופיל 🚀</span></div>
+                        <p class="text-xs text-slate-300">מסלול המנצל את התואר הראשון הקיים שלך ומקדם אותך לתפקידי ניהול בכירים ואנליזה עסקית מתקדמת בשילוב כלי בינה מלאכותית (AI in Finance).</p>
+                    </div>
+                    <div class="bg-slate-900/80 p-4 rounded-xl border border-indigo-500/40 space-y-2">
+                        <div class="flex justify-between items-center"><h4 class="font-bold text-indigo-300">התמחות / קורסים מתקדמים באנליזת נתונים ו-AI לעסקים וכלכלה</h4><span class="bg-indigo-500/20 text-indigo-300 text-xs px-2.5 py-1 rounded-full">שדרוג מקצועי מידי ⚡</span></div>
+                        <p class="text-xs text-slate-300">תוכנית ממוקדת המשלבת כלי פייתון, ניתוח ביג-דאטה ואוטומציות AI המותאמות ישירות לעולמות הכלכלה ורשויות המס.</p>
+                    </div>
+                `;
+            }
 
             if (selectedInterests.includes('computers') || mathUnits >= 4) {
                 recommendationsHTML += `
-                    <div class="bg-slate-900/80 p-4 rounded-xl border border-cyan-500/40 space-y-2">
-                        <div class="flex justify-between items-center"><h4 class="font-bold text-cyan-300">מדעי המחשב ופיתוח תוכנה (AI & Software)</h4><span class="bg-cyan-500/20 text-cyan-300 text-xs px-2.5 py-1 rounded-full">התאמה גבוהה 🚀</span></div>
-                        <p class="text-xs text-slate-300">מסלול המוביל לתעשיית ההייטק עם דגש על פיתוח מערכות מבוססות בינה מלאכותית וחוסן תעסוקתי מלא.</p>
-                    </div>`;
+                    <div class="bg-slate-900/80 p-4 rounded-xl border border-amber-500/40 space-y-2">
+                        <div class="flex justify-between items-center"><h4 class="font-bold text-amber-300">מערכות מידע ניהוליות וטכנולוגיות מידע (BI & Data)</h4><span class="bg-amber-500/20 text-amber-300 text-xs px-2.5 py-1 rounded-full">התאמה גבוהה 📈</span></div>
+                        <p class="text-xs text-slate-300">שילוב מעולה בין הרקע הכלכלי/עסקי שלך לבין עולמות הטכנולוגיה ומערכות המידע המודרניות.</p>
+                    </div>
+                `;
             }
 
-            if (selectedInterests.includes('engineering') || mathUnits >= 4) {
-                recommendationsHTML += `
-                    <div class="bg-slate-900/80 p-4 rounded-xl border border-indigo-500/40 space-y-2">
-                        <div class="flex justify-between items-center"><h4 class="font-bold text-indigo-300">הנדסת חשמל ומערכות בקרה</h4><span class="bg-indigo-500/20 text-indigo-300 text-xs px-2.5 py-1 rounded-full">התאמה טובה ⚡</span></div>
-                        <p class="text-xs text-slate-300">משלב מתמטיקה, פיזיקה והנדסה מעשית. מתאים במיוחד לבוגרי 4-5 יחידות מתמטיקה.</p>
-                    </div>`;
-            }
-
-            recommendationsHTML += `
-                <div class="bg-slate-900/80 p-4 rounded-xl border border-amber-500/40 space-y-2">
-                    <div class="flex justify-between items-center"><h4 class="font-bold text-amber-300">מנהל עסקים וניהול טכנולוגיה</h4><span class="bg-amber-500/20 text-amber-300 text-xs px-2.5 py-1 rounded-full">התאמה גמישה 📈</span></div>
-                    <p class="text-xs text-slate-300">שילוב בין ניהול ארגוני, שיווק וכלכלה בעידן הדיגיטלי. תנאי קבלה גמישים ונגישים המנצלים את הרקע הקודם שלך.</p>
-                </div>
-            </div>`;
-
+            recommendationsHTML += `</div>`;
             document.getElementById('recommendations-container').innerHTML = recommendationsHTML;
 
-            // בניית קישורים למוסדות לפי האזור שנבחר (InstitutionsDB) - מספר מוסדות בכל אזור
+            // מוסדות לימוד מומלצים לפי אזור (InstitutionsDB)
             let instHTML = '';
             if (city === 'jerusalem') {
                 instHTML = `
@@ -462,7 +461,6 @@
             openView('results-view');
         }
 
-        // הפעלה ראשונית לווידוא תצוגת שדות תואר אם נבחר מראש
         toggleDegreeFields();
     </script>
 </body>
