@@ -136,7 +136,7 @@
                         <option value="highschool">בוגר 12 שנות לימוד</option>                        
                         <option value="mechina_academic">בוגר מכינה אקדמית</option>                        
                         <option value="mechina_tech">בוגר מכינה טכנולוגית</option>
-                        <option value="student_highschool">תלמיד תיכון (כיתה י"א-י"ب)</option>
+                        <option value="student_highschool">תלמיד תיכון (כיתה י"א-י"ב)</option>
                         <option value="student_academic">סטודנט פעיל במוסד אקדמי אחר</option>
                         <option value="academic_degree">בעל תואר אקדמי קודם</option>
                         <option value="industry_pro">עובד בתעשייה / נסיון מקצועי מעשי</option>
@@ -253,18 +253,18 @@
             if (target) target.classList.remove('hidden');
         }
 
-        // פונקציית התחברות מעודכנת עם הסיסמה המקורית 999999
+        // פונקציית התחברות מדויקת: מנהל נפתח אך ורק אם הסיסמה היא 999999 או השם הוא admin
         function startSimulation() {
             const name = document.getElementById('userName').value.trim();
             const id = document.getElementById('userId').value.trim();
             const pass = document.getElementById('userPassword').value.trim();
 
-            if (!name && !id && !pass) {
-                alert('אנא מלא את כל השדות');
+            if (!name || !id || !pass) {
+                alert('אנא מלא את כל השדות (שם, תעודת זהות וסיסמה)');
                 return;
             }
 
-            // זיהוי כניסת מנהל לפי סיסמה 999999 או שם admin
+            // זיהוי כניסת מנהל אבטחה
             if (pass === '999999' || name.toLowerCase() === 'admin') {
                 isTestMode = true;
                 document.getElementById('test-mode-banner').classList.remove('hidden');
@@ -272,11 +272,7 @@
                 return;
             }
 
-            if (!name || !id || !pass) {
-                alert('אנא מלא את כל השדות (שם, תעודת זהות וסיסמה)');
-                return;
-            }
-
+            // משתמש רגיל
             isTestMode = false;
             document.getElementById('test-mode-banner').classList.add('hidden');
             document.getElementById('welcome-title').innerText = `שלום, ${name}`;
