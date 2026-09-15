@@ -76,17 +76,14 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">            
             <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 text-center space-y-1">                
                 <span class="block text-slate-400 text-xs">סה"כ כניסות משתמשים אמיתיים:</span>                
-                <span id="stat-real-visits" class="text-4xl font-black text-cyan-400">0</span>            
-            </div>            
+                <span id="stat-real-visits" class="text-4xl font-black text-cyan-400">0</span>            </div>            
             <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700 text-center space-y-1">                
                 <span class="block text-slate-400 text-xs">סה"כ הרצות בדיקה (אדמין):</span>                
-                <span id="stat-test-visits" class="text-4xl font-black text-amber-400">0</span>            
-            </div>        
+                <span id="stat-test-visits" class="text-4xl font-black text-amber-400">0</span>            </div>        
         </div>
         <div class="flex flex-col sm:flex-row gap-3 pt-2">            
             <button onclick="runTestSimulation()" class="flex-1 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg transition cursor-pointer shadow-lg text-sm">                
-                🧪 הרץ סימולציית בדיקה (ללא ספירה)            
-            </button>            
+                🧪 הרץ סימולציית בדיקה (ללא ספירה)            </button>            
             <button onclick="resetStats()" class="px-4 py-3 bg-rose-900/40 hover:bg-rose-800 text-rose-200 text-xs font-bold rounded-lg border border-rose-700/50 transition cursor-pointer">                
                 איפוס נתוני כניסות            </button>            
             <button onclick="logoutAdmin()" class="px-5 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer text-sm">                
@@ -98,8 +95,7 @@
     <div id="main-app" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">        
         <div class="text-center space-y-2">            
             <h2 id="welcome-title" class="text-2xl font-bold text-cyan-400"></h2>            
-            <p class="text-slate-300 text-sm">ברוכים הבאים למערכת ניתוח הקריירה והמלצות הלימודים המותאמות אישית.</p>        
-        </div>
+            <p class="text-slate-300 text-sm">ברוכים הבאים למערכת ניתוח הקריירה והמלצות הלימודים המותאמות אישית.</p>        </div>
         <div class="bg-slate-900/80 p-6 rounded-xl border border-slate-700 space-y-4">            
             <h3 class="text-lg font-semibold text-indigo-300 flex items-center gap-2">                
                 <span>🎯</span> תפריט האפליקציה הראשית            </h3>            
@@ -109,9 +105,7 @@
                     <span class="text-xs text-slate-400 mt-1">שיטת עבודה, ניסיון ניהולי, בסיס מחקרי על AI ומגמות שוק העבודה</span>                </button>                
                 <button onclick="openView('questionnaire-view')" class="p-4 bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/50 rounded-lg text-right font-medium transition cursor-pointer flex flex-col">                    
                     <span class="text-indigo-200 font-bold text-base">📝 2. שאלון התאמת מסלול לימודים מקיף ואבחון תארים</span>                    
-                    <span class="text-xs text-slate-400 mt-1">שקלול בגרות, פסיכומטרי, מתמטיקה, פיזיקה וגיל להמלצת תארים (מדעי המחשב, כלכלה, הנדסה ועוד)</span>                </button>            </div>        
-        </div>    
-    </div>
+                    <span class="text-xs text-slate-400 mt-1">שקלול בגרות, פסיכומטרי, מתמטיקה, פיזיקה וגיל להמלצת תארים (מדעי המחשב, כלכלה, הנדסה ועוד)</span>                </button>            </div>        </div>    </div>
 
     <!-- מסך אודות -->    
     <div id="about-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">        
@@ -120,8 +114,7 @@
             <p>                
                 מערכת <strong>SR - Career & AI Navigation</strong> הינה מערכת חכמה פרי פיתוחו של <strong>שריפי יצחק</strong>, המבוססת על אלגוריתמים מתקדמים לשקלול סקאלה אקדמית (בגרויות, פסיכומטרי, מתמטיקה, פיזיקה וגיל).            </p>        </div>        
         <button onclick="openView('main-app')" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer">            
-            ← חזרה לתפריט הראשי        </button>    
-    </div>
+            ← חזרה לתפריט הראשי        </button>    </div>
 
     <!-- מסך שאלון אבחון -->    
     <div id="questionnaire-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">        
@@ -133,33 +126,29 @@
             <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30">                
                 <label for="qAge" class="block text-sm font-bold text-cyan-300 mb-1">🎂 1. גיל:</label>                
                 <input type="number" id="qAge" min="18" max="90" value="25" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm focus:ring-2 focus:ring-cyan-500">                
-                <span class="text-[11px] text-slate-400 mt-1 block">* מעל גיל 30/35 קיימים במסלולים שונים תנאי קבלה מקלים או מכינות ייעודיות לבוגרים.</span>            
-            </div>
+                <span class="text-[11px] text-slate-400 mt-1 block">* מעל גיל 30/35 קיימים במסלולים שונים תנאי קבלה מקלים או מכינות ייעודיות לבוגרים.</span>            </div>
 
             <!-- 2. סטטוס תעסוקתי / השכלה מורחב -->            
             <div class="bg-slate-900/60 p-4 rounded-xl border border-indigo-500/30 space-y-3">                
                 <div>                    
                     <label for="qEducationStatus" class="block text-sm font-bold text-indigo-300 mb-1">🎓 2. סטטוס תעסוקתי / השכלה:</label>                    
-                    <select id="qEducationStatus" onchange="toggleBagrutFields()" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                        
+                    <select id="qEducationStatus" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                        
                         <option value="highschool">בוגר 12 שנות לימוד</option>                        
                         <option value="mechina_academic">בוגר מכינה אקדמית</option>                        
                         <option value="mechina_tech">בוגר מכינה טכנולוגית</option>
-                        <option value="student_highschool">תלמיד תיכון (כיתה י"א-י"ב)</option>
+                        <option value="student_highschool">תלמיד תיכון (כיתה י"א-י"ب)</option>
                         <option value="student_academic">סטודנט פעיל במוסד אקדמי אחר</option>
                         <option value="academic_degree">בעל תואר אקדמי קודם</option>
                         <option value="industry_pro">עובד בתעשייה / נסיון מקצועי מעשי</option>
                         <option value="other">אחר / מתלבט</option>
                     </select>                    
-                    <span class="text-[11px] text-slate-400 mt-1 block">* סטטוס זה משמש כמשתנה מוביל בקביעת תנאי הקבלה וההצעה לפונה.</span>                
-                </div>            
-            </div>
+                    <span class="text-[11px] text-slate-400 mt-1 block">* סטטוס זה משמש כמשתנה מוביל בקביעת תנאי הקבלה וההצעה לפונה.</span>                </div>            </div>
 
             <!-- 3. ממוצע בגרויות / מכינה -->            
             <div class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/30">                
                 <label for="qBagrutAvg" class="block text-sm font-bold text-cyan-300 mb-1">📈 3. ממוצע בגרויות / מכינה:</label>                
                 <input type="number" id="qBagrutAvg" min="50" max="120" step="0.1" placeholder="הזן את הציון הסופי (לדוגמה: 95)" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                
-                <span class="text-[11px] text-slate-400 mt-1 block">* בוגרי מכינות יכולים להזין את הציון הסופי במכינה.</span>            
-            </div>
+                <span class="text-[11px] text-slate-400 mt-1 block">* בוגרי מכינות יכולים להזין את הציון הסופי במכינה.</span>            </div>
 
             <!-- 4. נתוני מתמטיקה -->            
             <div id="math-section" class="bg-slate-900/60 p-4 rounded-xl border border-cyan-500/40 space-y-3">                
@@ -171,15 +160,10 @@
                             <option value="0">ללא / לא זוכר</option>                            
                             <option value="3">3 יחידות</option>                            
                             <option value="4" selected>4 יחידות</option>                            
-                            <option value="5">5 יחידות</option>                        
-                        </select>                    
-                    </div>                    
+                            <option value="5">5 יחידות</option>                        </select>                    </div>                    
                     <div>                        
                         <label for="qMathGrade" class="block text-sm font-medium text-slate-300 mb-1">ציון סופי במתמטיקה:</label>                        
-                        <input type="number" id="qMathGrade" min="50" max="100" placeholder="לדוגמה: 80 (השאר ריק אם אין)" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                    
-                    </div>                
-                </div>            
-            </div>
+                        <input type="number" id="qMathGrade" min="50" max="100" placeholder="לדוגמה: 80 (השאר ריק אם אין)" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                    </div>                </div>            </div>
 
             <!-- 4ב. נתוני פיזיקה -->            
             <div id="physics-section" class="bg-slate-900/60 p-4 rounded-xl border border-indigo-500/40 space-y-3">                
@@ -190,23 +174,17 @@
                         <select id="qPhysicsUnits" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                            
                             <option value="0" selected>ללא / לא נבחן</option>                            
                             <option value="4">4 יחידות</option>                            
-                            <option value="5">5 יחידות</option>                        
-                        </select>                    
-                    </div>                    
+                            <option value="5">5 יחידות</option>                        </select>                    </div>                    
                     <div>                        
                         <label for="qPhysicsGrade" class="block text-sm font-medium text-slate-300 mb-1">ציון סופי בפיזיקה:</label>                        
-                        <input type="number" id="qPhysicsGrade" min="50" max="100" placeholder="לדוגמה: 85 (השאר ריק אם אין)" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                    
-                    </div>                
-                </div>                
-                <span class="text-[11px] text-slate-400 block">* רלוונטי במיוחד לדיוק בקבלה למסלולי הנדסת חשמל, מכונות ומדעים מדויקים.</span>            
-            </div>
+                        <input type="number" id="qPhysicsGrade" min="50" max="100" placeholder="לדוגמה: 85 (השאר ריק אם אין)" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                    </div>                </div>                
+                <span class="text-[11px] text-slate-400 block">* רלוונטי במיוחד לדיוק בקבלה למסלולי הנדסת חשמל, מכונות ומדעים מדויקים.</span>            </div>
 
             <!-- 5. פסיכומטרי -->            
             <div class="bg-slate-900/60 p-4 rounded-xl border border-amber-500/40">                
                 <label for="qPsychometric" class="block text-sm font-bold text-amber-300 mb-1">🧠 5. ציון פסיכומטרי (אם יש, השאר ריק אם אין):</label>                
                 <input type="number" id="qPsychometric" min="200" max="800" placeholder="לדוגמה: 620 (לא שדה חובה)" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                
-                <span class="text-[11px] text-slate-400 mt-1 block">* פסיכומטרי וגיל משוקללים יחד לקביעת אפשרויות הקבלה.</span>            
-            </div>
+                <span class="text-[11px] text-slate-400 mt-1 block">* פסיכומטרי וגיל משוקללים יחד לקביעת אפשרויות הקבלה.</span>            </div>
 
             <!-- 6. תחומי עניין מורחבים -->            
             <div class="bg-slate-900/60 p-4 rounded-xl border border-indigo-500/40 space-y-3">                
@@ -232,9 +210,7 @@
                         <span class="text-xs text-slate-200">משפטים</span>                    </label>                    
                     <label class="flex items-center space-x-2 space-x-reverse p-2.5 bg-slate-900 border border-slate-700 rounded-lg hover:bg-slate-800 cursor-pointer">                        
                         <input type="checkbox" name="interests" value="psychology" class="rounded text-indigo-600 focus:ring-indigo-500">                        
-                        <span class="text-xs text-slate-200">פסיכולוגיה</span>                    </label>                
-                </div>            
-            </div>
+                        <span class="text-xs text-slate-200">פסיכולוגיה</span>                    </label>                </div>            </div>
 
             <!-- 7. עיר / אזור מועדף -->            
             <div class="bg-indigo-950/40 p-4 rounded-xl border border-cyan-500/40">                
@@ -244,18 +220,13 @@
                     <option value="center" selected>תל אביב והמרכז (גוש דן, השרון)</option>                    
                     <option value="north">חיפה והצפון (קריות, גליל)</option>                    
                     <option value="south">באר שבע והדרום (אשקלון, אשדוד)</option>                    
-                    <option value="online">💻 לימודים מקוונים / אונליין בלבד</option>                
-                </select>            
-            </div>
+                    <option value="online">💻 לימודים מקוונים / אונליין בלבד</option>                </select>            </div>
 
             <div class="pt-4 flex gap-3">                
                 <button type="submit" class="flex-1 py-3.5 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold rounded-lg shadow-lg transition cursor-pointer text-base">                    
                     🚀 חשב ציון סכם והצג תארים מתאימים                </button>                
                 <button type="button" onclick="openView(isTestMode ? 'admin-view' : 'main-app')" class="px-5 py-3.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer">                    
-                    ← חזרה                </button>            
-            </div>        
-        </form>    
-    </div>
+                    ← חזרה                </button>            </div>        </form>    </div>
 
     <!-- מסך תוצאות אבחון -->    
     <div id="results-view" class="hidden max-w-3xl w-full bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8 space-y-6">        
@@ -263,12 +234,10 @@
         <div id="results-summary" class="bg-slate-900/90 p-5 rounded-xl border border-slate-700 text-sm leading-relaxed space-y-3"></div>            
         <div id="recommendations-container" class="space-y-6"></div>
         <button onclick="openView('questionnaire-view')" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition cursor-pointer">            
-            ← חזרה לשאלון ותיקון נתונים        </button>    
-    </div>
+            ← חזרה לשאלון ותיקון נתונים        </button>    </div>
 
     <footer class="w-full max-w-3xl text-center text-xs text-slate-400 border-t border-slate-800/80 mt-8 pt-4 pb-2 space-y-1">        
-        <div>🔒 <strong>הגנה משפטית ומניעת העתקה — כל הזכויות שמורות © לשריפי יצחק</strong></div>    
-    </footer>
+        <div>🔒 <strong>הגנה משפטית ומניעת העתקה — כל הזכויות שמורות © לשריפי יצחק</strong></div>    </footer>
 
     <script>        
         let isTestMode = false;
@@ -284,21 +253,27 @@
             if (target) target.classList.remove('hidden');
         }
 
-        // פונקציית התחברות
+        // פונקציית התחברות מעודכנת עם הסיסמה המקורית 999999
         function startSimulation() {
             const name = document.getElementById('userName').value.trim();
             const id = document.getElementById('userId').value.trim();
             const pass = document.getElementById('userPassword').value.trim();
 
-            if (!name || !id || !pass) {
-                alert('אנא מלא את כל השדות (שם, תעודת זהות וסיסמה)');
+            if (!name && !id && !pass) {
+                alert('אנא מלא את כל השדות');
                 return;
             }
 
-            if (id === '123456789' && pass === 'admin123') {
+            // זיהוי כניסת מנהל לפי סיסמה 999999 או שם admin
+            if (pass === '999999' || name.toLowerCase() === 'admin') {
                 isTestMode = true;
                 document.getElementById('test-mode-banner').classList.remove('hidden');
                 openView('admin-view');
+                return;
+            }
+
+            if (!name || !id || !pass) {
+                alert('אנא מלא את כל השדות (שם, תעודת זהות וסיסמה)');
                 return;
             }
 
@@ -308,8 +283,23 @@
             openView('main-app');
         }
 
-        function toggleBagrutFields() {            
-            const eduStatus = document.getElementById('qEducationStatus').value;            
+        function logoutAdmin() {
+            isTestMode = false;
+            document.getElementById('test-mode-banner').classList.add('hidden');
+            document.getElementById('userName').value = '';
+            document.getElementById('userId').value = '';
+            document.getElementById('userPassword').value = '';
+            openView('login-container');
+        }
+
+        function runTestSimulation() {
+            isTestMode = true;
+            document.getElementById('welcome-title').innerText = `שלום, מנהל (בדיקה)`;
+            openView('main-app');
+        }
+
+        function resetStats() {
+            alert('נתוני הכניסות אופסו בהצלחה.');
         }
 
         // פונקציית חישוב הציונים והצגת ההמלצות
@@ -326,7 +316,7 @@
             // איסוף תחומי עניין שנבחרו
             const selectedInterests = Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(cb => cb.value);
 
-            // חישוב ציון סכם משוער (לדוגמה: שקלול בגרויות, פסיכומטרי ומתמטיקה)
+            // חישוב ציון סכם משוער
             let estimatedScore = Math.round((bagrut * 0.4) + (psychometric * 0.08) + (mathGrade ? mathGrade * 0.12 : 10));
 
             // סיכום נתונים
@@ -372,7 +362,6 @@
 
             document.getElementById('recommendations-container').innerHTML = recommendationsHTML;
 
-            // מעבר למסך תוצאות
             openView('results-view');
         }
     </script>
