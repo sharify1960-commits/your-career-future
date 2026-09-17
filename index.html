@@ -587,6 +587,7 @@
 
             // 1.5 קביעת מדיניות לפי גיל — מעל 45 מוטה להתמחות/קורסים ולא תואר מלא
             const isMatureAge = age > 45;
+            const isNoBagrut = educationStatus === 'highschool';
             const ageAdviceHTML = isMatureAge
                 ? `<p class="text-xs text-amber-200 bg-amber-950/40 p-3 rounded-lg border border-amber-500/30 mt-2">
                        👤 <strong>התאמה לפי גיל (${age}):</strong> בגיל זה, מסלול תואר אקדמי מלא (3-4 שנים) פחות משתלם מבחינת זמן והחזר השקעה. 
@@ -607,12 +608,14 @@
                         </p>
                     </div>
                     <div class="text-center bg-emerald-950/80 border border-emerald-500/50 px-4 py-2 rounded-xl">
-                        <span class="block text-xs text-emerald-300 font-semibold">ציון סכם מוערך</span>
+                        <span class="block text-xs text-emerald-300 font-semibold">ציון סכם מוערך${isNoBagrut ? ' (משוער בלבד)' : ''}</span>
                         <span class="text-2xl font-black text-emerald-400">${sekemScore}</span>
                     </div>
                 </div>
                 <p class="text-xs text-slate-200">
-                    ${isMatureAge
+                    ${isNoBagrut
+                        ? '📌 <strong>שים לב:</strong> ללא תעודת בגרות מלאה, ציון הסכם הוא הערכה תיאורטית בלבד ואינו משקף זכאות ישירה ללימודים אקדמיים. ראה בהמשך המלצה מפורטת — השלמת בגרות או מסלול הכשרה מקצועית / מכינה מתאימה שאינם דורשים תעודת בגרות.'
+                        : isMatureAge
                         ? '💡 <strong>המלצה מותאמת גיל:</strong> ראה פירוט בהמשך — עדיפות לקורסי התמחות ממוקדים על פני תואר אקדמי מלא.'
                         : sekemScore >= 650 
                         ? '🌟 <strong>פרופיל אקדמי גבוה:</strong> סיכויי קבלה מצויינים למסלולי הנדסה, מדעי המחשב ודאטה במוסדות המובילים.' 
@@ -699,7 +702,9 @@
             // 6. התאמה אקדמית לפי חתך נתונים
             const academicFitEl = document.getElementById('academic-fit-section');
             let academicFitText = "";
-            if (isMatureAge) {
+            if (isNoBagrut) {
+                academicFitText = `ללא תעודת בגרות מלאה, נתוני הפסיכומטרי/ממוצע אינם מקנים זכאות ישירה למוסד אקדמי. מועמד מופנה למכינה מתאימה (אקדמית/טכנולוגית) או להכשרה מקצועית שאינה דורשת בגרות — בהתאם לממוצע שהוזן (${bagrut}).`;
+            } else if (isMatureAge) {
                 academicFitText = `בגיל ${age}, ההמלצה המרכזית היא <strong>קורסי התמחות והסמכה מקצועית ממוקדים</strong> על פני מסלול תואר אקדמי מלא — כניסה מהירה יותר לשוק העבודה עם ניצול הניסיון הקיים.`;
             } else if (psychometric >= 600 || bagrut >= 100) {
                 academicFitText = "מועמדים עם פסיכומטרי גבוה / בגרות מלאה מופנים למסלולי תואר שני או הסבה מורחבת.";
