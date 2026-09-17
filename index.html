@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>    
@@ -204,6 +205,9 @@
                     <label class="flex items-center gap-2 bg-slate-900 p-2 rounded border border-slate-700 cursor-pointer hover:border-indigo-500">
                         <input type="checkbox" name="preferredFields" value="חינוך וייעוץ" class="rounded bg-slate-800 text-indigo-500 focus:ring-indigo-500"> חינוך, הוראה אקדמית וייעוץ חינוכי
                     </label>
+                    <label class="flex items-center gap-2 bg-slate-900 p-2 rounded border border-slate-700 cursor-pointer hover:border-emerald-500">
+                        <input type="checkbox" name="preferredFields" value="הנדסה ומדעים מדויקים" id="qWantsEngineering" class="rounded bg-slate-800 text-emerald-500 focus:ring-emerald-500"> הנדסה, מדעים מדויקים ומקצועות הדורשים פיזיקה
+                    </label>
                 </div>
             </div>
 
@@ -236,15 +240,35 @@
                 </div>            
             </div>
 
-            <!-- 5. פסיכומטרי -->            
+            <!-- 5. נתוני פיזיקה -->            
+            <div id="physics-section" class="bg-slate-900/60 p-4 rounded-xl border border-emerald-500/40 space-y-3">                
+                <h3 class="text-sm font-bold text-emerald-300">🔬 5. נתוני פיזיקה (אם רלוונטי)</h3>                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">                    
+                    <div>                        
+                        <label for="qPhysicsUnits" class="block text-sm font-medium text-slate-300 mb-1">מספר יחידות לימוד:</label>                        
+                        <select id="qPhysicsUnits" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                            
+                            <option value="0" selected>ללא / לא זוכר</option>                            
+                            <option value="3">3 יחידות</option>                            
+                            <option value="4">4 יחידות</option>                            
+                            <option value="5">5 יחידות</option>                        
+                        </select>                    
+                    </div>                    
+                    <div>                        
+                        <label for="qPhysicsGrade" class="block text-sm font-medium text-slate-300 mb-1">ציון סופי בפיזיקה:</label>                        
+                        <input type="number" id="qPhysicsGrade" min="50" max="100" placeholder="לדוגמה: 85" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                    
+                    </div>                
+                </div>            
+            </div>
+
+            <!-- 6. פסיכומטרי -->            
             <div class="bg-slate-900/60 p-4 rounded-xl border border-amber-500/40">                
-                <label for="qPsychometric" class="block text-sm font-bold text-amber-300 mb-1">🧠 5. ציון פסיכומטרי (השאר ריק אם אין):</label>                
+                <label for="qPsychometric" class="block text-sm font-bold text-amber-300 mb-1">🧠 6. ציון פסיכומטרי (השאר ריק אם אין):</label>                
                 <input type="number" id="qPsychometric" min="200" max="800" placeholder="לדוגמה: 620" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">            
             </div>
 
-            <!-- 6. עיר / אזור מועדף -->            
+            <!-- 7. עיר / אזור מועדף -->            
             <div class="bg-indigo-950/40 p-4 rounded-xl border border-cyan-500/40">                
-                <label for="qCity" class="block text-sm font-bold text-cyan-300 mb-1">📍 6. עיר / אזור מועדף ללימודים (InstitutionsDB):</label>                
+                <label for="qCity" class="block text-sm font-bold text-cyan-300 mb-1">📍 7. עיר / אזור מועדף ללימודים (InstitutionsDB):</label>                
                 <select id="qCity" required class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-lg text-slate-100 text-sm">                    
                     <option value="jerusalem" selected>ירושלים והסביבה (כולל מודיעין, בית שמש)</option>                    
                     <option value="center">תל אביב והמרכז (גוש דן, השרון)</option>                    
@@ -282,6 +306,9 @@
 
         <!-- אזור התאמה אקדמית לפי חתך נתונים -->
         <div id="academic-fit-section" class="bg-slate-900/80 p-5 rounded-xl border border-cyan-500/40 space-y-3"></div>
+
+        <!-- אזור זכאות למסלולי הנדסה/מדעים לפי פיזיקה -->
+        <div id="physics-eligibility-section" class="hidden bg-emerald-950/60 p-5 rounded-xl border border-emerald-500/50 space-y-3"></div>
 
         <!-- אזור תסריט שאלות ליועץ הלימודים -->
         <div id="advisor-script-section" class="bg-slate-900/80 p-5 rounded-xl border border-indigo-500/40 space-y-3"></div>
@@ -449,6 +476,40 @@
             return recs;
         }
 
+        // הערכת זכאות למסלולי הנדסה/מדעים מדויקים לפי נתוני פיזיקה
+        function renderPhysicsEligibility(wantsEngineering, physicsUnits, physicsGrade) {
+            const el = document.getElementById('physics-eligibility-section');
+            if (!wantsEngineering) {
+                el.classList.add('hidden');
+                return;
+            }
+            el.classList.remove('hidden');
+
+            let status = '';
+            let advice = '';
+
+            if (physicsUnits === 5 && physicsGrade >= 70) {
+                status = '✅ זכאות ישירה';
+                advice = `עם ${physicsUnits} יח"ל בציון ${physicsGrade}, הפרופיל שלך עומד בתנאי הסף הנפוצים למסלולי הנדסה ומדעים מדויקים. מומלץ לוודא מול המוסד הספציפי את סף הקבלה המדויק, אך באופן כללי אינך זקוק להשלמה.`;
+            } else if (physicsUnits === 5 && physicsGrade < 70) {
+                status = '⚠️ נדרשת השלמה מסוימת';
+                advice = `יש לך 5 יח"ל פיזיקה, אך הציון (${physicsGrade}) נמוך מהסף המקובל. מומלץ לשקול שיפור בגרות בפיזיקה בבחינה חיצונית (נבחן יחיד), או להירשם למכינה טכנולוגית שכוללת השלמת פיזיקה.`;
+            } else if (physicsUnits === 4) {
+                status = '⚠️ נדרשת מכינה / השלמה';
+                advice = `4 יח"ל פיזיקה בדרך כלל אינן מספיקות למסלולי הנדסה מובהקים ברוב המוסדות. מומלץ מסלול מכינה טכנולוגית (הכוללת פיזיקה ברמת 5 יח"ל) כתנאי קבלה, או שיפור עצמאי כנבחן יחיד.`;
+            } else {
+                status = '❌ נדרשת השלמה מלאה';
+                advice = `ללא רקע בפיזיקה (או פחות מ-3 יח"ל), רוב מסלולי ההנדסה ידרשו מכינה טכנולוגית מלאה הכוללת פיזיקה, או תעודת בגרות משלימה כנבחן יחיד לפני פנייה למוסד.`;
+            }
+
+            el.innerHTML = `
+                <h3 class="text-base font-bold text-emerald-300">🔬 זכאות למסלולי הנדסה ומדעים מדויקים (לפי פיזיקה)</h3>
+                <p class="text-xs text-slate-300">נתונים: ${physicsUnits} יח"ל, ציון ${physicsGrade || 'לא הוזן'}</p>
+                <p class="text-sm font-bold text-emerald-200">${status}</p>
+                <p class="text-xs text-slate-200 bg-slate-900/60 p-3 rounded-lg border border-emerald-500/30">${advice}</p>
+            `;
+        }
+
         function submitQuestionnaire(event) {
             event.preventDefault();
             
@@ -460,6 +521,8 @@
             const bagrut = parseFloat(document.getElementById('qBagrutAvg').value) || 0;
             const mathUnits = parseInt(document.getElementById('qMathUnits').value) || 0;
             const mathGrade = parseFloat(document.getElementById('qMathGrade').value) || 0;
+            const physicsUnits = parseInt(document.getElementById('qPhysicsUnits').value) || 0;
+            const physicsGrade = parseFloat(document.getElementById('qPhysicsGrade').value) || 0;
             const psychometric = parseFloat(document.getElementById('qPsychometric').value) || 0;
             const city = document.getElementById('qCity').value;
 
@@ -471,7 +534,11 @@
             if (mathUnits === 5) mathBonus = (mathGrade >= 80) ? 25 : 15;
             else if (mathUnits === 4) mathBonus = (mathGrade >= 80) ? 10 : 5;
 
-            const weightedBagrut = bagrut + mathBonus;
+            let physicsBonus = 0;
+            if (physicsUnits === 5) physicsBonus = (physicsGrade >= 80) ? 25 : 15;
+            else if (physicsUnits === 4) physicsBonus = (physicsGrade >= 80) ? 10 : 5;
+
+            const weightedBagrut = bagrut + mathBonus + physicsBonus;
             let sekemScore = Math.round((weightedBagrut * 3.5) + (psychometric ? psychometric * 0.5 : 200));
             if (sekemScore > 800) sekemScore = 800;
 
@@ -583,7 +650,11 @@
                 </p>
             `;
 
-            // 7. תסריט שאלות ליועץ הלימודים
+            // 7. זכאות למסלולי הנדסה/מדעים לפי פיזיקה
+            const wantsEngineering = preferredFields.includes('הנדסה ומדעים מדויקים');
+            renderPhysicsEligibility(wantsEngineering, physicsUnits, physicsGrade);
+
+            // 8. תסריט שאלות ליועץ הלימודים
             const scriptEl = document.getElementById('advisor-script-section');
             scriptEl.innerHTML = `
                 <h3 class="text-base font-bold text-indigo-300">💬 תסריט שאלות ליועץ הלימודים</h3>
@@ -595,7 +666,7 @@
                 </ul>
             `;
 
-            // 8. טעינת קישורי מוסדות הלימוד ומעבר למסך התוצאות
+            // 9. טעינת קישורי מוסדות הלימוד ומעבר למסך התוצאות
             renderInstitutionLinks(city);
             openView('results-view');
         }
