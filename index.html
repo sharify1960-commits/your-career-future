@@ -542,6 +542,16 @@
             let sekemScore = Math.round((weightedBagrut * 3.5) + (psychometric ? psychometric * 0.5 : 200));
             if (sekemScore > 800) sekemScore = 800;
 
+            // 1.5 קביעת מדיניות לפי גיל — מעל 45 מוטה להתמחות/קורסים ולא תואר מלא
+            const isMatureAge = age > 45;
+            const ageAdviceHTML = isMatureAge
+                ? `<p class="text-xs text-amber-200 bg-amber-950/40 p-3 rounded-lg border border-amber-500/30 mt-2">
+                       👤 <strong>התאמה לפי גיל (${age}):</strong> בגיל זה, מסלול תואר אקדמי מלא (3-4 שנים) פחות משתלם מבחינת זמן והחזר השקעה. 
+                       מומלץ להתמקד ב<strong>קורסי התמחות והסמכות מקצועיות ממוקדות</strong> (בין חודשים בודדים לשנה) בתחום המבוקש, 
+                       שמאפשרים כניסה מהירה יותר לשוק העבודה תוך מינוף הניסיון המצטבר שלך.
+                   </p>`
+                : '';
+
             // 2. סיכום מדד הקבלה והסכם
             const resultsSummaryEl = document.getElementById('results-summary');
             resultsSummaryEl.innerHTML = `
@@ -549,7 +559,7 @@
                     <div>
                         <h3 class="text-lg font-bold text-emerald-400">📊 מדד קבלה וסכם משוער</h3>
                         <p class="text-xs text-slate-300">
-                            מבוסס על ממוצע בגרות (${bagrut}), ${mathUnits} יחידות מתמטיקה (ציון ${mathGrade}) 
+                            גיל ${age} | מבוסס על ממוצע בגרות (${bagrut}), ${mathUnits} יחידות מתמטיקה (ציון ${mathGrade}) 
                             ${psychometric ? `ופסיכומטרי (${psychometric})` : 'ללא פסיכומטרי'}
                         </p>
                     </div>
@@ -559,12 +569,15 @@
                     </div>
                 </div>
                 <p class="text-xs text-slate-200">
-                    ${sekemScore >= 650 
+                    ${isMatureAge
+                        ? '💡 <strong>המלצה מותאמת גיל:</strong> ראה פירוט בהמשך — עדיפות לקורסי התמחות ממוקדים על פני תואר אקדמי מלא.'
+                        : sekemScore >= 650 
                         ? '🌟 <strong>פרופיל אקדמי גבוה:</strong> סיכויי קבלה מצויינים למסלולי הנדסה, מדעי המחשב ודאטה במוסדות המובילים.' 
                         : sekemScore >= 550 
                         ? '✅ <strong>פרופיל אקדמי טוב:</strong> התאמה טובה למגוון תוארי B.A / B.Sc במכללות ואוניברסיטאות או מסלולי הסבה מואצים.' 
                         : '💡 <strong>המלצה לשדרוג:</strong> מומלץ לבחון מכינה אקדמית ייעודית, אפיק מעבר או מסלולי קבלה לפי גיל/ניסיון מעשי.'}
                 </p>
+                ${ageAdviceHTML}
             `;
 
             // 3. תואר שני
@@ -574,6 +587,11 @@
                 masterEl.innerHTML = `
                     <h3 class="text-base font-bold text-cyan-300">🎓 ניתוח והתאמה לתואר שני (M.A / M.Sc / MBA)</h3>
                     <p class="text-xs text-slate-300">על בסיס תואר ראשון ב-<strong>${prevDegreeName || 'תחום כללי'}</strong> בממוצע <strong>${prevDegreeAvg}</strong>:</p>
+                    ${isMatureAge ? `
+                    <p class="text-xs text-amber-200 bg-amber-950/40 p-3 rounded-lg border border-amber-500/30">
+                        ⚠️ <strong>בגיל ${age}:</strong> לפני שנרשמים לתואר שני מלא (בדרך כלל 1.5-2 שנים), כדאי לשקול תחילה קורס התמחות ממוקד או הסמכה מקצועית קצרה באותו תחום — 
+                        לרוב זה מספיק כדי לבצע את השדרוג המקצועי הרצוי, בזמן קצר משמעותית.
+                    </p>` : ''}
                     <ul class="list-disc list-inside text-xs text-slate-200 space-y-1 pt-1">
                         ${prevDegreeAvg >= 80 
                             ? `<li><strong>קבלה ישירה לתואר שני:</strong> הממוצע שלך מאפשר קבלה לתכניות M.A / MBA במנהל עסקים, ניתוח נתונים, או מערכות מידע.</li>
@@ -635,7 +653,9 @@
             // 6. התאמה אקדמית לפי חתך נתונים
             const academicFitEl = document.getElementById('academic-fit-section');
             let academicFitText = "";
-            if (psychometric >= 600 || bagrut >= 100) {
+            if (isMatureAge) {
+                academicFitText = `בגיל ${age}, ההמלצה המרכזית היא <strong>קורסי התמחות והסמכה מקצועית ממוקדים</strong> על פני מסלול תואר אקדמי מלא — כניסה מהירה יותר לשוק העבודה עם ניצול הניסיון הקיים.`;
+            } else if (psychometric >= 600 || bagrut >= 100) {
                 academicFitText = "מועמדים עם פסיכומטרי גבוה / בגרות מלאה מופנים למסלולי תואר שני או הסבה מורחבת.";
             } else if (age >= 30) {
                 academicFitText = "מועמדים מעל גיל 30 מופנים למסלולי הנדסאים / מכינות 30+ מותאמות.";
@@ -644,7 +664,7 @@
             }
 
             academicFitEl.innerHTML = `
-                <h3 class="text-base font-bold text-cyan-300">🎯 התאמה אקדמית לפי חתך נתונים</h3>
+                <h3 class="text-base font-bold text-cyan-300">🎯 התאמה אקדמית לפי חתך נתונים (גיל ${age})</h3>
                 <p class="text-xs text-slate-200 bg-slate-900 p-3 rounded-lg border border-slate-700">
                     📌 <strong>סטטוס מועמד:</strong> ${academicFitText}
                 </p>
