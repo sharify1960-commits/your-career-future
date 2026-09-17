@@ -555,6 +555,14 @@
 
         function submitQuestionnaire(event) {
             event.preventDefault();
+
+            // מעקב Google Analytics — השלמת השאלון (למדידת איכות המרה לפי ערוץ UTM)
+            if (typeof gtag === 'function') {
+                gtag('event', 'questionnaire_completed', {
+                    event_category: 'engagement',
+                    event_label: 'career_questionnaire'
+                });
+            }
             
             const age = parseInt(document.getElementById('qAge').value) || 25;
             const educationStatus = document.getElementById('qEducationStatus').value;
